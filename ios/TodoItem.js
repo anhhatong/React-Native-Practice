@@ -1,5 +1,7 @@
 import React from "react";
-import {StyleSheet, Text, Button, TouchableOpacity, CheckBox} from "react-native";
+import {StyleSheet, Text, Button, TouchableOpacity, View, TextInput} from "react-native";
+import Swipeout from 'react-native-swipeout';
+import { CheckBox } from 'react-native-elements';
 
 export default class TodoItem extends React.Component {
   
@@ -11,59 +13,82 @@ export default class TodoItem extends React.Component {
   render() {
     const todoItem = this.props.todoItem; //get todoItem from prop
     
+    let swipeBtns = [{
+                     text: 'Edit',
+                     backgroundColor: '#FFCD58'
+                     },
+                     {
+                     text: 'Delete',
+                     backgroundColor: '#FF5C4D',
+                     onPress: () => { this.props.removeTodo() }
+                     }
+                     ];
+    
     return (
+            <View style={styles.itemContainer}>
+            <Swipeout right={swipeBtns}
+            autoClose='true'
+            backgroundColor= 'transparent'>
             <TouchableOpacity
-              onPress={() => this.props.toggleDone()}
-              style={(todoItem.done) ? styles.todoItemDone : styles.todoItem}>
+            onPress={() => this.props.toggleDone()}
+            style={(todoItem.done) ? styles.todoItemDone : styles.todoItem}>
             
-            <Text style={(todoItem.done) ? {color: "#444444", fontSize: 16, fontFamily: 'Gill Sans'} : {color: "#fff", fontSize: 16, fontFamily: 'Gill Sans'}}>
-              {todoItem.title}
-            </Text>
+            <CheckBox
+            checked={todoItem.done}
+            checkedColor="#1D741B"
+            uncheckedColor="#fff"
+            onPress={() => this.props.toggleDone()}
+            />
             
-            <Button
-              title = "Remove"
-              color = "#fff"
-              onPress={() => this.props.removeTodo()}
+            <TextInput
+            value={todoItem.title}
+            onChangeText={(todoEdit) => this.props.editTodo(todoEdit)}
+            autoFocus
+            style={(todoItem.done) ? {color: "#444444", fontSize: 16, fontFamily: 'Gill Sans'} : {color: "#fff", fontSize: 16, fontFamily: 'Gill Sans'}}
             />
             
             </TouchableOpacity>
-    )
+            </Swipeout>
+            
+            </View>
+            )
   }
 }
 
 const styles= StyleSheet.create({
-    todoItem: {
-        flex: 1,
-        flexDirection: "row", //texts aligned horizontally
-        justifyContent: "space-between", //texts aligned on two ends
-        alignItems: 'center',
-        width: '90%',
-        paddingLeft: '2%',
-        paddingTop: '2%',
-        paddingBottom: '2%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: '5%',
-        borderTopLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        backgroundColor: "#FF9636"
-    },
+                                todoItem: {
+                                flex: 1,
+                                flexDirection: "row", //texts aligned horizontally
+                                justifyContent: "flex-start", //texts aligned on two ends
+                                alignItems: 'center',
+                                width: '90%',
+                                paddingTop: '2%',
+                                paddingRight: '25%',
+                                paddingBottom: '2%',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                borderTopLeftRadius: 20,
+                                borderBottomRightRadius: 20,
+                                backgroundColor: "#FF9636"
+                                },
                                 
-    todoItemDone: {
-    flex: 1,
-    flexDirection: "row", //texts aligned horizontally
-    justifyContent: "space-between", //texts aligned on two ends
-    alignItems: 'center',
-    width: '90%',
-    paddingLeft: '2%',
-    paddingTop: '2%',
-    paddingBottom: '2%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '5%',
-    borderTopLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    backgroundColor: "#DAD870"
-    }
-});
+                                todoItemDone: {
+                                flex: 1,
+                                flexDirection: "row", //texts aligned horizontally
+                                justifyContent: "flex-start", //texts aligned on two ends
+                                alignItems: 'center',
+                                width: '90%',
+                                paddingTop: '2%',
+                                paddingBottom: '2%',
+                                paddingRight: '25%',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                borderTopLeftRadius: 20,
+                                borderBottomRightRadius: 20,
+                                backgroundColor: "#DAD870"
+                                },
+                                itemContainer: {
+                                marginTop: "5%"
+                                }
+                                });
 

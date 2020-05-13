@@ -7,20 +7,18 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-const InputBar = (props) => {
+const SearchBar = (props) => {
   return (
           <View style={styles.inputContainer}>
           <TextInput
           clearButtonMode="always"
           style={styles.input}
           /* onChangeText checks when, passed through input todoInput, the text input is changed and set the space to that change */
-          onChangeText={(todoInput) => props.textChange(todoInput)}
-          value={props.todoInput}
+          onChangeText={(str) => props.searchTodo(str)}
+          value={props.searchStr}
           />
-          <TouchableOpacity style = {styles.addButton}
-          /* When press on button, addNewTodo() is called from App.js */
-          onPress={props.addNewTodo}>
-          <Text style = {styles.addButtonText}> ADD </Text>
+          <TouchableOpacity style = {styles.searchButton}>
+          <Text style = {styles.searchButtonText}> SEARCH </Text>
           </TouchableOpacity>
           </View>
           )
@@ -45,18 +43,19 @@ const styles = StyleSheet.create({
                                  paddingLeft: '5%',
                                  borderRadius: 0
                                  },
-                                 addButton: {
+                                 searchButton: {
                                  backgroundColor: "#FFCD58",
                                  justifyContent: "center",
                                  alignItems: "center",
                                  height: 40,
                                  width: 100
                                  },
-                                 addButtonText: {
+                                 searchButtonText: {
                                  fontWeight: "bold",
                                  fontSize: 20,
                                  color: "#fff"
                                  }
                                  })
 
-export default InputBar;
+export default SearchBar;
+

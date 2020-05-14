@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 const SearchBar = (props) => {
   return (
@@ -18,7 +19,11 @@ const SearchBar = (props) => {
           value={props.searchStr}
           />
           <TouchableOpacity style = {styles.searchButton}>
-          <Text style = {styles.searchButtonText}> SEARCH </Text>
+          <Icon
+          name='search'
+          type='feather'
+          color='#fff'
+          onPress= {props.toggleIsSearching}/>
           </TouchableOpacity>
           </View>
           )

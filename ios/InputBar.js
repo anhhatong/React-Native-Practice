@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 const InputBar = (props) => {
   return (
@@ -20,7 +21,11 @@ const InputBar = (props) => {
           <TouchableOpacity style = {styles.addButton}
           /* When press on button, addNewTodo() is called from App.js */
           onPress={props.addNewTodo}>
-          <Text style = {styles.addButtonText}> ADD </Text>
+          <Icon
+          name='plus'
+          type='feather'
+          color='#fff'
+          onPress= {props.toggleIsSearching}/>
           </TouchableOpacity>
           </View>
           )

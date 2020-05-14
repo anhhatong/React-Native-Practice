@@ -27,7 +27,7 @@ export default class TodoItem extends React.Component {
     return (
             <View style={styles.itemContainer}>
             <Swipeout right={swipeBtns}
-            autoClose='true'
+            autoClose={true}
             backgroundColor= 'transparent'>
             <TouchableOpacity
             onPress={() => this.props.toggleDone()}
@@ -43,7 +43,7 @@ export default class TodoItem extends React.Component {
             <TextInput
             value={todoItem.title}
             onChangeText={(todoEdit) => this.props.editTodo(todoEdit)}
-            autoFocus
+            autoFocus={false}
             style={(todoItem.done) ? {color: "#444444", fontSize: 16, fontFamily: 'Gill Sans'} : {color: "#fff", fontSize: 16, fontFamily: 'Gill Sans'}}
             />
             

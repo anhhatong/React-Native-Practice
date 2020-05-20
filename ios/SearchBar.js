@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
                                  backgroundColor: "#fff",
                                  fontSize: 15,
                                  color: '#444444',
-                                 borderColor: "#FFCD58",
-                                 borderWidth: 2,
+                                 borderColor: "#D05301",
+                                 borderBottomWidth: 2,
                                  fontFamily: 'Gill Sans',
                                  flex: 1,
                                  height: '100%',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
                                  borderRadius: 0
                                  },
                                  searchButton: {
-                                 backgroundColor: "#FFCD58",
+                                 backgroundColor: "#D05301",
                                  justifyContent: "center",
                                  alignItems: "center",
                                  height: 40,

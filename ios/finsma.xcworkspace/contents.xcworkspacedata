@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:TodoList.js">
+   </FileRef>
+   <FileRef
       location = "group:finsma.xcodeproj">
    </FileRef>
    <FileRef

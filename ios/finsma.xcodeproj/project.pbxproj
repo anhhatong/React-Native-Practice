@@ -26,6 +26,7 @@
 		5521E07D1031489A82918BBD /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D9CA3068CC45B7BF1485E4 /* Ionicons.ttf */; };
 		6034DC3B0AE645AF9D127770 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31877401EAED4F62A871F999 /* EvilIcons.ttf */; };
 		67C096C8BBE6459AA92A44E4 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0A499AA91D64920AA6BB333 /* Foundation.ttf */; };
+		707F5F232473F1DA008A568F /* TodoList.js in Resources */ = {isa = PBXBuildFile; fileRef = 707F5F222473F1DA008A568F /* TodoList.js */; };
 		708DA06B246C598C00F5073F /* SearchBar.js in Resources */ = {isa = PBXBuildFile; fileRef = 708DA06A246C598C00F5073F /* SearchBar.js */; };
 		70DD5D4C243F83F700B243BB /* TodoItem.js in Resources */ = {isa = PBXBuildFile; fileRef = 70DD5D4B243F83F700B243BB /* TodoItem.js */; };
 		70ECC1C22438DA63001A93B0 /* Header.js in Resources */ = {isa = PBXBuildFile; fileRef = 70ECC1C12438DA63001A93B0 /* Header.js */; };
@@ -84,6 +85,7 @@
 		553F8067F7CA7CA4AE7EFF10 /* Pods-finsma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-finsma.debug.xcconfig"; path = "Target Support Files/Pods-finsma/Pods-finsma.debug.xcconfig"; sourceTree = "<group>"; };
 		5A632E0B33624F59DCEBB43C /* Pods-finsma-finsmaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-finsma-finsmaTests.debug.xcconfig"; path = "Target Support Files/Pods-finsma-finsmaTests/Pods-finsma-finsmaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		67760ADBF46B41CAAE66B9BF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		707F5F222473F1DA008A568F /* TodoList.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = TodoList.js; sourceTree = "<group>"; };
 		708DA06A246C598C00F5073F /* SearchBar.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = SearchBar.js; sourceTree = "<group>"; };
 		70DD5D4B243F83F700B243BB /* TodoItem.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = TodoItem.js; sourceTree = "<group>"; };
 		70ECC1C12438DA63001A93B0 /* Header.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Header.js; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				70ECC1C3243B2B3E001A93B0 /* InputBar.js */,
 				70DD5D4B243F83F700B243BB /* TodoItem.js */,
 				708DA06A246C598C00F5073F /* SearchBar.js */,
+				707F5F222473F1DA008A568F /* TodoList.js */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				70ECC1C4243B2B3E001A93B0 /* InputBar.js in Resources */,
 				1BBEFC0CE8A142D8AA43298B /* AntDesign.ttf in Resources */,
 				BF6F34B3DC2A4321B4278548 /* Entypo.ttf in Resources */,
+				707F5F232473F1DA008A568F /* TodoList.js in Resources */,
 				6034DC3B0AE645AF9D127770 /* EvilIcons.ttf in Resources */,
 				C0C9E28A8AAE4F6EB2773EB1 /* Feather.ttf in Resources */,
 				4353631866674C22AAFF693F /* FontAwesome.ttf in Resources */,

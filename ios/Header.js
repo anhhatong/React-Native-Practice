@@ -11,6 +11,13 @@ const Header = (props) => { //props is an argument passed from parent App.js
           <View style = {styles.header}>
           {/* pass string title from App.js */}
           <View style = {styles.iconContainer}>
+          {(props.currentScreen !== 'home') ?
+          <Icon
+          name='chevron-left'
+          type='feather'
+          color='#fff'
+          onPress={props.backToHome}/> : <Icon/>
+          }
           <Icon
           name={(props.isSearching)? 'plus' : 'search'}
           type='feather'
@@ -24,7 +31,7 @@ const Header = (props) => { //props is an argument passed from parent App.js
 
 const styles = StyleSheet.create({
                                  header: { //customize the header bar
-                                 backgroundColor: "#FFCD58",
+                                 backgroundColor: "#E9B210",
                                  height: '15%',
                                  alignItems: 'center',
                                  justifyContent: 'center',
@@ -39,9 +46,12 @@ const styles = StyleSheet.create({
                                  textTransform: 'uppercase'
                                  },
                                  iconContainer: {
-                                 marginLeft: "auto",
-                                 marginBottom: "auto",
-                                 marginRight: "5%"
+                                 flex: 1,
+                                 flexDirection: 'row',
+                                 alignContent: 'center',
+                                 justifyContent: 'space-between',
+                                 width: '90%',
+                                 marginTop: '5%'
                                  }
                                  });
 

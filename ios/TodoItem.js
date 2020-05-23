@@ -13,10 +13,7 @@ export default class TodoItem extends React.Component {
   render() {
     const todoItem = this.props.todoItem; //get todoItem from prop
     
-    let swipeBtns = [{
-                     text: 'Edit',
-                     backgroundColor: '#FFCD58'
-                     },
+    let swipeBtns = [
                      {
                      text: 'Delete',
                      backgroundColor: '#FF5C4D',
@@ -70,7 +67,7 @@ const styles= StyleSheet.create({
                                 marginRight: 'auto',
                                 borderTopLeftRadius: 20,
                                 borderBottomRightRadius: 20,
-                                backgroundColor: "#FF9636"
+                                backgroundColor: "#9E7300"
                                 },
                                 
                                 todoItemDone: {

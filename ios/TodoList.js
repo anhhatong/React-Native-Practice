@@ -1,7 +1,6 @@
 import React from "react";
 import {StyleSheet, Text, Button, TouchableOpacity, View, TextInput} from "react-native";
 import Swipeout from 'react-native-swipeout';
-import { CheckBox } from 'react-native-elements';
 
 export default class TodoList extends React.Component {
   
@@ -57,7 +56,7 @@ const styles= StyleSheet.create({
                                 marginRight: 'auto',
                                 borderTopLeftRadius: 20,
                                 borderBottomRightRadius: 20,
-                                backgroundColor: "#D1C2C2"
+                                backgroundColor: "#AB9786"
                                 },
                                 text: {
                                 color: "#fff",
@@ -70,5 +69,6 @@ const styles= StyleSheet.create({
                                 marginTop: '5%'
                                 }
                                 });
+
 
 

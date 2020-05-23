@@ -12,6 +12,7 @@ import InputBar from './ios/InputBar.js'; //import the path of InputBar.js
 import TodoItem from './ios/TodoItem.js'; //import the path of TodoItem.js
 import TodoList from './ios/TodoList.js'; //import the path of TodoItem.js
 import SearchBar from './ios/SearchBar.js';
+import SplashScreen from './ios/SplashScreen.js';
 import {
     StyleSheet,
     View,
@@ -19,8 +20,10 @@ import {
     Platform,
     FlatList // list in react native
 } from 'react-native';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import LinearGradient from 'react-native-linear-gradient';
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor () { // when we have a constructor, super() must be called to initialize "this"
         super();
         this.state = {
@@ -342,7 +345,9 @@ export default class App extends React.Component {
                                                                           const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>; //platform-specific for the status bar on top
                                                                           
                                                                           return (
-                                                                                  <View style={styles.container}>
+                                                                                  <LinearGradient
+                                                                                  colors={['#FF9636','#fff','#D1C2C2','#fff']}
+                                                                                  style={styles.container}>
                                                                                   {/*display status bar on top*/}
                                                                                   {statusbar}
                                                                                   
@@ -404,18 +409,30 @@ export default class App extends React.Component {
                                                                                     
                                                                                     }
                                                                                     </View>
-                                                                                    </View>
+                                                                                    </LinearGradient>
                                                                                     );
                                                                                    }
                                                                                    }
                                                                                    
+                                                                                   const RootNavigator = createSwitchNavigator({
+                                                                                     App: App,
+                                                                                     Splash: SplashScreen
+                                                                                   }, {
+                                                                                     // `initialRouteName` tells the React Navigation navigator
+                                                                                     // which route to start at. If you don't specify an initial
+                                                                                     // route it'll choose the first route in the navigator config.
+                                                                                     // In this example we tell it to start on the 'Splash' route,
+                                                                                     // otherwise it would have shown the 'App' route.
+                                                                                     initialRouteName: 'Splash'
+                                                                                   });
+                                                                                   
                                                                                    const styles = StyleSheet.create({
                                                                                                                     container: { //fill
                                                                                                                     flex: 1, //how much an item occupies available space on screen
-                                                                                                                    backgroundColor: '#FFCD58',
+                                                                                                                    backgroundColor: '#D1C2C2',
                                                                                                                     },
                                                                                                                     statusbar: {//status bar on top
-                                                                                                                    backgroundColor: "#E9B210",
+                                                                                                                    backgroundColor: '#FFCD58',
                                                                                                                     height: 40
                                                                                                                     },
                                                                                                                     listContainer: {
@@ -424,3 +441,4 @@ export default class App extends React.Component {
                                                                                                                     backgroundColor: "#fff"
                                                                                                                     }
                                                                                                                     });
+export default createAppContainer(RootNavigator);

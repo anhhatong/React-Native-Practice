@@ -5,10 +5,14 @@ import {
   Text
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Header = (props) => { //props is an argument passed from parent App.js
   return (
-          <View style = {styles.header}>
+          <LinearGradient
+          colors={['#FFCD58', '#FF9636']}
+          style = {styles.header}>
+          
           {/* pass string title from App.js */}
           <View style = {styles.iconContainer}>
           {(props.currentScreen !== 'home') ?
@@ -25,7 +29,8 @@ const Header = (props) => { //props is an argument passed from parent App.js
           onPress= {props.toggleIsSearching}/>
           </View>
           <Text style={styles.title}>{ props.title } </Text>
-          </View>
+          
+          </LinearGradient>
           )
 }
 

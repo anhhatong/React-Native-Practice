@@ -21,6 +21,9 @@ import {
     FlatList // list in react native
 } from 'react-native';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 class App extends React.Component {

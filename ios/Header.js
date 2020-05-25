@@ -15,7 +15,7 @@ const Header = (props) => { //props is an argument passed from parent App.js
           
           {/* pass string title from App.js */}
           <View style = {styles.iconContainer}>
-          {(props.currentScreen !== 'home') ?
+          {(props.isBackVisible) ?
           <Icon
           name='chevron-left'
           type='feather'

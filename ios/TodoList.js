@@ -31,10 +31,12 @@ export default class TodoList extends React.Component {
             
             <TextInput
             autoFocus={false}
-            multiline={true}
+            multiline={false}
+            maxLength={50}
             onChangeText={(todoEdit) => this.props.editTodoList(todoEdit)}
             style={styles.text}
             value={todoList.title}
+            placeholder="Enter your list title"
             />
             
             </TouchableOpacity>
@@ -60,7 +62,7 @@ const styles= StyleSheet.create({
                                 },
                                 text: {
                                 color: "#fff",
-                                fontSize: 25,
+                                fontSize: 16,
                                 fontFamily: 'Gill Sans',
                                 marginLeft: 'auto',
                                 marginRight: 'auto'

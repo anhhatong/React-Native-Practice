@@ -53,65 +53,65 @@ class App extends React.Component {
                                                 {id: 0, title:"Todo 1", done:false}
                                                 ]}
                 ],
-        currentScreen: 'home',
         listId: 0
         };
     }
     
     
-                                                                          
+    
+    
+    
+    //main method
+    render() {
+        
+        
+        return (
+                
+                <NavigationContainer>
+                <Stack.Navigator screenOptions={{
+                headerShown: false
+                }}>
+                <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                initialParams={ this.state }/>
+                <Stack.Screen
+                name="Detail"
+                component={DetailScreen} />
+                </Stack.Navigator>
+                </NavigationContainer>
+                
+                
+                );
+    }
+}
 
-                                                                          //main method
-                                                                          render() {
-                                                                          
-                                                                          
-                                                                          return (
-                                                                                  
-                                                                                  <NavigationContainer>
-                                                                                  <Stack.Navigator screenOptions={{
-                                                                                    headerShown: false
-                                                                                  }}>
-                                                                                      <Stack.Screen
-                                                                                  name="Home"
-                                                                                  component={HomeScreen}
-                                                                                  initialParams={ this.state }/>
-                                                                                  <Stack.Screen
-                                                                                  name="Detail"
-                                                                                  component={DetailScreen} />
-                                                                                    </Stack.Navigator>
-                                                                                  </NavigationContainer>
-                                                                                  
-                                                                                    
-                                                                                    );
-                                                                                   }
-                                                                                   }
-                                                                                   
-                                                                                   const RootNavigator = createSwitchNavigator({
-                                                                                     App: App,
-                                                                                     Splash: SplashScreen
-                                                                                   }, {
-                                                                                     // `initialRouteName` tells the React Navigation navigator
-                                                                                     // which route to start at. If you don't specify an initial
-                                                                                     // route it'll choose the first route in the navigator config.
-                                                                                     // In this example we tell it to start on the 'Splash' route,
-                                                                                     // otherwise it would have shown the 'App' route.
-                                                                                     initialRouteName: 'Splash'
-                                                                                   });
-                                                                                                        
-                                                                                   
-                                                                                   const styles = StyleSheet.create({
-                                                                                                                    container: { //fill
-                                                                                                                    flex: 1, //how much an item occupies available space on screen
-                                                                                                                    backgroundColor: '#D1C2C2',
-                                                                                                                    },
-                                                                                                                    statusbar: {//status bar on top
-                                                                                                                    backgroundColor: '#FFCD58',
-                                                                                                                    height: 40
-                                                                                                                    },
-                                                                                                                    listContainer: {
-                                                                                                                    flex:1,
-                                                                                                                    borderTopLeftRadius: 130,
-                                                                                                                    backgroundColor: "#fff"
-                                                                                                                    }
-                                                                                                                    });
+const RootNavigator = createSwitchNavigator({
+                                            App: App,
+                                            Splash: SplashScreen
+                                            }, {
+                                            // `initialRouteName` tells the React Navigation navigator
+                                            // which route to start at. If you don't specify an initial
+                                            // route it'll choose the first route in the navigator config.
+                                            // In this example we tell it to start on the 'Splash' route,
+                                            // otherwise it would have shown the 'App' route.
+                                            initialRouteName: 'Splash'
+                                            });
+
+
+const styles = StyleSheet.create({
+                                 container: { //fill
+                                 flex: 1, //how much an item occupies available space on screen
+                                 backgroundColor: '#D1C2C2',
+                                 },
+                                 statusbar: {//status bar on top
+                                 backgroundColor: '#FFCD58',
+                                 height: 40
+                                 },
+                                 listContainer: {
+                                 flex:1,
+                                 borderTopLeftRadius: 130,
+                                 backgroundColor: "#fff"
+                                 }
+                                 });
 export default createAppContainer(RootNavigator);

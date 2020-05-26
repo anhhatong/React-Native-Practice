@@ -28,7 +28,11 @@ const Header = (props) => { //props is an argument passed from parent App.js
           color='#fff'
           onPress= {props.toggleIsSearching}/>
           </View>
+          {(props.isBackVisible) ?
+          <Text style={styles.listTitle}
+          adjustsFontSizeToFit>{ props.listTitle } </Text> :
           <Text style={styles.title}>{ props.title } </Text>
+          }
           
           </LinearGradient>
           )
@@ -48,7 +52,18 @@ const styles = StyleSheet.create({
                                  fontFamily: "Gill Sans",
                                  fontWeight: '800',
                                  letterSpacing: 3,
-                                 textTransform: 'uppercase'
+                                 textTransform: 'uppercase',
+                                 paddingBottom: '8%'
+                                 },
+                                 listTitle: {
+                                  color: '#fff',
+                                  fontSize: 20,
+                                  fontFamily: "Gill Sans",
+                                  fontWeight: '700',
+                                  letterSpacing: 2,
+                                  paddingBottom: '5%',
+                                 paddingLeft: '10%',
+                                 paddingRight: '10%'
                                  },
                                  iconContainer: {
                                  flex: 1,

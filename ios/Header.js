@@ -15,6 +15,34 @@ const Header = (props) => { //props is an argument passed from parent App.js
           
           {/* pass string title from App.js */}
           <View style = {styles.iconContainer}>
+          
+          {(props.isReordering)?
+          <View></View>:
+          <Icon
+          name='reorder'
+          type='fontAwesome'
+          color='#fff'
+          onPress={props.allowReordering}
+          />
+          }
+          
+          {(props.isReordering)?
+          <View></View>:
+          <Icon
+          name={(props.isSearching)? 'plus' : 'search'}
+          type='feather'
+          color='#fff'
+          onPress= {props.toggleIsSearching}/>
+          }
+          
+          </View>
+          {(props.isBackVisible) ?
+          <Text style={styles.listTitle}
+          adjustsFontSizeToFit>{ props.listTitle } </Text> :
+          <Text style={styles.title}>{ props.title } </Text>
+          }
+          
+          <View style={styles.icon}>
           {(props.isBackVisible) ?
           <Icon
           name='chevron-left'
@@ -22,17 +50,7 @@ const Header = (props) => { //props is an argument passed from parent App.js
           color='#fff'
           onPress={props.backToHome}/> : <Icon/>
           }
-          <Icon
-          name={(props.isSearching)? 'plus' : 'search'}
-          type='feather'
-          color='#fff'
-          onPress= {props.toggleIsSearching}/>
           </View>
-          {(props.isBackVisible) ?
-          <Text style={styles.listTitle}
-          adjustsFontSizeToFit>{ props.listTitle } </Text> :
-          <Text style={styles.title}>{ props.title } </Text>
-          }
           
           </LinearGradient>
           )
@@ -53,15 +71,14 @@ const styles = StyleSheet.create({
                                  fontWeight: '800',
                                  letterSpacing: 3,
                                  textTransform: 'uppercase',
-                                 paddingBottom: '8%'
+                                 paddingBottom: '2%'
                                  },
                                  listTitle: {
                                   color: '#fff',
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontFamily: "Gill Sans",
                                   fontWeight: '700',
-                                  letterSpacing: 2,
-                                  paddingBottom: '5%',
+                                  paddingBottom: '2%',
                                  paddingLeft: '10%',
                                  paddingRight: '10%'
                                  },
@@ -72,6 +89,11 @@ const styles = StyleSheet.create({
                                  justifyContent: 'space-between',
                                  width: '90%',
                                  marginTop: '5%'
+                                 },
+                                 icon:{
+                                 marginRight: 'auto',
+                                 marginLeft: '5%',
+                                 marginBottom: '3%'
                                  }
                                  });
 

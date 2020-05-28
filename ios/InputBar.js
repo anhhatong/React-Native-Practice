@@ -9,6 +9,9 @@ import {
 import { Icon } from 'react-native-elements';
 
 const InputBar = (props) => {
+  
+  if (props.isReordering === false) {
+  
   return (
           <View style={styles.inputContainer}>
           <TextInput
@@ -29,6 +32,17 @@ const InputBar = (props) => {
           </TouchableOpacity>
           </View>
           )
+  } else {
+    return (
+            <View style={styles.inputContainer}>
+            <TouchableOpacity style = {styles.doneButton}
+            /* When press on button, addNewTodo() is called from App.js */
+            onPress={props.allowReordering}>
+            <Text style={styles.doneText}> Done </Text>
+            </TouchableOpacity>
+            </View>
+            )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -61,6 +75,19 @@ const styles = StyleSheet.create({
                                  fontWeight: "bold",
                                  fontSize: 20,
                                  color: "#fff"
+                                 },
+                                 doneButton: {
+                                 backgroundColor: "#5C0601",
+                                 justifyContent: "center",
+                                 alignItems: "center",
+                                 height: 40,
+                                 width: '100%'
+                                 },
+                                 doneText: {
+                                 fontSize:20,
+                                 fontFamily: 'Gill Sans',
+                                 color:'#fff',
+                                 fontWeight: 'bold'
                                  }
                                  })
 

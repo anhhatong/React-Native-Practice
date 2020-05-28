@@ -1,7 +1,7 @@
 import React from "react";
 import {StyleSheet, Text, Button, TouchableOpacity, View, TextInput} from "react-native";
 import Swipeout from 'react-native-swipeout';
-import { CheckBox } from 'react-native-elements';
+import { CheckBox, Icon } from 'react-native-elements';
 
 export default class TodoItem extends React.Component {
   
@@ -12,6 +12,8 @@ export default class TodoItem extends React.Component {
   
   render() {
     const todoItem = this.props.todoItem; //get todoItem from prop
+    const drag = this.props.drag;
+    const isReordering = this.props.isReordering;
     
     let swipeBtns = [
                      {
@@ -28,7 +30,18 @@ export default class TodoItem extends React.Component {
             backgroundColor= 'transparent'>
             <TouchableOpacity
             onPress={() => this.props.toggleDone()}
-            style={(todoItem.done) ? styles.todoItemDone : styles.todoItem}>
+            style={(todoItem.done) ? styles.todoItemDone : styles.todoItem}
+            onLongPress={drag}>
+            
+            
+            
+            {isReordering ?
+            <Icon
+            name='reorder'
+            type='Ionicons'
+            color='#fff'
+            style = {styles.icon}
+            /> :
             
             <CheckBox
             checked={todoItem.done}
@@ -36,6 +49,7 @@ export default class TodoItem extends React.Component {
             uncheckedColor="#fff"
             onPress={() => this.props.toggleDone()}
             />
+            }
             
             <TextInput
             value={todoItem.title}
@@ -45,6 +59,8 @@ export default class TodoItem extends React.Component {
             style={(todoItem.done) ? {color: "#444444", fontSize: 16, fontFamily: 'Gill Sans'} : {color: "#fff", fontSize: 16, fontFamily: 'Gill Sans'}}
             placeholder="Enter your todo"
             />
+            
+           
             
             </TouchableOpacity>
             </Swipeout>
@@ -88,6 +104,12 @@ const styles= StyleSheet.create({
                                 },
                                 itemContainer: {
                                 marginTop: "5%"
+                                },
+                                icon: {
+                                paddingRight: '10%',
+                                paddingLeft: '10%',
+                                paddingTop: '10%',
+                                paddingBottom: '10%'
                                 }
                                 });
 

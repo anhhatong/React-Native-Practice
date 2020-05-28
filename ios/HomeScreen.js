@@ -12,6 +12,7 @@ import InputBar from './InputBar.js'; //import the path of InputBar.js
 import SearchBar from './SearchBar.js';
 
 import LinearGradient from 'react-native-linear-gradient';
+import DraggableFlatList from "react-native-draggable-flatlist";
 
 export default class HomeScreen extends Component {
   constructor(props){
@@ -56,6 +57,7 @@ export default class HomeScreen extends Component {
   }
   
   listItems(item){
+    if(!this.state.isReordering) {
     let state = this.state;
     let todos = this.state.todos;
     let lists = this.state.lists;
@@ -74,6 +76,7 @@ export default class HomeScreen extends Component {
                   state = this.state;
                   this.props.navigation.navigate('Detail', state);
                   });
+    }
   }
   
   toggleIsSearching() {
@@ -236,6 +239,25 @@ export default class HomeScreen extends Component {
                                                                     this.setState({lists});
                                                                     }
                                                                     
+                                                                    relabelIds(){
+                                                                    let lists = this.state.lists;
+                                                                    
+                                                                    let i = lists.length-1;
+                                                                    lists = lists.map((todoList)=>{
+                                                                                      todoList.id = i;
+                                                                                      i--;
+                                                                                      return todoList;
+                                                                                      });
+                                                                    
+                                                                    this.setState({lists});
+                                                                    console.log(this.state);
+                                                                    }
+                                                                    
+                                                                    allowReordering() {
+                                                                      let isReordering = !this.state.isReordering;
+                                                                      this.setState({isReordering});
+                                                                    }
+                                                                    
                                                                     render(){
                                                                     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>; //platform-specific for the status bar on top
                                                                     
@@ -249,26 +271,55 @@ export default class HomeScreen extends Component {
                                                                            {/*render the Header here to pass this string to Header class */}
                                                                            <Header title="ToDoApp"
                                                                            isSearching={this.state.isSearching}
+                                                                           isReordering={this.state.isReordering}
                                                                            isBackVisible={false}
                                                                            toggleIsSearching={() => this.toggleIsSearching()}
-                                                                           backToHome={() => this.backToHome()}/>
+                                                                           backToHome={() => this.backToHome()}
+                                                                           allowReordering={() => this.allowReordering()}/>
+                                                                           
                                                                            
                                                                            {(this.state.isSearching) ?
                                                                            (
                                                                             <SearchBar
+                                                                            isReordering={this.state.isReordering}
                                                                             searchTodo={(str) => this.searchTodoList(str)}
+                                                                            allowReordering={() => this.allowReordering()}
                                                                             />) : (
                                                                             
                                                                             /*call this textChange prop in InputBar and pass in todoInput, ie. text change */
                                                                             <InputBar
+                                                                            isReordering={this.state.isReordering}
                                                                             textChange={todoInput => this.setState({todoInput})}
                                                                             addNewTodo={() => this.addNewTodoList()}
+                                                                            allowReordering={() => this.allowReordering()}
                                                                             />
                                                                             )
                                                                            }
                                                                            
                                                                            <View style={styles.listContainer}>
                                                                            
+                                                                           {this.state.isReordering?
+                                                                           
+                                                                           <DraggableFlatList
+                                                                           data={this.state.lists} // get the todos array
+                                                                           keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
+                                                                           onDragEnd={({ data }) => {
+                                                                           lists=this.state.lists;
+                                                                           this.setState({ lists:data });
+                                                                           this.relabelIds();}}
+                                                                           renderItem={({item, index, drag}) => { // render an item from data
+                                                                           return (
+                                                                                   <TodoList
+                                                                                   todoList={item}
+                                                                                   drag={drag}
+                                                                                   isReordering={this.state.isReordering}
+                                                                                   listItems={() => this.listItems(item)}
+                                                                                   removeTodoList={() => this.removeTodoList(item)}
+                                                                                   editTodoList={todoEdit => this.editTodoList(item, todoEdit)}
+                                                                                   />
+                                                                                   )}
+                                                                           }
+                                                                           />:
                                                                            
                                                                            
                                                                            <FlatList
@@ -286,7 +337,7 @@ export default class HomeScreen extends Component {
                                                                            }
                                                                            />
                                                                            
-                                                                           
+                                                                           }
                                                                            </View>
                                                                            </LinearGradient>
                                                                            );
@@ -306,6 +357,7 @@ export default class HomeScreen extends Component {
                                                                                                      listContainer: {
                                                                                                      flex:1,
                                                                                                      borderTopLeftRadius: 130,
-                                                                                                     backgroundColor: "#fff"
+                                                                                                     backgroundColor: "#fff",
+                                                                                                     paddingBottom: '5%'
                                                                                                      }
                                                                                                      });

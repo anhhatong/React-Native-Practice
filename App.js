@@ -34,6 +34,7 @@ class App extends React.Component {
         super();
         this.state = {
         isSearching: false,
+        isReordering: false,
         todoEdit: '',
         todosUnmatched: [],
         todoListsUnmatched: [],

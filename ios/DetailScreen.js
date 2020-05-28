@@ -12,6 +12,7 @@ import InputBar from './InputBar.js'; //import the path of InputBar.js
 import SearchBar from './SearchBar.js';
 
 import LinearGradient from 'react-native-linear-gradient';
+import DraggableFlatList from "react-native-draggable-flatlist";
 
 export default class DetailScreen extends Component {
   constructor(props){
@@ -63,6 +64,7 @@ export default class DetailScreen extends Component {
   
   //method to change 'done' state of each todo item
   toggleDone(item){
+    if (!this.state.isReordering) {
     let todos = this.state.todos;
     
     //map() creates a new array then run the code block with every item in the array
@@ -74,6 +76,7 @@ export default class DetailScreen extends Component {
                       })
     
     this.setState({todos});
+    }
   }
   
   //method to edit todos
@@ -207,6 +210,25 @@ export default class DetailScreen extends Component {
                                      console.log({lists});
                                      }
                                      
+                                     relabelIds(){
+                                     let todos = this.state.todos;
+                                     
+                                     let i = todos.length-1;
+                                     todos = todos.map((todo)=>{
+                                                       todo.id = i;
+                                                       i--;
+                                                       return todo;
+                                                       });
+                                     
+                                     this.setState({todos});
+                                     console.log(this.state);
+                                     }
+                                     
+                                     allowReordering() {
+                                       let isReordering = !this.state.isReordering;
+                                       this.setState({isReordering});
+                                     }
+                                     
                                      
                                      render(){
                                      const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>; //platform-specific for the status bar on top
@@ -220,7 +242,9 @@ export default class DetailScreen extends Component {
                                             {statusbar}
                                             
                                             {/*render the Header here to pass this string to Header class */}
-                                            <Header listTitle={
+                                            <Header
+                                            isReordering={this.state.isReordering}
+                                            listTitle={
                                             this.state.lists.map((todoList)=>{
                                               if (todoList.id == this.state.listId) {
                                               return todoList.title;
@@ -229,23 +253,51 @@ export default class DetailScreen extends Component {
                                             isSearching={this.state.isSearching}
                                             isBackVisible={true}
                                             toggleIsSearching={() => this.toggleIsSearching()}
-                                            backToHome={() => this.backToHome()}/>
+                                            backToHome={() => this.backToHome()}
+                                            allowReordering={() => this.allowReordering()}/>
                                             
                                             {(this.state.isSearching) ?
                                             (
                                              <SearchBar
+                                             isReordering={this.state.isReordering}
                                              searchTodo={(str) => this.searchTodo(str)}
+                                             allowReordering={() => this.allowReordering()}
                                              />) : (
                                              
                                              /*call this textChange prop in InputBar and pass in todoInput, ie. text change */
                                              <InputBar
+                                             isReordering={this.state.isReordering}
                                              textChange={todoInput => this.setState({todoInput})}
                                              addNewTodo={() => this.addNewTodo()}
+                                             allowReordering={() => this.allowReordering()}
                                              />
                                              )
                                             }
                                             
                                             <View style={styles.listContainer}>
+                                            
+                                            {this.state.isReordering?
+                                            
+                                            <DraggableFlatList
+                                            data={this.state.todos} // get the todos array
+                                            keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
+                                            onDragEnd={({ data }) => {
+                                            todos=this.state.todos;
+                                            this.setState({ todos:data });
+                                            this.relabelIds();}}
+                                            renderItem={({item, index, drag}) => { // render an item from data
+                                            return (
+                                                    <TodoItem
+                                                    todoItem={item}
+                                                    drag={drag}
+                                                    isReordering={this.state.isReordering}
+                                                    toggleDone={() => this.toggleDone(item)}
+                                                    removeTodo={() => this.removeTodo(item)}
+                                                    editTodo={todoEdit => this.editTodo(item, todoEdit)}
+                                                    />
+                                                    )}
+                                            }
+                                            />:
                                             
                                             <FlatList
                                             data={this.state.todos} // get the todos array
@@ -254,6 +306,7 @@ export default class DetailScreen extends Component {
                                             return (
                                                     <TodoItem
                                                     todoItem={item}
+                                                    isReordering={this.state.isReordering}
                                                     toggleDone={() => this.toggleDone(item)}
                                                     removeTodo={() => this.removeTodo(item)}
                                                     editTodo={todoEdit => this.editTodo(item, todoEdit)}
@@ -261,6 +314,7 @@ export default class DetailScreen extends Component {
                                                     )}
                                             }
                                             />
+                                            }
                                             </View>
                                             </LinearGradient>
                                             );
@@ -279,6 +333,7 @@ export default class DetailScreen extends Component {
                                                                       listContainer: {
                                                                       flex:1,
                                                                       borderTopLeftRadius: 130,
-                                                                      backgroundColor: "#fff"
+                                                                      backgroundColor: "#fff",
+                                                                      paddingBottom: '5%'
                                                                       }
                                                                       });

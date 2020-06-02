@@ -41,10 +41,12 @@ export default class AddNewTodoScreen extends Component {
           todoList.list = todos;
         }
         return todoList;
-      })
+      });
+
+      todos.sort((a, b) => a.date - b.date);
 
       //reset state after adding the new todo
-      this.setState({ todoInput: '', todos, lists },
+      this.setState({ todoInput: '', todos, lists, currentDate: '' },
         function () {
           state = this.state;
           this.props.navigation.navigate('Detail', state);
@@ -56,12 +58,9 @@ export default class AddNewTodoScreen extends Component {
 
   dateChange(date) {
     let state = this.state;
-    let currentDate = this.state.currentDate;
+    let currentDate = date;
 
-    day = date.getDate();
-    month = date.getMonth() + 1;
-    year = date.getFullYear();
-    currentDate = month + '/' + day + '/' + year;
+    
 
     this.setState({ currentDate });
   }

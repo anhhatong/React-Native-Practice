@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
 
 const DatePicker = (props) => {
 
@@ -30,7 +31,7 @@ const DatePicker = (props) => {
       <TouchableOpacity onPress={showDatePicker}>
         <View style={styles.button}>
           <Text style={styles.font}> Due Date </Text>
-          <Text style={styles.dateFont}> {props.currentDate} </Text>
+          <Text style={styles.dateFont}> {moment(props.currentDate).format("dddd, MMM D YYYY") === 'Invalid date'? '' : moment(props.currentDate).format("dddd, MMM D YYYY")} </Text>
         </View>
       </TouchableOpacity>
       <DateTimePickerModal
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%'
   },
   dateFont: {
-    fontSize: 25,
+    fontSize: 20,
     color: '#444444',
     fontFamily: 'Gill Sans',
     fontWeight: '100',

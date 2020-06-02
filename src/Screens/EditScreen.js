@@ -43,12 +43,13 @@ export default class EditScreen extends Component {
             }
             return todo;
           })
+          todos.sort((a, b) => a.date - b.date);
         }
         return todoList;
       })
 
       //reset state after adding the new todo
-      this.setState({ todoInput: '', todos, lists },
+      this.setState({ todoInput: '', todos, lists, currentDate: '' },
         function () {
           state = this.state;
           console.log(this.state);
@@ -61,12 +62,7 @@ export default class EditScreen extends Component {
 
   dateChange(date) {
     let state = this.state;
-    let currentDate = this.state.currentDate;
-
-    day = date.getDate();
-    month = date.getMonth() + 1;
-    year = date.getFullYear();
-    currentDate = month + '/' + day + '/' + year;
+    let currentDate = date;
 
     this.setState({ currentDate });
   }

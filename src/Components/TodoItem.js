@@ -32,8 +32,8 @@ export default class TodoItem extends React.Component {
     return (
       <View style={styles.itemContainer}>
 
-        <Text style={(todoItem.done) ? { color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' } : { color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' }}>{moment(todoItem.date).endOf('day').fromNow() == 'Invalid date' ? '' : moment(todoItem.date).endOf('day').fromNow()} </Text>
-
+        <Text style={{ color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' }}>{moment(todoItem.date).endOf('day').fromNow() == 'Invalid date' ? '' : moment(todoItem.date).endOf('day').fromNow() + '   |   ' +moment(todoItem.date).format("dddd, MMM D YYYY")} </Text>
+       
         <Swipeout right={swipeBtns}
           autoClose={true}
           backgroundColor='transparent'>
@@ -65,7 +65,7 @@ export default class TodoItem extends React.Component {
               multiline={true}
               onChangeText={(todoEdit) => this.props.editTodo(todoEdit)}
               autoFocus={false}
-              style={(todoItem.done) ? { color: "#444444", fontSize: 16, fontFamily: 'Gill Sans' } : { color: "#fff", fontSize: 16, fontFamily: 'Gill Sans' }}
+              style={(todoItem.done) ? { color: "#444444", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '5%' } : { color: "#fff", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '25%' }}
               placeholder="Enter your todo"
             />
 

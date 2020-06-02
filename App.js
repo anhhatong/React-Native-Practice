@@ -7,14 +7,16 @@
  */
 
 import React, {Component} from 'react';
-import Header from './ios/Header.js'; //import the path of Header.js
-import InputBar from './ios/InputBar.js'; //import the path of InputBar.js
-import TodoItem from './ios/TodoItem.js'; //import the path of TodoItem.js
-import TodoList from './ios/TodoList.js'; //import the path of TodoItem.js
-import SearchBar from './ios/SearchBar.js';
-import SplashScreen from './ios/SplashScreen.js';
-import HomeScreen from './ios/HomeScreen.js';
-import DetailScreen from './ios/DetailScreen.js';
+import Header from './src/Components/Header.js'; //import the path of Header.js
+import InputBar from './src/Components/InputBar.js'; //import the path of InputBar.js
+import TodoItem from './src/Components/TodoItem.js'; //import the path of TodoItem.js
+import TodoList from './src/Components/TodoList.js'; //import the path of TodoItem.js
+import SearchBar from './src/Components/SearchBar.js';
+import SplashScreen from './src/Screens/SplashScreen.js';
+import HomeScreen from './src/Screens/HomeScreen.js';
+import DetailScreen from './src/Screens/DetailScreen.js';
+import AddNewTodoScreen from './src/Screens/AddNewTodoScreen.js';
+import EditScreen from './src/Screens/EditScreen.js';
 import {
     StyleSheet,
     View,
@@ -40,21 +42,23 @@ class App extends React.Component {
         todoListsUnmatched: [],
         searchStr: '',
         todoInput: '',
+        currentDate: '',
         todos: [
-                {id: 1, title:"Todo 2", done:false},
-                {id: 0, title:"Todo 1", done:false}
+                {id: 1, title:"Todo 2", done:false, date:''},
+                {id: 0, title:"Todo 1", done:false, date:''}
                 ],
         lists: [
                 {id: 1, title: "List 2", list: [
-                                                {id: 1, title:"Todo 2", done:false},
-                                                {id: 0, title:"Todo 1", done:false}
+                                                {id: 1, title:"Todo 2", done:false, date:''},
+                                                {id: 0, title:"Todo 1", done:false, date:''}
                                                 ]},
                 {id: 0, title: "List 1", list: [
-                                                {id: 1, title:"Todo 2", done:false},
-                                                {id: 0, title:"Todo 1", done:false}
+                                                {id: 1, title:"Todo 2", done:false, date:''},
+                                                {id: 0, title:"Todo 1", done:false, date:''}
                                                 ]}
                 ],
-        listId: 0
+        listId: 0,
+        todoId: 0
         };
     }
     
@@ -79,6 +83,12 @@ class App extends React.Component {
                 <Stack.Screen
                 name="Detail"
                 component={DetailScreen} />
+                <Stack.Screen
+                name="AddTodo"
+                component={AddNewTodoScreen} />
+                <Stack.Screen
+                name="Edit"
+                component={EditScreen} />
                 </Stack.Navigator>
                 </NavigationContainer>
                 

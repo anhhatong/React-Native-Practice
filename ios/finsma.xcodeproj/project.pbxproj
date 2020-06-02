@@ -18,14 +18,6 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* finsmaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* finsmaTests.m */; };
 		5CB5B99020E1EB8B43370E0A /* libPods-finsma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B61FB4F8865CCA88C97BE7 /* libPods-finsma.a */; };
-		7003C248247BCF9D00E9E022 /* HomeScreen.js in Resources */ = {isa = PBXBuildFile; fileRef = 7003C247247BCF9D00E9E022 /* HomeScreen.js */; };
-		7003C24A247BCFAC00E9E022 /* DetailScreen.js in Resources */ = {isa = PBXBuildFile; fileRef = 7003C249247BCFAC00E9E022 /* DetailScreen.js */; };
-		701C4D1A2477F9C600FD2B75 /* SplashScreen.js in Resources */ = {isa = PBXBuildFile; fileRef = 701C4D192477F9C600FD2B75 /* SplashScreen.js */; };
-		708DA06B246C598C00F5073F /* SearchBar.js in Resources */ = {isa = PBXBuildFile; fileRef = 708DA06A246C598C00F5073F /* SearchBar.js */; };
-		70B3507D2478E40600B1C5B6 /* TodoList.js in Resources */ = {isa = PBXBuildFile; fileRef = 70B3507C2478E40600B1C5B6 /* TodoList.js */; };
-		70DD5D4C243F83F700B243BB /* TodoItem.js in Resources */ = {isa = PBXBuildFile; fileRef = 70DD5D4B243F83F700B243BB /* TodoItem.js */; };
-		70ECC1C22438DA63001A93B0 /* Header.js in Resources */ = {isa = PBXBuildFile; fileRef = 70ECC1C12438DA63001A93B0 /* Header.js */; };
-		70ECC1C4243B2B3E001A93B0 /* InputBar.js in Resources */ = {isa = PBXBuildFile; fileRef = 70ECC1C3243B2B3E001A93B0 /* InputBar.js */; };
 		B4A9204A5B8700381CE7D504 /* libPods-finsma-finsmaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DD5456D8EEEAFC8E78E312 /* libPods-finsma-finsmaTests.a */; };
 		BF27BAD8A11C51CD935DCB5B /* libPods-finsma-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC31F059BC8FF1C9D41BDEF /* libPods-finsma-tvOSTests.a */; };
 /* End PBXBuildFile section */
@@ -86,15 +78,7 @@
 		573FA79CEA41B61643848956 /* Pods-finsma-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-finsma-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-finsma-tvOSTests/Pods-finsma-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DC31F059BC8FF1C9D41BDEF /* libPods-finsma-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-finsma-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67760ADBF46B41CAAE66B9BF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		7003C247247BCF9D00E9E022 /* HomeScreen.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = HomeScreen.js; sourceTree = "<group>"; };
-		7003C249247BCFAC00E9E022 /* DetailScreen.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = DetailScreen.js; sourceTree = "<group>"; };
-		701C4D192477F9C600FD2B75 /* SplashScreen.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = SplashScreen.js; sourceTree = "<group>"; };
-		708DA06A246C598C00F5073F /* SearchBar.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = SearchBar.js; sourceTree = "<group>"; };
-		70B3507C2478E40600B1C5B6 /* TodoList.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = TodoList.js; sourceTree = "<group>"; };
-		70DD5D4B243F83F700B243BB /* TodoItem.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = TodoItem.js; sourceTree = "<group>"; };
 		70DDC84024798B7000D766CA /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
-		70ECC1C12438DA63001A93B0 /* Header.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Header.js; sourceTree = "<group>"; };
-		70ECC1C3243B2B3E001A93B0 /* InputBar.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = InputBar.js; sourceTree = "<group>"; };
 		81B61FB4F8865CCA88C97BE7 /* libPods-finsma.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-finsma.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B22336923741C2B0329499 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		89E1AB3EDB18CE5F77F8D51F /* Pods-finsma-finsmaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-finsma-finsmaTests.release.xcconfig"; path = "Target Support Files/Pods-finsma-finsmaTests/Pods-finsma-finsmaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -187,8 +171,6 @@
 		13B07FAE1A68108700A75B9A /* finsma */ = {
 			isa = PBXGroup;
 			children = (
-				7003C244247BCED400E9E022 /* Screens */,
-				70ECC1C02438DA21001A93B0 /* Components */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -213,16 +195,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7003C244247BCED400E9E022 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				701C4D192477F9C600FD2B75 /* SplashScreen.js */,
-				7003C247247BCF9D00E9E022 /* HomeScreen.js */,
-				7003C249247BCFAC00E9E022 /* DetailScreen.js */,
-			);
-			name = Screens;
-			sourceTree = "<group>";
-		};
 		70DDC84124798B7000D766CA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,18 +202,6 @@
 				70DDC84824798B7000D766CA /* libRNGestureHandler-tvOS.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		70ECC1C02438DA21001A93B0 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				70ECC1C12438DA63001A93B0 /* Header.js */,
-				70ECC1C3243B2B3E001A93B0 /* InputBar.js */,
-				70DD5D4B243F83F700B243BB /* TodoItem.js */,
-				708DA06A246C598C00F5073F /* SearchBar.js */,
-				70B3507C2478E40600B1C5B6 /* TodoList.js */,
-			);
-			name = Components;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -467,16 +427,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70ECC1C22438DA63001A93B0 /* Header.js in Resources */,
-				70DD5D4C243F83F700B243BB /* TodoItem.js in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				7003C24A247BCFAC00E9E022 /* DetailScreen.js in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				70B3507D2478E40600B1C5B6 /* TodoList.js in Resources */,
-				70ECC1C4243B2B3E001A93B0 /* InputBar.js in Resources */,
-				701C4D1A2477F9C600FD2B75 /* SplashScreen.js in Resources */,
-				7003C248247BCF9D00E9E022 /* HomeScreen.js in Resources */,
-				708DA06B246C598C00F5073F /* SearchBar.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -287,6 +287,7 @@ export default class DetailScreen extends Component {
                 return (
                   <TodoItem
                     todoItem={item}
+                    isHidingListTitle={true}
                     isReordering={this.state.isReordering}
                     toggleDone={() => this.toggleDone(item)}
                     removeTodo={() => this.removeTodo(item)}

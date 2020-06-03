@@ -4,10 +4,12 @@ import {
     View,
     Text,
     Platform,
+    TouchableOpacity,
     FlatList // list in react native
 } from 'react-native';
 import HomeHeader from '../Components/HomeHeader'; //import the path of Header.js
 import TodoItem from '../Components/TodoItem.js';
+import DueBtn from '../Components/DueBtn';
 
 import LinearGradient from 'react-native-linear-gradient';
 import moment from "moment";
@@ -21,9 +23,12 @@ export default class HomeScreen extends React.Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props !== prevProps) {
-          this.setState(this.props.route.params);
+            let isShowingOverdue = false;
+            let isShowingDueToday = false;
+            let isShowingDueTomorrow = false;
+            this.setState(this.props.route.params);
         }
-      }
+    }
 
     checkOverdue() {
         let lists = this.state.lists;
@@ -107,10 +112,10 @@ export default class HomeScreen extends React.Component {
 
         lists = lists.map((todoList) => {
             if (todoList.id == item.listId) {
-              todos = todoList.list;
+                todos = todoList.list;
             }
             return todoList;
-          })
+        })
 
         this.setState({ todos, todoId: item.id, todoInput: item.title, currentDate: item.date, listId: item.listId },
             function () {
@@ -165,9 +170,23 @@ export default class HomeScreen extends React.Component {
         this.setState({ lists });
     }
 
-    toListScreen(){
+    toListScreen() {
         let state = this.state;
         this.props.navigation.navigate('List', state);
+    }
+
+    getListTitle(item) {
+        let lists = this.state.lists;
+        let listTitle;
+
+        lists = lists.map((list) => {
+            if (item.listId == list.id) {
+                listTitle = list.title;
+            }
+            return list;
+        })
+
+        return listTitle;
     }
 
     render() {
@@ -182,70 +201,79 @@ export default class HomeScreen extends React.Component {
 
                 {/*render the Header here to pass this string to Header class */}
                 <HomeHeader title="TodoApp"
-                toListScreen={() => this.toListScreen()}/>
+                    toListScreen={() => this.toListScreen()} />
 
 
                 <View style={styles.listContainer}>
 
-                    <Text style={styles.font}>Overdue</Text>
+                    <DueBtn
+                        label="Overdue"
+                        isDropping={this.state.isShowingOverdue}
+                        toggle={() => this.setState({ isShowingOverdue: !this.state.isShowingOverdue })} />
 
-                    <FlatList
-                        data={this.checkOverdue()} // get the todos array
-                        keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
-                        renderItem={({ item, index }) => { // render an item from data
-                            return (
-                                <TodoItem
-                                    todoItem={item}
-                                    isReordering={this.state.isReordering}
-                                    toggleDone={() => this.toggleDone(item)}
-                                    removeTodo={() => this.removeTodo(item)}
-                                    editTodo={todoEdit => this.editTodo(item, todoEdit)}
-                                    toEditScreen={() => this.toEditScreen(item)}
-                                />
-                            )
-                        }
-                        }
-                    />
+                    {this.state.isShowingOverdue &&
+                        <FlatList
+                            data={this.checkOverdue()} // get the todos array
+                            keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
+                            renderItem={({ item, index }) => { // render an item from data
+                                return (
+                                    <TodoItem
+                                        todoItem={item}
+                                        listTitle={this.getListTitle(item)}
+                                        toggleDone={() => this.toggleDone(item)}
+                                        removeTodo={() => this.removeTodo(item)}
+                                        toEditScreen={() => this.toEditScreen(item)}
+                                    />
+                                )
+                            }
+                            }
+                        />}
 
-                    <Text style={styles.font}>Due Today</Text>
+                    <DueBtn
+                        label="Due Today"
+                        isDropping={this.state.isShowingDueToday}
+                        toggle={() => this.setState({ isShowingDueToday: !this.state.isShowingDueToday })} />
 
-                    <FlatList
-                        data={this.checkDueToday()} // get the todos array
-                        keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
-                        renderItem={({ item, index }) => { // render an item from data
-                            return (
-                                <TodoItem
-                                    todoItem={item}
-                                    isReordering={this.state.isReordering}
-                                    toggleDone={() => this.toggleDone(item)}
-                                    removeTodo={() => this.removeTodo(item)}
-                                    toEditScreen={() => this.toEditScreen(item)}
-                                />
-                            )
-                        }
-                        }
-                    />
+                    {this.state.isShowingDueToday &&
+                        <FlatList
+                            data={this.checkDueToday()} // get the todos array
+                            keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
+                            renderItem={({ item, index }) => { // render an item from data
+                                return (
+                                    <TodoItem
+                                        todoItem={item}
+                                        listTitle={this.getListTitle(item)}
+                                        toggleDone={() => this.toggleDone(item)}
+                                        removeTodo={() => this.removeTodo(item)}
+                                        toEditScreen={() => this.toEditScreen(item)}
+                                    />
+                                )
+                            }
+                            }
+                        />}
 
-                    <Text style={styles.font}>Due Tomorrow</Text>
+                    <DueBtn
+                        label="Due Tomorrow"
+                        isDropping={this.state.isShowingDueTomorrow}
+                        toggle={() => this.setState({ isShowingDueTomorrow: !this.state.isShowingDueTomorrow })} />
 
-                    <FlatList
-                        data={this.checkDueTomorrow()} // get the todos array
-                        keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
-                        renderItem={({ item, index }) => { // render an item from data
-                            return (
-                                <TodoItem
-                                    todoItem={item}
-                                    isReordering={this.state.isReordering}
-                                    toggleDone={() => this.toggleDone(item)}
-                                    removeTodo={() => this.removeTodo(item)}
-                                    editTodo={todoEdit => this.editTodo(item, todoEdit)}
-                                    toEditScreen={() => this.toEditScreen(item)}
-                                />
-                            )
-                        }
-                        }
-                    />
-
+                    {this.state.isShowingDueTomorrow &&
+                        <FlatList
+                            data={this.checkDueTomorrow()} // get the todos array
+                            keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
+                            renderItem={({ item, index }) => { // render an item from data
+                                return (
+                                    <TodoItem
+                                        todoItem={item}
+                                        listTitle={this.getListTitle(item)}
+                                        toggleDone={() => this.toggleDone(item)}
+                                        removeTodo={() => this.removeTodo(item)}
+                                        toEditScreen={() => this.toEditScreen(item)}
+                                    />
+                                )
+                            }
+                            }
+                        />}
 
                 </View>
             </LinearGradient>
@@ -267,9 +295,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
         paddingBottom: '5%'
-    },
-    font: {
-        fontFamily: 'Gill Sans',
-        fontSize: 28
     }
 });

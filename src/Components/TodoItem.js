@@ -15,6 +15,8 @@ export default class TodoItem extends React.Component {
     const todoItem = this.props.todoItem; //get todoItem from prop
     const drag = this.props.drag;
     const isReordering = this.props.isReordering;
+    const listTitle = this.props.listTitle;
+    const isHidingListTitle= this.props.isHidingListTitle;
 
     let swipeBtns = [
       {
@@ -31,9 +33,13 @@ export default class TodoItem extends React.Component {
 
     return (
       <View style={styles.itemContainer}>
-
+        
         <Text style={{ color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' }}>{moment(todoItem.date).endOf('day').fromNow() == 'Invalid date' ? '' : moment(todoItem.date).endOf('day').fromNow() + '   |   ' +moment(todoItem.date).format("dddd, MMM D YYYY")} </Text>
-       
+
+        <View style={isHidingListTitle? '':styles.listTitleContainer}>
+        {!isHidingListTitle && <Text style={styles.listTitleFont}>{listTitle}</Text>}
+        
+
         <Swipeout right={swipeBtns}
           autoClose={true}
           backgroundColor='transparent'>
@@ -71,6 +77,7 @@ export default class TodoItem extends React.Component {
 
           </TouchableOpacity>
         </Swipeout>
+        </View>
 
       </View>
     )
@@ -117,6 +124,23 @@ const styles = StyleSheet.create({
     paddingLeft: '10%',
     paddingTop: '10%',
     paddingBottom: '10%'
+  },
+  listTitleContainer: {
+    backgroundColor: '#AB9786',
+    borderTopLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    width: '90%',
+    paddingTop: '2%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  listTitleFont: {
+    color: "#fff", 
+    fontSize: 16, 
+    fontFamily: 'Gill Sans', 
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    paddingBottom: '2%'
   }
 });
 

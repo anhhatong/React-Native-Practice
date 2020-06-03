@@ -36,6 +36,7 @@ class App extends React.Component {
             todoEdit: '',
             todosUnmatched: [],
             todoListsUnmatched: [],
+            isShowingOverdue: false,
             searchStr: '',
             todoInput: '',
             currentDate: '',

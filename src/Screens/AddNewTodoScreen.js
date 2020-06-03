@@ -30,6 +30,7 @@ export default class AddNewTodoScreen extends Component {
     if (this.state.todoInput !== "") {
       //add new todo in the beignning of the array
       todos.unshift({
+        listId: listId,
         id: todos.length,
         title: this.state.todoInput,
         done: false,

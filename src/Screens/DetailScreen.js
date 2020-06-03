@@ -14,14 +14,12 @@ import AddNewTodoBtn from '../Components/AddNewTodoBtn.js';
 
 import LinearGradient from 'react-native-linear-gradient';
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { withNavigationFocus } from 'react-navigation';
 
 
 export default class DetailScreen extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.route.params;
-    //console.log(this.props.route.params);
   }
 
   componentDidUpdate(prevProps) {
@@ -33,14 +31,19 @@ export default class DetailScreen extends Component {
 
   backToHome() {
     let state = this.state;
-    this.searchTodo('');
-    console.log(state);
+    //this.searchTodo('');
     this.props.navigation.navigate('Home', state);
+  }
+
+  backToList() {
+    let state = this.state;
+    //this.searchTodo('');
+    this.props.navigation.navigate('List', state);
   }
 
   toAddNewTodoScreen() {
     let state = this.state;
-    this.searchTodo('');
+    //this.searchTodo('');
     this.props.navigation.navigate('AddTodo', state);
   }
 
@@ -49,7 +52,7 @@ export default class DetailScreen extends Component {
     let todos = this.state.todos;
     let todoId = this.state.todoId;
 
-    this.searchTodo('');
+    //this.searchTodo('');
     this.setState({ todoId: item.id, todoInput: item.title, currentDate: item.date },
       function () {
         state = this.state;
@@ -74,20 +77,6 @@ export default class DetailScreen extends Component {
     }
   }
 
-  //method to edit todos
-  editTodo(item, todoEdit) {
-    let todos = this.state.todos;
-
-    //map() creates a new array then run the code block with every item in the array
-    todos = todos.map((todo) => {
-      if (todo.id == item.id) {
-        todo.title = todoEdit;
-      }
-      return todo;
-    })
-
-    this.setState({ todos });
-  }
 
   toggleIsSearching() {
     let isSearching = !this.state.isSearching;
@@ -249,6 +238,7 @@ export default class DetailScreen extends Component {
           isBackVisible={true}
           toggleIsSearching={() => this.toggleIsSearching()}
           backToHome={() => this.backToHome()}
+          backToList={() => this.backToList()}
           allowReordering={() => this.allowReordering()} />
 
         {(this.state.isSearching) ?
@@ -284,7 +274,6 @@ export default class DetailScreen extends Component {
                     isReordering={this.state.isReordering}
                     toggleDone={() => this.toggleDone(item)}
                     removeTodo={() => this.removeTodo(item)}
-                    editTodo={todoEdit => this.editTodo(item, todoEdit)}
                   />
                 )
               }
@@ -301,7 +290,6 @@ export default class DetailScreen extends Component {
                     isReordering={this.state.isReordering}
                     toggleDone={() => this.toggleDone(item)}
                     removeTodo={() => this.removeTodo(item)}
-                    editTodo={todoEdit => this.editTodo(item, todoEdit)}
                     toEditScreen={() => this.toEditScreen(item)}
                   />
                 )

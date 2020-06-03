@@ -37,7 +37,7 @@ const DatePicker = (props) => {
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
-        minimumDate={new Date()}
+        //minimumDate={new Date()}
         onConfirm={(date) => props.dateChange(date)}
         onCancel={hideDatePicker}
       />

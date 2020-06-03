@@ -8,6 +8,7 @@
 
 import React, { Component } from 'react';
 import SplashScreen from './src/Screens/SplashScreen.js';
+import HomeScreen from './src/Screens/HomeScreen.js';
 import ListScreen from './src/Screens/ListScreen.js';
 import DetailScreen from './src/Screens/DetailScreen.js';
 import AddNewTodoScreen from './src/Screens/AddNewTodoScreen.js';
@@ -39,20 +40,20 @@ class App extends React.Component {
             todoInput: '',
             currentDate: '',
             todos: [
-                { id: 1, title: "Todo 2", done: false, date: '' },
-                { id: 0, title: "Todo 1", done: false, date: '' }
+                { listId: 0, id: 1, title: "Todo 2", done: false, date: '' },
+                { listId: 0, id: 0, title: "Todo 1", done: false, date: '' }
             ],
             lists: [
                 {
                     id: 1, title: "List 2", list: [
-                        { id: 1, title: "Todo 2", done: false, date: '' },
-                        { id: 0, title: "Todo 1", done: false, date: '' }
+                        { listId: 1, id: 1, title: "Todo 2", done: false, date: new Date(2019, 8, 3) },
+                        { listId: 1, id: 0, title: "Todo 1", done: false, date: new Date(2018, 4, 3) }
                     ]
                 },
                 {
                     id: 0, title: "List 1", list: [
-                        { id: 1, title: "Todo 2", done: false, date: '' },
-                        { id: 0, title: "Todo 1", done: false, date: '' }
+                        { listId: 0, id: 1, title: "Todo 2", done: false, date: new Date() },
+                        { listId: 0, id: 0, title: "Todo 1", done: false, date: new Date(2020, 5, 4) }
                     ]
                 }
             ],
@@ -77,8 +78,11 @@ class App extends React.Component {
                 }}>
                     <Stack.Screen
                         name="Home"
-                        component={ListScreen}
+                        component={HomeScreen}
                         initialParams={this.state} />
+                    <Stack.Screen
+                        name="List"
+                        component={ListScreen} />
                     <Stack.Screen
                         name="Detail"
                         component={DetailScreen} />

@@ -14,7 +14,7 @@ import SearchBar from '../Components/SearchBar';
 import LinearGradient from 'react-native-linear-gradient';
 import DraggableFlatList from "react-native-draggable-flatlist";
 
-export default class HomeScreen extends Component {
+export default class ListScreen extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.route.params;
@@ -29,8 +29,8 @@ export default class HomeScreen extends Component {
         id: lists.length,
         title: this.state.todoInput,
         list: [
-          { id: 1, title: "Todo 2", done: false },
-          { id: 0, title: "Todo 1", done: false }
+          { listId: lists.length, id: 1, title: "Todo 2", done: false, date:'' },
+          { listId: lists.length, id: 0, title: "Todo 1", done: false, date:'' }
         ]
       });
 
@@ -236,7 +236,7 @@ export default class HomeScreen extends Component {
       return todoList;
     });
 
-    this.setState({ lists });
+    this.setState({ lists }, function() {console.log(this.state.lists)});
   }
 
   relabelIds() {
@@ -250,12 +250,19 @@ export default class HomeScreen extends Component {
     });
 
     this.setState({ lists });
-    console.log(this.state);
+    //console.log(this.state);
   }
 
   allowReordering() {
     let isReordering = !this.state.isReordering;
     this.setState({ isReordering });
+  }
+
+  backToHome() {
+    let state = this.state;
+    this.searchTodo('');
+    //console.log(this.state);
+    this.props.navigation.navigate('Home', state);
   }
 
   render() {
@@ -269,7 +276,7 @@ export default class HomeScreen extends Component {
         {statusbar}
 
         {/*render the Header here to pass this string to Header class */}
-        <Header title="ToDoApp"
+        <Header title="My Lists"
           isSearching={this.state.isSearching}
           isReordering={this.state.isReordering}
           isBackVisible={false}

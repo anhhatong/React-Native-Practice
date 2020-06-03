@@ -11,12 +11,12 @@ import AddNewInputBar from '../Components/AddNewInputBar'; //import the path of 
 import DatePicker from '../Components/DatePicker';
 
 import LinearGradient from 'react-native-linear-gradient';
-import moment from "moment";
 
 export default class EditScreen extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.route.params;
+    //console.log(this.state);
   }
 
   //method to add more todos to the array of todos
@@ -36,14 +36,14 @@ export default class EditScreen extends Component {
 
       lists = lists.map((todoList) => {
         if (todoList.id == listId) {
-          todos = todos.map((todo) => {
+          todoList.list = todoList.list.map((todo) => {
             if (todo.id == todoId) {
               todo.title = todoInput;
               todo.date = currentDate;
             }
             return todo;
           })
-          todos.sort((a, b) => a.date - b.date);
+          todos = todoList.list.sort((a, b) => a.date - b.date);
         }
         return todoList;
       })
@@ -52,7 +52,6 @@ export default class EditScreen extends Component {
       this.setState({ todoInput: '', todos, lists, currentDate: '' },
         function () {
           state = this.state;
-          console.log(this.state);
           this.props.navigation.navigate('Detail', state);
         });
     }

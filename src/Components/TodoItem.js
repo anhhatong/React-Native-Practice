@@ -63,8 +63,8 @@ export default class TodoItem extends React.Component {
             <TextInput
               value={todoItem.title}
               multiline={true}
-              onChangeText={(todoEdit) => this.props.editTodo(todoEdit)}
               autoFocus={false}
+              editable={false}
               style={(todoItem.done) ? { color: "#444444", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '5%' } : { color: "#fff", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '25%' }}
               placeholder="Enter your todo"
             />

@@ -272,22 +272,19 @@ export default class ListScreen extends Component {
           isSearching={this.state.isSearching}
           isBackVisible={false}
           toggleIsSearching={() => this.toggleIsSearching()}
-          backToHome={() => this.backToHome()}
-          allowReordering={() => this.allowReordering()} />
+          backToHome={() => this.backToHome()} />
 
 
         {(this.state.isSearching) ?
           (
             <SearchBar
               searchTodo={(str) => this.searchTodoList(str)}
-              allowReordering={() => this.allowReordering()}
             />) : (
 
             /*call this textChange prop in InputBar and pass in todoInput, ie. text change */
             <InputBar
               textChange={todoInput => this.setState({ todoInput })}
               addNewTodo={() => this.addNewTodoList()}
-              allowReordering={() => this.allowReordering()}
             />
           )
         }

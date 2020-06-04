@@ -141,6 +141,7 @@ export default class DetailScreen extends Component {
 
   toggleIsSearching() {
     let isSearching = !this.state.isSearching;
+    this.searchTodo('');
     this.setState({ isSearching });
   }
 
@@ -152,57 +153,8 @@ export default class DetailScreen extends Component {
     let todosUnmatched = this.state.todosUnmatched; //array of unmatched items from the last search
     todos = todos.concat(todosUnmatched);
 
-    function swap(items, leftIndex, rightIndex) {
-      var tempId = items[leftIndex].id;
-      var tempTitle = items[leftIndex].title;
-      var tempDone = items[leftIndex].done;
-
-      items[leftIndex].id = items[rightIndex].id;
-      items[leftIndex].title = items[rightIndex].title;
-      items[leftIndex].done = items[rightIndex].done;
-
-      items[rightIndex].id = tempId;
-      items[rightIndex].title = tempTitle;
-      items[rightIndex].done = tempDone;
-    };
-
-    function partition(items, left, right) {
-      var pivot = items[Math.floor((right + left) / 2)].id,
-        i = left, //left pointer
-        j = right; //right pointer
-      while (i <= j) {
-        while (items[i].id > pivot) {
-          i++;
-        }
-        while (items[j].id < pivot) {
-          j--;
-        }
-        if (i <= j) {
-          swap(items, i, j); //sawpping two elements
-          i++;
-          j--;
-        }
-      }
-      return i;
-    };
-
-    //quick sort descending order for todo array to maintain items order during and after search
-    function quickSort(items, left, right) {
-      var index;
-      if (items.length > 1) {
-        index = partition(items, left, right); //index returned from partition
-        if (left < index - 1) { //more elements on the left side of the pivot
-          quickSort(items, left, index - 1);
-        }
-        if (index < right) { //more elements on the right side of the pivot
-          quickSort(items, index, right);
-        }
-      }
-      return items;
-    };
-
     // first call to quick sort
-    todos = quickSort(todos, 0, todos.length - 1);
+    todos = todos.sort((a, b) => a.date - b.date);
 
     todosUnmatched = []; //re-initialize todosUnmatched
 
@@ -333,14 +285,12 @@ export default class DetailScreen extends Component {
           isBackVisible={true}
           toggleIsSearching={() => this.toggleIsSearching()}
           backToHome={() => this.backToHome()}
-          backToList={() => this.backToList()}
-          allowReordering={() => this.allowReordering()} />
+          backToList={() => this.backToList()} />
 
         {(this.state.isSearching) ?
           (
             <SearchBar
               searchTodo={(str) => this.searchTodo(str)}
-              allowReordering={() => this.allowReordering()}
             />) : (
 
             <AddNewTodoBtn

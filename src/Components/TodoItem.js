@@ -3,6 +3,7 @@ import { StyleSheet, Text, Button, TouchableOpacity, View, TextInput } from "rea
 import Swipeout from 'react-native-swipeout';
 import { CheckBox, Icon } from 'react-native-elements';
 import moment from "moment";
+import LinearGradient from "react-native-linear-gradient";
 
 export default class TodoItem extends React.Component {
 
@@ -36,7 +37,10 @@ export default class TodoItem extends React.Component {
         
         <Text style={{ color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' }}>{moment(todoItem.date).endOf('day').fromNow() == 'Invalid date' ? '' : moment(todoItem.date).endOf('day').fromNow() + '   |   ' +moment(todoItem.date).format("dddd, MMM D YYYY")} </Text>
 
-        <View style={isHidingListTitle? '':styles.listTitleContainer}>
+        <LinearGradient 
+        colors={['#AB9786','#fff']}
+        style={isHidingListTitle? '':styles.listTitleContainer}>
+        <View >
         {!isHidingListTitle && <Text style={styles.listTitleFont}>{listTitle}</Text>}
         
 
@@ -78,7 +82,7 @@ export default class TodoItem extends React.Component {
           </TouchableOpacity>
         </Swipeout>
         </View>
-
+        </LinearGradient>
       </View>
     )
   }
@@ -126,11 +130,10 @@ const styles = StyleSheet.create({
     paddingBottom: '10%'
   },
   listTitleContainer: {
-    backgroundColor: '#AB9786',
     borderTopLeftRadius: 20,
     borderBottomRightRadius: 20,
-    width: '90%',
-    paddingTop: '2%',
+    width: '95%',
+    paddingTop: '1%',
     marginLeft: 'auto',
     marginRight: 'auto'
   },

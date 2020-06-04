@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import TodoItem from '../Components/TodoItem.js';
 import Header from '../Components/Header.js'; //import the path of Header.js
-import InputBar from '../Components/InputBar.js'; //import the path of InputBar.js
+import SortBar from '../Components/SortBar.js';
 import SearchBar from '../Components/SearchBar.js';
 import AddNewTodoBtn from '../Components/AddNewTodoBtn.js';
 
@@ -32,48 +32,111 @@ export default class DetailScreen extends Component {
   backToHome() {
     let state = this.state;
     //this.searchTodo('');
-    this.props.navigation.navigate('Home', state);
+    let lists = this.state.lists;
+    let todos = this.state.todos;
+    let listId = this.state.listId;
+
+    lists = lists.map((todoList) => {
+      if (listId==todoList.id) {
+        todos = todoList.list;
+      }
+      return todoList;
+    })
+
+    this.setState({todos}, function() {
+      state=this.state;
+      this.props.navigation.navigate('Home', state);
+    });
   }
 
   backToList() {
     let state = this.state;
     //this.searchTodo('');
-    this.props.navigation.navigate('List', state);
+    let lists = this.state.lists;
+    let todos = this.state.todos;
+    let listId = this.state.listId;
+
+    lists = lists.map((todoList) => {
+      if (listId==todoList.id) {
+        todos = todoList.list;
+      }
+      return todoList;
+    })
+
+    this.setState({todos}, function() {
+      state=this.state;
+      this.props.navigation.navigate('List', state);
+    });
+    
+    
   }
 
   toAddNewTodoScreen() {
     let state = this.state;
     //this.searchTodo('');
-    this.props.navigation.navigate('AddTodo', state);
+    let lists = this.state.lists;
+    let todos = this.state.todos;
+    let listId = this.state.listId;
+
+    lists = lists.map((todoList) => {
+      if (listId==todoList.id) {
+        todos = todoList.list;
+      }
+      return todoList;
+    })
+
+    this.setState({todos}, function() {
+      state=this.state;
+      console.log(state);
+      this.props.navigation.navigate('AddTodo', state);
+    });
+    
   }
 
   toEditScreen(item) {
     let state = this.state;
-    let todos = this.state.todos;
-    let todoId = this.state.todoId;
 
     //this.searchTodo('');
-    this.setState({ todoId: item.id, todoInput: item.title, currentDate: item.date },
-      function () {
-        state = this.state;
-        this.props.navigation.navigate('Edit', state);
-      });
+    let lists = this.state.lists;
+    let todos = this.state.todos;
+    let listId = this.state.listId;
+
+    lists = lists.map((todoList) => {
+      if (listId==todoList.id) {
+        todos = todoList.list;
+      }
+      return todoList;
+    })
+
+    this.setState({todos,todoId: item.id, todoInput: item.title, currentDate: item.date}, function() {
+      state=this.state;
+      console.log(state);
+      this.props.navigation.navigate('Edit', state);
+    });
   }
 
   //method to change 'done' state of each todo item
   toggleDone(item) {
+    let todos = this.state.todos;
+    let lists = this.state.lists;
+    let listId = this.state.listId;
     if (!this.state.isReordering) {
       let todos = this.state.todos;
 
-      //map() creates a new array then run the code block with every item in the array
-      todos = todos.map((todo) => {
-        if (todo.id == item.id) {
-          todo.done = !todo.done;
+      lists = lists.map((todoList) => {
+        if (todoList.id == listId) {
+          todoList.list = todoList.list.map((todo) => { 
+            if (todo.id == item.id) {
+              todo.done = !todo.done;
+            }
+            return todo;
+           });
+          todos = todoList.list;
         }
-        return todo;
+        return todoList;
       })
 
-      this.setState({ todos });
+      this.setState({ lists, todos });
     }
   }
 
@@ -169,10 +232,14 @@ export default class DetailScreen extends Component {
     let todos = this.state.todos;
     let lists = this.state.lists;
     let listId = this.state.listId;
-    console.log(listId);
 
-    //filter() creates a new array and remove the item passed in
-    todos = todos.filter((todo) => { return todo.id !== item.id });
+    lists = lists.map((todoList) => {
+      if (todoList.id == listId) {
+        todoList.list = todoList.list.filter((todo) => { return todo.id !== item.id });
+        todos = todoList.list;
+      }
+      return todoList;
+    })
 
     let i = todos.length - 1;
     todos = todos.map((todo) => {
@@ -181,17 +248,7 @@ export default class DetailScreen extends Component {
       return todo;
     });
 
-    lists = lists.map((todoList) => {
-      if (todoList.id == listId) {
-        todoList.list = todos;
-      }
-      return todoList;
-    })
-
-    this.setState({ todos });
-    console.log({ todos });
-    this.setState({ lists });
-    console.log({ lists });
+    this.setState({ todos, lists });
   }
 
   relabelIds() {
@@ -213,6 +270,52 @@ export default class DetailScreen extends Component {
     this.setState({ isReordering });
   }
 
+  sortDone() {
+    let lists = this.state.lists;
+    let todos = this.state.todos;
+    let listId = this.state.listId;
+
+    lists = lists.map((todoList) => {
+      if (listId==todoList.id) {
+        todos = todoList.list.filter((todo) => {return todo.done == true}
+        )
+      }
+      return lists;
+    })
+
+    this.setState({todos});
+  }
+
+  sortUndone() {
+    let lists = this.state.lists;
+    let todos = this.state.todos;
+    let listId = this.state.listId;
+
+    lists = lists.map((todoList) => {
+      if (listId==todoList.id) {
+        todos = todoList.list.filter((todo) => {return todo.done != true}
+        )
+      }
+      return lists;
+    })
+
+    this.setState({todos});
+  }
+
+  unsort(){
+    let lists = this.state.lists;
+    let todos = this.state.todos;
+    let listId = this.state.listId;
+
+    lists = lists.map((todoList) => {
+      if (listId==todoList.id) {
+        todos = todoList.list;
+      }
+      return todoList;
+    })
+
+    this.setState({todos});
+  }
 
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>; //platform-specific for the status bar on top
@@ -288,7 +391,6 @@ export default class DetailScreen extends Component {
                   <TodoItem
                     todoItem={item}
                     isHidingListTitle={true}
-                    isReordering={this.state.isReordering}
                     toggleDone={() => this.toggleDone(item)}
                     removeTodo={() => this.removeTodo(item)}
                     toEditScreen={() => this.toEditScreen(item)}
@@ -298,6 +400,12 @@ export default class DetailScreen extends Component {
               }
             />
           }
+
+          <SortBar
+          sortDone={()=>this.sortDone()}
+          sortUndone={() => this.sortUndone()}
+          unsort={()=>this.unsort()}/>
+
         </View>
       </LinearGradient>
     );

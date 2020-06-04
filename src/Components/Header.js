@@ -18,7 +18,7 @@ const Header = (props) => { //props is an argument passed from parent App.js
 
           <Icon
             name='home'
-            type='Entypo'
+            type='feather'
             color='#fff'
             onPress={props.backToHome}
           />

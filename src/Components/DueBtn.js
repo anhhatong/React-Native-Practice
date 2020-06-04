@@ -10,14 +10,14 @@ import { Icon } from 'react-native-elements';
 const DueBtn = (props) => {
   return (
     <TouchableOpacity
-    style={styles.container}
-    onPress={props.toggle}>
+      style={styles.container}
+      onPress={props.toggle}>
 
-    <Text style={props.label=='Overdue'? styles.fontOverdue : props.label == 'Due Today'? styles.font:styles.fontDueTomorrow}>{props.label}</Text>
-    <Icon 
-      name= {props.isDropping? 'chevron-up' : 'chevron-down'}
-      type='feather'
-      color='#DEE2EC'/>  
+      <Text style={props.label == 'Overdue' ? styles.fontOverdue : props.label == 'Due Today' ? styles.font : styles.fontDueTomorrow}>{props.label}</Text>
+      <Icon
+        name={props.isDropping ? 'chevron-up' : 'chevron-down'}
+        type='feather'
+        color='#DEE2EC' />
     </TouchableOpacity>
 
   );
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth :1,
+    borderBottomWidth: 1,
     borderColor: '#DEE2EC',
     paddingTop: '2%',
     paddingBottom: '2%',
@@ -40,19 +40,19 @@ const styles = StyleSheet.create({
     fontSize: 28,
     paddingLeft: '5%',
     color: "#ff9636"
-},
-fontOverdue: {
-  fontFamily: 'Gill Sans',
-  fontSize: 28,
-  paddingLeft: '5%',
-  color: '#880C25'
-},
-fontDueTomorrow: {
-  fontFamily: 'Gill Sans',
-  fontSize: 28,
-  paddingLeft: '5%',
-  color: '#ffc933'
-}
+  },
+  fontOverdue: {
+    fontFamily: 'Gill Sans',
+    fontSize: 28,
+    paddingLeft: '5%',
+    color: '#880C25'
+  },
+  fontDueTomorrow: {
+    fontFamily: 'Gill Sans',
+    fontSize: 28,
+    paddingLeft: '5%',
+    color: '#ffc933'
+  }
 });
 
 export default DueBtn;

@@ -62,7 +62,7 @@ export default class AddNewTodoScreen extends Component {
     let state = this.state;
     let currentDate = date;
 
-    
+
 
     this.setState({ currentDate });
   }

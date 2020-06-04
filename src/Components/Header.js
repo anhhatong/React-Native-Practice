@@ -16,22 +16,19 @@ const Header = (props) => { //props is an argument passed from parent App.js
       {/* pass string title from App.js */}
       <View style={styles.iconContainer}>
 
-          <Icon
-            name='home'
-            type='feather'
-            color='#fff'
-            onPress={props.backToHome}
-          />
-        
+        <Icon
+          name='home'
+          type='feather'
+          color='#fff'
+          onPress={props.backToHome}
+        />
 
-        {(props.isReordering) ?
-          <View></View> :
-          <Icon
-            name={(props.isSearching) ? 'playlist-add' : 'search'}
-            type={(props.isSearching) ? 'MaterialIcons' : 'feather'}
-            color='#fff'
-            onPress={props.toggleIsSearching} />
-        }
+        <Icon
+          name={(props.isSearching) ? 'playlist-add' : 'search'}
+          type={(props.isSearching) ? 'MaterialIcons' : 'feather'}
+          color='#fff'
+          onPress={props.toggleIsSearching} />
+
 
       </View>
       {(props.isBackVisible) ?

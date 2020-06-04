@@ -14,10 +14,8 @@ export default class TodoItem extends React.Component {
 
   render() {
     const todoItem = this.props.todoItem; //get todoItem from prop
-    const drag = this.props.drag;
-    const isReordering = this.props.isReordering;
     const listTitle = this.props.listTitle;
-    const isHidingListTitle= this.props.isHidingListTitle;
+    const isHidingListTitle = this.props.isHidingListTitle;
 
     let swipeBtns = [
       {
@@ -34,54 +32,44 @@ export default class TodoItem extends React.Component {
 
     return (
       <View style={styles.itemContainer}>
-        
-        <Text style={{ color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' }}>{moment(todoItem.date).endOf('day').fromNow() == 'Invalid date' ? '' : moment(todoItem.date).endOf('day').fromNow() + '   |   ' +moment(todoItem.date).format("dddd, MMM D YYYY")} </Text>
 
-        <LinearGradient 
-        colors={['#AB9786','#fff']}
-        style={isHidingListTitle? '':styles.listTitleContainer}>
-        <View >
-        {!isHidingListTitle && <Text style={styles.listTitleFont}>{listTitle}</Text>}
-        
+        <Text style={{ color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' }}>{moment(todoItem.date).endOf('day').fromNow() == 'Invalid date' ? '' : moment(todoItem.date).endOf('day').fromNow() + '   |   ' + moment(todoItem.date).format("dddd, MMM D YYYY")} </Text>
 
-        <Swipeout right={swipeBtns}
-          autoClose={true}
-          backgroundColor='transparent'>
-          <TouchableOpacity
-            onPress={() => this.props.toggleDone()}
-            style={(todoItem.done) ? styles.todoItemDone : styles.todoItem}
-            onLongPress={drag}>
+        <LinearGradient
+          colors={isHidingListTitle ? ['#fff', '#fff'] : ['#AB9786', '#fff']}
+          style={isHidingListTitle ? '' : styles.listTitleContainer}>
+          <View >
+            {!isHidingListTitle && <Text style={styles.listTitleFont}>{listTitle}</Text>}
 
 
-
-            {isReordering ?
-              <Icon
-                name='reorder'
-                type='Ionicons'
-                color='#fff'
-                style={styles.icon}
-              /> :
-
-              <CheckBox
-                checked={todoItem.done}
-                checkedColor="#1D741B"
-                uncheckedColor="#fff"
+            <Swipeout right={swipeBtns}
+              autoClose={true}
+              backgroundColor='transparent'>
+              <TouchableOpacity
                 onPress={() => this.props.toggleDone()}
-              />
-            }
+                style={(todoItem.done) ? styles.todoItemDone : styles.todoItem}>
 
-            <TextInput
-              value={todoItem.title}
-              multiline={true}
-              autoFocus={false}
-              editable={false}
-              style={(todoItem.done) ? { color: "#444444", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '5%' } : { color: "#fff", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '25%' }}
-              placeholder="Enter your todo"
-            />
 
-          </TouchableOpacity>
-        </Swipeout>
-        </View>
+                <CheckBox
+                  checked={todoItem.done}
+                  checkedColor="#1D741B"
+                  uncheckedColor="#fff"
+                  onPress={() => this.props.toggleDone()}
+                />
+
+
+                <TextInput
+                  value={todoItem.title}
+                  multiline={true}
+                  autoFocus={false}
+                  editable={false}
+                  style={(todoItem.done) ? { color: "#444444", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '5%' } : { color: "#fff", fontSize: 16, fontFamily: 'Gill Sans', paddingRight: '25%' }}
+                  placeholder="Enter your todo"
+                />
+
+              </TouchableOpacity>
+            </Swipeout>
+          </View>
         </LinearGradient>
       </View>
     )
@@ -138,9 +126,9 @@ const styles = StyleSheet.create({
     marginRight: 'auto'
   },
   listTitleFont: {
-    color: "#fff", 
-    fontSize: 16, 
-    fontFamily: 'Gill Sans', 
+    color: "#fff",
+    fontSize: 16,
+    fontFamily: 'Gill Sans',
     paddingLeft: '10%',
     paddingRight: '10%',
     paddingBottom: '2%'

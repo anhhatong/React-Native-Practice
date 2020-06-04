@@ -12,7 +12,6 @@ import InputBar from '../Components/InputBar'; //import the path of InputBar.js
 import SearchBar from '../Components/SearchBar';
 
 import LinearGradient from 'react-native-linear-gradient';
-import DraggableFlatList from "react-native-draggable-flatlist";
 
 export default class ListScreen extends Component {
   constructor(props) {
@@ -29,8 +28,8 @@ export default class ListScreen extends Component {
         id: lists.length,
         title: this.state.todoInput,
         list: [
-          { listId: lists.length, id: 1, title: "Todo 2", done: false, date:'' },
-          { listId: lists.length, id: 0, title: "Todo 1", done: false, date:'' }
+          { listId: lists.length, id: 1, title: "Todo 2", done: false, date: '' },
+          { listId: lists.length, id: 0, title: "Todo 1", done: false, date: '' }
         ]
       });
 
@@ -57,26 +56,24 @@ export default class ListScreen extends Component {
   }
 
   listItems(item) {
-    if (!this.state.isReordering) {
-      let state = this.state;
-      let todos = this.state.todos;
-      let lists = this.state.lists;
-      let listId = this.state.listId;
+    let state = this.state;
+    let todos = this.state.todos;
+    let lists = this.state.lists;
+    let listId = this.state.listId;
 
-      lists = lists.map((todoList) => {
-        if (todoList.id == item.id) {
-          todos = todoList.list;
-          listId = item.id;
-        }
-        return todoList;
-      })
+    lists = lists.map((todoList) => {
+      if (todoList.id == item.id) {
+        todos = todoList.list;
+        listId = item.id;
+      }
+      return todoList;
+    })
 
-      this.setState({ listId, todos, lists },
-        function () {
-          state = this.state;
-          this.props.navigation.navigate('Detail', state);
-        });
-    }
+    this.setState({ listId, todos, lists },
+      function () {
+        state = this.state;
+        this.props.navigation.navigate('Detail', state);
+      });
   }
 
   toggleIsSearching() {
@@ -236,7 +233,7 @@ export default class ListScreen extends Component {
       return todoList;
     });
 
-    this.setState({ lists }, function() {console.log(this.state.lists)});
+    this.setState({ lists }, function () { console.log(this.state.lists) });
   }
 
   relabelIds() {
@@ -251,11 +248,6 @@ export default class ListScreen extends Component {
 
     this.setState({ lists });
     //console.log(this.state);
-  }
-
-  allowReordering() {
-    let isReordering = !this.state.isReordering;
-    this.setState({ isReordering });
   }
 
   backToHome() {
@@ -278,7 +270,6 @@ export default class ListScreen extends Component {
         {/*render the Header here to pass this string to Header class */}
         <Header title="My Lists"
           isSearching={this.state.isSearching}
-          isReordering={this.state.isReordering}
           isBackVisible={false}
           toggleIsSearching={() => this.toggleIsSearching()}
           backToHome={() => this.backToHome()}
@@ -288,14 +279,12 @@ export default class ListScreen extends Component {
         {(this.state.isSearching) ?
           (
             <SearchBar
-              isReordering={this.state.isReordering}
               searchTodo={(str) => this.searchTodoList(str)}
               allowReordering={() => this.allowReordering()}
             />) : (
 
             /*call this textChange prop in InputBar and pass in todoInput, ie. text change */
             <InputBar
-              isReordering={this.state.isReordering}
               textChange={todoInput => this.setState({ todoInput })}
               addNewTodo={() => this.addNewTodoList()}
               allowReordering={() => this.allowReordering()}
@@ -305,49 +294,25 @@ export default class ListScreen extends Component {
 
         <View style={styles.listContainer}>
 
-          {this.state.isReordering ?
-
-            <DraggableFlatList
-              data={this.state.lists} // get the todos array
-              keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
-              onDragEnd={({ data }) => {
-                lists = this.state.lists;
-                this.setState({ lists: data });
-                this.relabelIds();
-              }}
-              renderItem={({ item, index, drag }) => { // render an item from data
-                return (
-                  <TodoList
-                    todoList={item}
-                    drag={drag}
-                    isReordering={this.state.isReordering}
-                    listItems={() => this.listItems(item)}
-                    removeTodoList={() => this.removeTodoList(item)}
-                    editTodoList={todoEdit => this.editTodoList(item, todoEdit)}
-                  />
-                )
-              }
-              }
-            /> :
 
 
-            <FlatList
-              data={this.state.lists} // get the todos array
-              keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
-              renderItem={({ item, index }) => { // render an item from data
-                return (
-                  <TodoList
-                    todoList={item}
-                    listItems={() => this.listItems(item)}
-                    removeTodoList={() => this.removeTodoList(item)}
-                    editTodoList={todoEdit => this.editTodoList(item, todoEdit)}
-                  />
-                )
-              }
-              }
-            />
+          <FlatList
+            data={this.state.lists} // get the todos array
+            keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
+            renderItem={({ item, index }) => { // render an item from data
+              return (
+                <TodoList
+                  todoList={item}
+                  listItems={() => this.listItems(item)}
+                  removeTodoList={() => this.removeTodoList(item)}
+                  editTodoList={todoEdit => this.editTodoList(item, todoEdit)}
+                />
+              )
+            }
+            }
+          />
 
-          }
+
         </View>
       </LinearGradient>
     );

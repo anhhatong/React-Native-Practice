@@ -14,11 +14,7 @@ import DetailScreen from './src/Screens/DetailScreen.js';
 import AddNewTodoScreen from './src/Screens/AddNewTodoScreen.js';
 import EditScreen from './src/Screens/EditScreen.js';
 import {
-    StyleSheet,
-    View,
-    Text,
-    Platform,
-    FlatList // list in react native
+    StyleSheet
 } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -32,7 +28,6 @@ class App extends React.Component {
         super();
         this.state = {
             isSearching: false,
-            isReordering: false,
             todoEdit: '',
             todosUnmatched: [],
             todoListsUnmatched: [],

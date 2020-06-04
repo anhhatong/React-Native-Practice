@@ -37,14 +37,14 @@ export default class DetailScreen extends Component {
     let listId = this.state.listId;
 
     lists = lists.map((todoList) => {
-      if (listId==todoList.id) {
+      if (listId == todoList.id) {
         todos = todoList.list;
       }
       return todoList;
     })
 
-    this.setState({todos}, function() {
-      state=this.state;
+    this.setState({ todos }, function () {
+      state = this.state;
       this.props.navigation.navigate('Home', state);
     });
   }
@@ -57,18 +57,18 @@ export default class DetailScreen extends Component {
     let listId = this.state.listId;
 
     lists = lists.map((todoList) => {
-      if (listId==todoList.id) {
+      if (listId == todoList.id) {
         todos = todoList.list;
       }
       return todoList;
     })
 
-    this.setState({todos}, function() {
-      state=this.state;
+    this.setState({ todos }, function () {
+      state = this.state;
       this.props.navigation.navigate('List', state);
     });
-    
-    
+
+
   }
 
   toAddNewTodoScreen() {
@@ -79,18 +79,18 @@ export default class DetailScreen extends Component {
     let listId = this.state.listId;
 
     lists = lists.map((todoList) => {
-      if (listId==todoList.id) {
+      if (listId == todoList.id) {
         todos = todoList.list;
       }
       return todoList;
     })
 
-    this.setState({todos}, function() {
-      state=this.state;
+    this.setState({ todos }, function () {
+      state = this.state;
       console.log(state);
       this.props.navigation.navigate('AddTodo', state);
     });
-    
+
   }
 
   toEditScreen(item) {
@@ -102,14 +102,14 @@ export default class DetailScreen extends Component {
     let listId = this.state.listId;
 
     lists = lists.map((todoList) => {
-      if (listId==todoList.id) {
+      if (listId == todoList.id) {
         todos = todoList.list;
       }
       return todoList;
     })
 
-    this.setState({todos,todoId: item.id, todoInput: item.title, currentDate: item.date}, function() {
-      state=this.state;
+    this.setState({ todos, todoId: item.id, todoInput: item.title, currentDate: item.date }, function () {
+      state = this.state;
       console.log(state);
       this.props.navigation.navigate('Edit', state);
     });
@@ -120,24 +120,22 @@ export default class DetailScreen extends Component {
     let todos = this.state.todos;
     let lists = this.state.lists;
     let listId = this.state.listId;
-    if (!this.state.isReordering) {
-      let todos = this.state.todos;
 
-      lists = lists.map((todoList) => {
-        if (todoList.id == listId) {
-          todoList.list = todoList.list.map((todo) => { 
-            if (todo.id == item.id) {
-              todo.done = !todo.done;
-            }
-            return todo;
-           });
-          todos = todoList.list;
-        }
-        return todoList;
-      })
+    lists = lists.map((todoList) => {
+      if (todoList.id == listId) {
+        todoList.list = todoList.list.map((todo) => {
+          if (todo.id == item.id) {
+            todo.done = !todo.done;
+          }
+          return todo;
+        });
+        todos = todoList.list;
+      }
+      return todoList;
+    })
 
-      this.setState({ lists, todos });
-    }
+    this.setState({ lists, todos });
+
   }
 
 
@@ -265,25 +263,20 @@ export default class DetailScreen extends Component {
     console.log(this.state);
   }
 
-  allowReordering() {
-    let isReordering = !this.state.isReordering;
-    this.setState({ isReordering });
-  }
-
   sortDone() {
     let lists = this.state.lists;
     let todos = this.state.todos;
     let listId = this.state.listId;
 
     lists = lists.map((todoList) => {
-      if (listId==todoList.id) {
-        todos = todoList.list.filter((todo) => {return todo.done == true}
+      if (listId == todoList.id) {
+        todos = todoList.list.filter((todo) => { return todo.done == true }
         )
       }
       return lists;
     })
 
-    this.setState({todos});
+    this.setState({ todos });
   }
 
   sortUndone() {
@@ -292,29 +285,29 @@ export default class DetailScreen extends Component {
     let listId = this.state.listId;
 
     lists = lists.map((todoList) => {
-      if (listId==todoList.id) {
-        todos = todoList.list.filter((todo) => {return todo.done != true}
+      if (listId == todoList.id) {
+        todos = todoList.list.filter((todo) => { return todo.done != true }
         )
       }
       return lists;
     })
 
-    this.setState({todos});
+    this.setState({ todos });
   }
 
-  unsort(){
+  unsort() {
     let lists = this.state.lists;
     let todos = this.state.todos;
     let listId = this.state.listId;
 
     lists = lists.map((todoList) => {
-      if (listId==todoList.id) {
+      if (listId == todoList.id) {
         todos = todoList.list;
       }
       return todoList;
     })
 
-    this.setState({todos});
+    this.setState({ todos });
   }
 
   render() {
@@ -330,7 +323,6 @@ export default class DetailScreen extends Component {
 
         {/*render the Header here to pass this string to Header class */}
         <Header
-          isReordering={this.state.isReordering}
           listTitle={
             this.state.lists.map((todoList) => {
               if (todoList.id == this.state.listId) {
@@ -347,7 +339,6 @@ export default class DetailScreen extends Component {
         {(this.state.isSearching) ?
           (
             <SearchBar
-              isReordering={this.state.isReordering}
               searchTodo={(str) => this.searchTodo(str)}
               allowReordering={() => this.allowReordering()}
             />) : (
@@ -359,52 +350,28 @@ export default class DetailScreen extends Component {
 
         <View style={styles.listContainer}>
 
-          {this.state.isReordering ?
+          <FlatList
+            data={this.state.todos} // get the todos array
+            keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
+            renderItem={({ item, index }) => { // render an item from data
+              return (
+                <TodoItem
+                  todoItem={item}
+                  isHidingListTitle={true}
+                  toggleDone={() => this.toggleDone(item)}
+                  removeTodo={() => this.removeTodo(item)}
+                  toEditScreen={() => this.toEditScreen(item)}
+                />
+              )
+            }
+            }
+          />
 
-            <DraggableFlatList
-              data={this.state.todos} // get the todos array
-              keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
-              onDragEnd={({ data }) => {
-                todos = this.state.todos;
-                this.setState({ todos: data });
-                this.relabelIds();
-              }}
-              renderItem={({ item, index, drag }) => { // render an item from data
-                return (
-                  <TodoItem
-                    todoItem={item}
-                    drag={drag}
-                    isReordering={this.state.isReordering}
-                    toggleDone={() => this.toggleDone(item)}
-                    removeTodo={() => this.removeTodo(item)}
-                  />
-                )
-              }
-              }
-            /> :
-
-            <FlatList
-              data={this.state.todos} // get the todos array
-              keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
-              renderItem={({ item, index }) => { // render an item from data
-                return (
-                  <TodoItem
-                    todoItem={item}
-                    isHidingListTitle={true}
-                    toggleDone={() => this.toggleDone(item)}
-                    removeTodo={() => this.removeTodo(item)}
-                    toEditScreen={() => this.toEditScreen(item)}
-                  />
-                )
-              }
-              }
-            />
-          }
 
           <SortBar
-          sortDone={()=>this.sortDone()}
-          sortUndone={() => this.sortUndone()}
-          unsort={()=>this.unsort()}/>
+            sortDone={() => this.sortDone()}
+            sortUndone={() => this.sortUndone()}
+            unsort={() => this.unsort()} />
 
         </View>
       </LinearGradient>

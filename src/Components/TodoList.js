@@ -12,8 +12,6 @@ export default class TodoList extends React.Component {
 
   render() {
     const todoList = this.props.todoList; //get todoItem from prop
-    const drag = this.props.drag;
-    const isReordering = this.props.isReordering;
 
     let swipeBtns = [
       {
@@ -30,18 +28,9 @@ export default class TodoList extends React.Component {
           backgroundColor='transparent'>
           <TouchableOpacity
             style={styles.todoItem}
-            onPress={() => this.props.listItems()}
-            onLongPress={drag}>
+            onPress={() => this.props.listItems()}>
 
             <View style={styles.textContainer}>
-
-              {isReordering &&
-                <Icon
-                  name='reorder'
-                  type='Ionicons'
-                  color='#fff'
-                />
-              }
 
               <TextInput
                 autoFocus={false}

@@ -1,63 +1,63 @@
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Text
+    StyleSheet,
+    View,
+    Text
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 
 const HomeHeader = (props) => { //props is an argument passed from parent App.js
-  return (
-    <LinearGradient
-      colors={['#FFCD58', '#FF9636']}
-      style={styles.header}>
+    return (
+        <LinearGradient
+            colors={['#FFCD58', '#FF9636']}
+            style={styles.header}>
 
-      {/* pass string title from App.js */}
-      <View style={styles.iconContainer}>
+            {/* pass string title from App.js */}
+            <View style={styles.iconContainer}>
 
-          <Icon
-            name="list"
-            type="Entypo"
-            color='#fff'
-            onPress={props.toListScreen} />
-        
-
-      </View>
-
-        <Text style={styles.title}>{props.title} </Text>
-      
+                <Icon
+                    name="list"
+                    type="Entypo"
+                    color='#fff'
+                    onPress={props.toListScreen} />
 
 
-    </LinearGradient>
-  )
+            </View>
+
+            <Text style={styles.title}>{props.title} </Text>
+
+
+
+        </LinearGradient>
+    )
 }
 
 const styles = StyleSheet.create({
-  header: { //customize the header bar
-    backgroundColor: "#E9B210",
-    height: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomRightRadius: 700
-  },
-  title: { //customize the title
-    color: '#fff',
-    fontSize: 30,
-    fontFamily: "Gill Sans",
-    fontWeight: '800',
-    letterSpacing: 3,
-    textTransform: 'uppercase',
-    paddingBottom: '10%'
-  },
-  iconContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'flex-end',
-    width: '90%',
-    marginTop: '2%'
-  }
+    header: { //customize the header bar
+        backgroundColor: "#E9B210",
+        height: '15%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomRightRadius: 700
+    },
+    title: { //customize the title
+        color: '#fff',
+        fontSize: 30,
+        fontFamily: "Gill Sans",
+        fontWeight: '800',
+        letterSpacing: 3,
+        textTransform: 'uppercase',
+        paddingBottom: '10%'
+    },
+    iconContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'flex-end',
+        width: '90%',
+        marginTop: '2%'
+    }
 });
 
 export default HomeHeader; //App.js can now access Header class

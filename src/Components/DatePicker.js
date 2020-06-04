@@ -31,7 +31,7 @@ const DatePicker = (props) => {
       <TouchableOpacity onPress={showDatePicker}>
         <View style={styles.button}>
           <Text style={styles.font}> Due Date </Text>
-          <Text style={styles.dateFont}> {moment(props.currentDate).format("dddd, MMM D YYYY") === 'Invalid date'? '' : moment(props.currentDate).format("dddd, MMM D YYYY")} </Text>
+          <Text style={styles.dateFont}> {moment(props.currentDate).format("dddd, MMM D YYYY") === 'Invalid date' ? '' : moment(props.currentDate).format("dddd, MMM D YYYY")} </Text>
         </View>
       </TouchableOpacity>
       <DateTimePickerModal

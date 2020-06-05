@@ -8,6 +8,8 @@
 
 import React, { Component } from 'react';
 import SplashScreen from './src/Screens/SplashScreen.js';
+import LoginScreen from './src/Screens/LoginScreen.js';
+import SignupScreen from './src/Screens/SignupScreen.js';
 import HomeScreen from './src/Screens/HomeScreen.js';
 import ListScreen from './src/Screens/ListScreen.js';
 import DetailScreen from './src/Screens/DetailScreen.js';
@@ -73,9 +75,14 @@ class App extends React.Component {
                     headerShown: false
                 }}>
                     <Stack.Screen
+                        name="Login"
+                        component={LoginScreen} />
+                     <Stack.Screen
+                        name="Signup"
+                        component={SignupScreen} />
+                    <Stack.Screen
                         name="Home"
-                        component={HomeScreen}
-                        initialParams={this.state} />
+                        component={HomeScreen} />
                     <Stack.Screen
                         name="List"
                         component={ListScreen} />

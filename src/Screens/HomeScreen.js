@@ -17,7 +17,8 @@ import moment from "moment";
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.props.route.params;
+        this.state = this.props.route.params.data;
+        this.info = this.props.route.params.info;
     }
 
     componentDidUpdate(prevProps) {
@@ -38,7 +39,8 @@ export default class HomeScreen extends React.Component {
         lists = lists.map((todoList) => {
             todoList.list.map((item) => {
                 if (item.date != '') {
-
+                    item.date = new Date(item.date);
+                    console.log(item.date);
                     if (!(item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear())) {
 
                         if (item.date < moment()) {

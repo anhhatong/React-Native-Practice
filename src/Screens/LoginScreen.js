@@ -14,7 +14,7 @@ export default class LoginScreen extends React.Component {
             password: ''
         }
     }
-    
+
     render() {
         return (
             <LinearGradient
@@ -65,7 +65,7 @@ export default class LoginScreen extends React.Component {
                 const jsonValue = JSON.stringify(state);
                 const jsonValueData = await AsyncStorage.getItem(jsonValue);
                 //console.log(JSON.parse(jsonValueData));
-                return jsonValueData != null ? this.props.navigation.navigate('Home', JSON.parse(jsonValueData)) : alert("Wrong username or password");
+                return jsonValueData != null ? this.props.navigation.navigate('Home', {data:JSON.parse(jsonValueData),info:state}) : alert("Wrong username or password");
             } catch (e) {
                 alert("Load error. Try again.");
             }

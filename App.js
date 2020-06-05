@@ -72,7 +72,8 @@ class App extends React.Component {
 
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{
-                    headerShown: false
+                    headerShown: false,
+                    gestureEnabled: false
                 }}>
                     <Stack.Screen
                         name="Login"

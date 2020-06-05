@@ -36,7 +36,7 @@ export default class TodoItem extends React.Component {
         <Text style={{ color: "#444444", fontSize: 14, fontFamily: 'Gill Sans', marginLeft: 'auto', marginRight: '5%' }}>{moment(todoItem.date).endOf('day').fromNow() == 'Invalid date' ? '' : moment(todoItem.date).endOf('day').fromNow() + '   |   ' + moment(todoItem.date).format("dddd, MMM D YYYY")} </Text>
 
         <LinearGradient
-          colors={isHidingListTitle ? ['#fff', '#fff'] : ['#AB9786', '#fff']}
+          colors={isHidingListTitle ? ['#fff', '#fff'] : ['#d5cbc3', '#fff']}
           style={isHidingListTitle ? '' : styles.listTitleContainer}>
           <View >
             {!isHidingListTitle && <Text style={styles.listTitleFont}>{listTitle}</Text>}

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import LinearGradient from 'react-native-linear-gradient';
 //import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from 'moment';
 
 
 export default class SignupScreen extends React.Component {
@@ -29,14 +30,14 @@ export default class SignupScreen extends React.Component {
             lists: [
                 {
                     id: 1, title: "List 2", list: [
-                        { listId: 1, id: 1, title: "Todo 2", done: false, date: new Date(2019, 8, 3) },
-                        { listId: 1, id: 0, title: "Todo 1", done: false, date: new Date(2018, 4, 3) }
+                        { listId: 1, id: 1, title: "Todo 2", done: false, date: '1986-12-14' },
+                        { listId: 1, id: 0, title: "Todo 1", done: false, date: '1986-12-14' }
                     ]
                 },
                 {
                     id: 0, title: "List 1", list: [
-                        { listId: 0, id: 1, title: "Todo 2", done: false, date: new Date() },
-                        { listId: 0, id: 0, title: "Todo 1", done: false, date: new Date(2020, 5, 4) }
+                        { listId: 0, id: 1, title: "Todo 2", done: false, date: '1986-12-14' },
+                        { listId: 0, id: 0, title: "Todo 1", done: false, date: '1986-12-14' }
                     ]
                 }
             ],

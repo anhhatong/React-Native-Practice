@@ -14,6 +14,7 @@ import DueBtn from '../Components/DueBtn';
 import LinearGradient from 'react-native-linear-gradient';
 import moment from "moment";
 
+
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -40,7 +41,7 @@ export default class HomeScreen extends React.Component {
             todoList.list.map((item) => {
                 if (item.date != '') {
                     item.date = new Date(item.date);
-                    console.log(item.date);
+                    //console.log(item.date);
                     if (!(item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear())) {
 
                         if (item.date < moment()) {
@@ -66,7 +67,7 @@ export default class HomeScreen extends React.Component {
         lists = lists.map((todoList) => {
             todoList.list.map((item) => {
                 if (item.date != '') {
-
+                    item.date = new Date(item.date);
 
                     if (item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear()) {
                         items.unshift(item);
@@ -88,7 +89,7 @@ export default class HomeScreen extends React.Component {
         lists = lists.map((todoList) => {
             todoList.list.map((item) => {
                 if (item.date != '') {
-
+                    item.date = new Date(item.date);
                     if (item.date.getDate() - today.getDate() === 1 && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear()) {
 
                         items.unshift(item);
@@ -172,9 +173,9 @@ export default class HomeScreen extends React.Component {
         this.setState({ lists });
     }
 
-    toListScreen() {
+    openDrawer() {
         let state = this.state;
-        this.props.navigation.navigate('List', state);
+        this.props.navigation.openDrawer();
     }
 
     getListTitle(item) {
@@ -203,7 +204,7 @@ export default class HomeScreen extends React.Component {
 
                 {/*render the Header here to pass this string to Header class */}
                 <HomeHeader title="TodoApp"
-                    toListScreen={() => this.toListScreen()} />
+                    openDrawer={() => this.openDrawer()}/>
 
 
                 <View style={styles.listContainer}>
@@ -234,7 +235,7 @@ export default class HomeScreen extends React.Component {
                     <DueBtn
                         label="Due Today"
                         isDropping={this.state.isShowingDueToday}
-                        toggle={() => this.setState({ isShowingDueToday: !this.state.isShowingDueToday })} />
+                        toggle={() => {this.setState({ isShowingDueToday: !this.state.isShowingDueToday });console.log(this.state);}} />
 
                     {this.state.isShowingDueToday &&
                         <FlatList
@@ -275,9 +276,9 @@ export default class HomeScreen extends React.Component {
                                 )
                             }
                             }
-                        />}
-
+                        />}    
                 </View>
+
             </LinearGradient>
         )
     }

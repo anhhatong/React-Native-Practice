@@ -15,55 +15,52 @@ import ListScreen from './src/Screens/ListScreen.js';
 import DetailScreen from './src/Screens/DetailScreen.js';
 import AddNewTodoScreen from './src/Screens/AddNewTodoScreen.js';
 import EditScreen from './src/Screens/EditScreen.js';
+import CustomDrawerContent from './src/Components/CustomDrawerContent.js';
 import {
+    View,
+    Text,
     StyleSheet
 } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, NavigationEvents } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function Home({ route }) {
+    const state = route.params;
+    return (
+        <Drawer.Navigator
+            drawerContentOptions={{
+                activeTintColor: '#FF9636',
+                itemStyle: { marginVertical: '3%' },
+            }}
+            drawerStyle={{
+                backgroundColor: '#d1d3db'
+            }}
+            drawerContent={(props) => <CustomDrawerContent
+                username={state.info.username}
+                {...props} />}>
+            <Drawer.Screen
+                name="Home"
+                component={HomeScreen}
+                initialParams={state} />
+            <Drawer.Screen
+                name="List"
+                options={{ drawerLabel: 'My Lists' }}
+                component={ListScreen}
+                initialParams={state.data}/>
+        </Drawer.Navigator >
+    );
+}
 
 class App extends React.Component {
     constructor() { // when we have a constructor, super() must be called to initialize "this"
         super();
-        this.state = {
-            isSearching: false,
-            todoEdit: '',
-            todosUnmatched: [],
-            todoListsUnmatched: [],
-            isShowingOverdue: false,
-            searchStr: '',
-            todoInput: '',
-            currentDate: '',
-            todos: [
-                { listId: 0, id: 1, title: "Todo 2", done: false, date: '' },
-                { listId: 0, id: 0, title: "Todo 1", done: false, date: '' }
-            ],
-            lists: [
-                {
-                    id: 1, title: "List 2", list: [
-                        { listId: 1, id: 1, title: "Todo 2", done: false, date: new Date(2019, 8, 3) },
-                        { listId: 1, id: 0, title: "Todo 1", done: false, date: new Date(2018, 4, 3) }
-                    ]
-                },
-                {
-                    id: 0, title: "List 1", list: [
-                        { listId: 0, id: 1, title: "Todo 2", done: false, date: new Date() },
-                        { listId: 0, id: 0, title: "Todo 1", done: false, date: new Date(2020, 5, 4) }
-                    ]
-                }
-            ],
-            listId: 0,
-            todoId: 0
-        };
     }
-
-
-
-
-
     //main method
     render() {
 
@@ -78,15 +75,12 @@ class App extends React.Component {
                     <Stack.Screen
                         name="Login"
                         component={LoginScreen} />
-                     <Stack.Screen
+                    <Stack.Screen
                         name="Signup"
                         component={SignupScreen} />
                     <Stack.Screen
                         name="Home"
-                        component={HomeScreen} />
-                    <Stack.Screen
-                        name="List"
-                        component={ListScreen} />
+                        component={Home} />
                     <Stack.Screen
                         name="Detail"
                         component={DetailScreen} />

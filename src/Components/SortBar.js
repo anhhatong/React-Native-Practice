@@ -23,8 +23,8 @@ const SortBar = (props) => { //props is an argument passed from parent App.js
                         onPress={props.sortDone}
                     />
                     <Icon
-                        name='align-justify'
-                        type='feather'
+                        name='list'
+                        type='Entypo'
                         reverse='true'
                         reverseColor='#fff'
                         size={25}

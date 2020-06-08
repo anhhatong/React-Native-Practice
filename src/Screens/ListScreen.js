@@ -250,11 +250,11 @@ export default class ListScreen extends Component {
     //console.log(this.state);
   }
 
-  backToHome() {
+  openDrawer() {
     let state = this.state;
     this.searchTodo('');
     //console.log(this.state);
-    this.props.navigation.navigate('Home', state);
+    this.props.navigation.openDrawer();
   }
 
   render() {
@@ -272,7 +272,7 @@ export default class ListScreen extends Component {
           isSearching={this.state.isSearching}
           isBackVisible={false}
           toggleIsSearching={() => this.toggleIsSearching()}
-          backToHome={() => this.backToHome()} />
+          openDrawer={() => this.openDrawer()} />
 
 
         {(this.state.isSearching) ?

@@ -20,6 +20,8 @@ export default class SignupScreen extends React.Component {
             todosUnmatched: [],
             todoListsUnmatched: [],
             isShowingOverdue: false,
+            isShowingDueToday: false,
+            isShowingDueTomorrow: false,
             searchStr: '',
             todoInput: '',
             currentDate: '',
@@ -30,8 +32,8 @@ export default class SignupScreen extends React.Component {
             lists: [
                 {
                     id: 1, title: "List 2", list: [
-                        { listId: 1, id: 1, title: "Todo 2", done: false, date: '1986-12-14' },
-                        { listId: 1, id: 0, title: "Todo 1", done: false, date: '1986-12-14' }
+                        { listId: 1, id: 1, title: "Todo 2", done: false, date: '2020-06-06' },
+                        { listId: 1, id: 0, title: "Todo 1", done: false, date: '2020-06-05' }
                     ]
                 },
                 {

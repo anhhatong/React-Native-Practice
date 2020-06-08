@@ -14,14 +14,16 @@ const Header = (props) => { //props is an argument passed from parent App.js
       style={styles.header}>
 
       {/* pass string title from App.js */}
-      <View style={styles.iconContainer}>
+      <View style={!props.isBackVisible? styles.iconContainer : styles.iconContainerNoMenu}>
 
-        <Icon
-          name='home'
-          type='feather'
-          color='#fff'
-          onPress={props.backToHome}
-        />
+        {!props.isBackVisible &&
+          <Icon
+            name='menu'
+            type='feather'
+            color='#fff'
+            onPress={props.openDrawer}
+          />
+        }
 
         <Icon
           name={(props.isSearching) ? 'playlist-add' : 'search'}
@@ -82,6 +84,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'space-between',
+    width: '90%',
+    marginTop: '5%'
+  },
+  iconContainerNoMenu: {
+    flex: 1,
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'flex-end',
     width: '90%',
     marginTop: '5%'
   },

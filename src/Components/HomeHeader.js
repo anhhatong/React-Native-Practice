@@ -17,10 +17,10 @@ const HomeHeader = (props) => { //props is an argument passed from parent App.js
             <View style={styles.iconContainer}>
 
                 <Icon
-                    name="list"
-                    type="Entypo"
+                    name="menu"
+                    type="feather"
                     color='#fff'
-                    onPress={props.toListScreen} />
+                    onPress={(props.openDrawer)} />
 
 
             </View>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignContent: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         width: '90%',
         marginTop: '2%'
     }

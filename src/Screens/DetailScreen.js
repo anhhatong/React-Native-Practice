@@ -29,7 +29,7 @@ export default class DetailScreen extends Component {
     }
   }
 
-  backToHome() {
+ openDrawer() {
     let state = this.state;
     //this.searchTodo('');
     let lists = this.state.lists;
@@ -45,7 +45,7 @@ export default class DetailScreen extends Component {
 
     this.setState({ todos }, function () {
       state = this.state;
-      this.props.navigation.navigate('Home', state);
+      this.props.navigation.openDrawer();
     });
   }
 
@@ -284,7 +284,6 @@ export default class DetailScreen extends Component {
           isSearching={this.state.isSearching}
           isBackVisible={true}
           toggleIsSearching={() => this.toggleIsSearching()}
-          backToHome={() => this.backToHome()}
           backToList={() => this.backToList()} />
 
         {(this.state.isSearching) ?

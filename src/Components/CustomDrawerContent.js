@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import {
     DrawerContentScrollView,
     DrawerItemList,
+    DrawerItem
 } from '@react-navigation/drawer';
 import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'react-native-elements';
@@ -24,6 +25,7 @@ const CustomDrawerContent = (props) => {
                     </View>
                     <Text style={styles.welcome}>{props.username}</Text>
                     <DrawerItemList {...props} />
+                    <DrawerItem label="Log out" onPress={()=>props.navigation.navigate("Login")}/>
                 </View>
             </LinearGradient>
         </DrawerContentScrollView>

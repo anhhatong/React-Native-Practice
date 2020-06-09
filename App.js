@@ -15,6 +15,8 @@ import ListScreen from './src/Screens/ListScreen.js';
 import DetailScreen from './src/Screens/DetailScreen.js';
 import AddNewTodoScreen from './src/Screens/AddNewTodoScreen.js';
 import EditScreen from './src/Screens/EditScreen.js';
+import ChangeUsernameScreen from './src/Screens/ChangeUsernameScreen.js';
+import ChangePasswordScreen from './src/Screens/ChangePasswordScreen.js';
 import CustomDrawerContent from './src/Components/CustomDrawerContent.js';
 import {
     View,
@@ -24,14 +26,14 @@ import {
 import { createAppContainer, createSwitchNavigator, NavigationEvents } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function Home({ route }) {
-    const state = route.params;
+    let state = route.params;
     return (
         <Drawer.Navigator
             drawerContentOptions={{
@@ -52,7 +54,17 @@ function Home({ route }) {
                 name="List"
                 options={{ drawerLabel: 'My Lists' }}
                 component={ListScreen}
-                initialParams={state.data}/>
+                initialParams={state.data} />
+            <Drawer.Screen
+                name="ChangeUsername"
+                options={{ drawerLabel: 'Change Username' }}
+                component={ChangeUsernameScreen}
+                initialParams={state} />
+            <Drawer.Screen
+                name="ChangePassword"
+                options={{ drawerLabel: 'Change Password' }}
+                component={ChangePasswordScreen}
+                initialParams={state} />
         </Drawer.Navigator >
     );
 }

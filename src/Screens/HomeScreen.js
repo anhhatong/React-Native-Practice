@@ -25,10 +25,9 @@ export default class HomeScreen extends React.Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props !== prevProps) {
-            let isShowingOverdue = false;
-            let isShowingDueToday = false;
-            let isShowingDueTomorrow = false;
-            this.setState(this.props.route.params);
+            this.state = this.props.route.params.data;
+            this.info = this.props.route.params.info;
+            //console.log(this.info);
         }
     }
 

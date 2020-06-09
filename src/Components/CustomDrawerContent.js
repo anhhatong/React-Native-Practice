@@ -8,7 +8,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'react-native-elements';
 
 const CustomDrawerContent = (props) => {
-    console.log(props);
     return (
         <DrawerContentScrollView {...props}>
             <LinearGradient

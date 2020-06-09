@@ -17,7 +17,6 @@ export default class AddNewTodoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.route.params;
-    console.log(this.state);
   }
 
   //method to add more todos to the array of todos

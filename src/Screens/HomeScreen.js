@@ -13,20 +13,24 @@ import DueBtn from '../Components/DueBtn';
 
 import LinearGradient from 'react-native-linear-gradient';
 import moment from "moment";
+import configureStore from '../redux/store/configureStore';
+import { connect } from 'react-redux';
 
+const store = configureStore();
 
-export default class HomeScreen extends React.Component {
+const mapStateToProps = (state) => ({ state });
+
+class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.props.route.params.data;
-        this.info = this.props.route.params.info;
+        this.state = props.state.todos;
     }
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props !== prevProps) {
-            this.state = this.props.route.params.data;
-            this.info = this.props.route.params.info;
+            // this.state = this.props.route.params.data;
+            // this.info = this.props.route.params.info;
             //console.log(this.info);
         }
     }
@@ -203,7 +207,7 @@ export default class HomeScreen extends React.Component {
 
                 {/*render the Header here to pass this string to Header class */}
                 <HomeHeader title="TodoApp"
-                    openDrawer={() => this.openDrawer()}/>
+                    openDrawer={() => this.openDrawer()} />
 
 
                 <View style={styles.listContainer}>
@@ -234,7 +238,7 @@ export default class HomeScreen extends React.Component {
                     <DueBtn
                         label="Due Today"
                         isDropping={this.state.isShowingDueToday}
-                        toggle={() => {this.setState({ isShowingDueToday: !this.state.isShowingDueToday });console.log(this.state);}} />
+                        toggle={() => { this.setState({ isShowingDueToday: !this.state.isShowingDueToday }); console.log(this.state); }} />
 
                     {this.state.isShowingDueToday &&
                         <FlatList
@@ -275,7 +279,7 @@ export default class HomeScreen extends React.Component {
                                 )
                             }
                             }
-                        />}    
+                        />}
                 </View>
 
             </LinearGradient>
@@ -299,3 +303,5 @@ const styles = StyleSheet.create({
         paddingBottom: '5%'
     }
 });
+
+export default connect (mapStateToProps)(HomeScreen);

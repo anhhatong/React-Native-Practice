@@ -12,11 +12,17 @@ import InputBar from '../Components/InputBar'; //import the path of InputBar.js
 import SearchBar from '../Components/SearchBar';
 
 import LinearGradient from 'react-native-linear-gradient';
+import configureStore from '../redux/store/configureStore';
+import { connect } from 'react-redux';
 
-export default class ListScreen extends Component {
+const store = configureStore();
+
+const mapStateToProps = (state) => ({ state });
+
+class ListScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.route.params;
+    this.state = props.state.todos;
   }
 
   addNewTodoList() {
@@ -333,3 +339,5 @@ const styles = StyleSheet.create({
     paddingBottom: '5%'
   }
 });
+
+export default connect (mapStateToProps)(ListScreen);

@@ -9,15 +9,21 @@ import {
 import AddNewScreenHeader from '../Components/AddNewScreenHeader.js'; //import the path of Header.js
 import AddNewInputBar from '../Components/AddNewInputBar.js'; //import the path of AddNewInputBar.js
 import DatePicker from '../Components/DatePicker.js';
+import {connect} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
 import moment from "moment";
 
-export default class AddNewTodoScreen extends Component {
+class AddNewTodoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.route.params;
   }
+
+  // addTodo = (todoInput) => {
+  //   this.props.dispatch({type:'ADD_TODO',todoInput});
+  //   this.setState({todoInput: ''});
+  // }
 
   //method to add more todos to the array of todos
   save() {
@@ -128,6 +134,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
+export default connect ()(AddNewTodoScreen)
 
 

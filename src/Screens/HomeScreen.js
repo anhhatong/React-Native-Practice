@@ -19,11 +19,10 @@ import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
-    console.log('dispatched');
     return {
         toggleTodo: (listId, todoId) => dispatch(toggleTodo(listId, todoId)),
         removeTodo: (listId, todoId) => dispatch(removeTodo(listId, todoId)),
-        gotoEdit: (listId, todoId) => dispatch(gotoEdit(listId, todoId))
+        gotoEdit: (listId, todoId, title, currentDate) => dispatch(gotoEdit(listId, todoId, title, currentDate))
     }
 }
 
@@ -124,7 +123,7 @@ class HomeScreen extends React.Component {
             if (todoList.id == item.listId) {
                 todoList.list = todoList.list.map((todo) => {
                     if (todo.id == item.id) {
-                        this.props.gotoEdit(todoList.id, item.id);
+                        this.props.gotoEdit(todoList.id, item.id, item.title, item.date);
                     }
                     return todo;
                 })
@@ -133,13 +132,6 @@ class HomeScreen extends React.Component {
         })
 
         this.props.navigation.navigate('Edit');
-
-        // this.setState({ todos, todoId: item.id, todoInput: item.title, currentDate: item.date, listId: item.listId },
-        //     function () {
-        //         state = this.state;
-        //         //console.log(this.state);
-        //         this.props.navigation.navigate('Edit');
-        //     });
     }
 
     //method to change 'done' state of each todo item

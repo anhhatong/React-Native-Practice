@@ -14,9 +14,18 @@ import AddNewTodoBtn from '../Components/AddNewTodoBtn.js';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
+import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
 
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      toggleTodo: (listId, todoId) => dispatch(toggleTodo(listId, todoId)),
+      removeTodo: (listId, todoId) => dispatch(removeTodo(listId, todoId)),
+      gotoEdit: (listId, todoId, title, currentDate) => dispatch(gotoEdit(listId, todoId, title, currentDate))
+  }
+}
 
 
 class DetailScreen extends Component {
@@ -98,50 +107,58 @@ class DetailScreen extends Component {
   }
 
   toEditScreen(item) {
-    let state = this.state;
-
-    //this.searchTodo('');
     let lists = this.state.lists;
-    let todos = this.state.todos;
-    let listId = this.state.listId;
 
+    //map() creates a new array then run the code block with every item in the array
     lists = lists.map((todoList) => {
-      if (listId == todoList.id) {
-        todos = todoList.list;
-      }
-      return todoList;
+        if (todoList.id == item.listId) {
+            todoList.list = todoList.list.map((todo) => {
+                if (todo.id == item.id) {
+                    this.props.gotoEdit(todoList.id, item.id, item.title, item.date);
+                }
+                return todo;
+            })
+        }
+        return todoList;
     })
 
-    this.setState({ todos, todoId: item.id, todoInput: item.title, currentDate: item.date }, function () {
-      state = this.state;
-      console.log(state);
-      this.props.navigation.navigate('Edit');
-    });
-  }
+    this.props.navigation.navigate('Edit');
+}
 
   //method to change 'done' state of each todo item
   toggleDone(item) {
-    let todos = this.state.todos;
     let lists = this.state.lists;
-    let listId = this.state.listId;
+
+    //map() creates a new array then run the code block with every item in the array
+    lists = lists.map((todoList) => {
+        if (todoList.id == item.listId) {
+            todoList.list = todoList.list.map((todo) => {
+                if (todo.id == item.id) {
+                    this.props.toggleTodo(todoList.id, item.id);
+                }
+                return todo;
+            })
+        }
+        return todoList;
+    })
+}
+
+//method to remove a todo item
+removeTodo(item) {
+    let lists = this.state.lists;
 
     lists = lists.map((todoList) => {
-      if (todoList.id == listId) {
-        todoList.list = todoList.list.map((todo) => {
-          if (todo.id == item.id) {
-            todo.done = !todo.done;
-          }
-          return todo;
-        });
-        todos = todoList.list;
-      }
-      return todoList;
+        if (todoList.id == item.listId) {
+            todoList.list = todoList.list.map((todo) => {
+                if (todo.id == item.id) {
+                    this.props.removeTodo(todoList.id, item.id);
+                }
+                return todo;
+            })
+        }
+        return todoList;
     })
-
-    this.setState({ lists, todos });
-
-  }
-
+}
 
   toggleIsSearching() {
     let isSearching = !this.state.isSearching;
@@ -176,47 +193,6 @@ class DetailScreen extends Component {
       }
       return todoList;
     });
-  }
-
-
-
-
-  //method to remove a todo item
-  removeTodo(item) {
-    let todos = this.state.todos;
-    let lists = this.state.lists;
-    let listId = this.state.listId;
-
-    lists = lists.map((todoList) => {
-      if (todoList.id == listId) {
-        todoList.list = todoList.list.filter((todo) => { return todo.id !== item.id });
-        todos = todoList.list;
-      }
-      return todoList;
-    })
-
-    let i = todos.length - 1;
-    todos = todos.map((todo) => {
-      todo.id = i;
-      i--;
-      return todo;
-    });
-
-    this.setState({ todos, lists });
-  }
-
-  relabelIds() {
-    let todos = this.state.todos;
-
-    let i = todos.length - 1;
-    todos = todos.map((todo) => {
-      todo.id = i;
-      i--;
-      return todo;
-    });
-
-    this.setState({ todos });
-    console.log(this.state);
   }
 
   sortDone() {
@@ -266,6 +242,20 @@ class DetailScreen extends Component {
     this.setState({ todos });
   }
 
+  displayTodos() {
+    let lists = this.state.lists;
+    let listId = this.state.listId;
+    let temp;
+
+    lists.map((todoList) => {
+      if (todoList.id === listId) {
+        temp = todoList.list;
+      }
+    })
+
+    return temp;
+  }
+
   render() {
     const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>; //platform-specific for the status bar on top
 
@@ -304,7 +294,7 @@ class DetailScreen extends Component {
         <View style={styles.listContainer}>
 
           <FlatList
-            data={this.state.todos} // get the todos array
+            data={this.displayTodos()} // get the todos array
             keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
             renderItem={({ item, index }) => { // render an item from data
               return (
@@ -349,4 +339,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect (mapStateToProps)(DetailScreen);
+export default connect (mapStateToProps, mapDispatchToProps)(DetailScreen);

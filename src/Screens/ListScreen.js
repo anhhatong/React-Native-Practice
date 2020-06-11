@@ -13,8 +13,15 @@ import SearchBar from '../Components/SearchBar';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
+import { gotoDetail } from '../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      gotoDetail: (listId) => dispatch(gotoDetail(listId))
+  }
+}
 
 class ListScreen extends Component {
   constructor(props) {
@@ -59,23 +66,25 @@ class ListScreen extends Component {
   }
 
   listItems(item) {
-    let state = this.state;
-    let todos = this.state.todos;
-    let lists = this.state.lists;
-    let listId = this.state.listId;
+    this.props.gotoDetail(item.id);
+    this.props.navigation.navigate('Detail');
+    // let state = this.state;
+    // let todos = this.state.todos;
+    // let lists = this.state.lists;
+    // let listId = this.state.listId;
 
-    lists = lists.map((todoList) => {
-      if (todoList.id == item.id) {
-        todos = todoList.list;
-        listId = item.id;
-      }
-      return todoList;
-    })
+    // lists = lists.map((todoList) => {
+    //   if (todoList.id == item.id) {
+    //     todos = todoList.list;
+    //     listId = item.id;
+    //   }
+    //   return todoList;
+    // })
 
-    this.setState({ listId, todos, lists },
-      function () {
-        this.props.navigation.navigate('Detail');
-      });
+    // this.setState({ listId, todos, lists },
+    //   function () {
+    //     this.props.navigation.navigate('Detail');
+    //   });
   }
 
   toggleIsSearching() {
@@ -336,4 +345,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect (mapStateToProps)(ListScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ListScreen);

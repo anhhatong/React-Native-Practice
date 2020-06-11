@@ -5,7 +5,6 @@ const initialState = {
     },
     data: {
         isSearching: false,
-        todoEdit: '',
         todosUnmatched: [],
         todoListsUnmatched: [],
         isShowingOverdue: true,

@@ -12,60 +12,39 @@ import DatePicker from '../Components/DatePicker';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
+import { edit } from '../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      edit: (listId, todoId, title, currentDate) => dispatch(edit(listId, todoId, title, currentDate))
+  }
+}
 
 class EditScreen extends Component {
   constructor(props) {
     super(props);
     this.state = props.state;
-    //console.log(this.state);
   }
 
   //method to add more todos to the array of todos
   save() {
-    let todos = this.state.todos;
-    let listId = this.state.listId;
-    let lists = this.state.lists;
-    let state = this.state;
+    let listId = this.state.listId
     let todoId = this.state.todoId;
     let todoInput = this.state.todoInput;
     let currentDate = this.state.currentDate;
 
-    this.setState({ todos });
-
-    //check if there is any input string at all
-    if (this.state.todoInput !== "") {
-
-      lists = lists.map((todoList) => {
-        if (todoList.id == listId) {
-          todoList.list = todoList.list.map((todo) => {
-            if (todo.id == todoId) {
-              todo.title = todoInput;
-              todo.date = currentDate;
-            }
-            return todo;
-          })
-          todos = todoList.list.sort((a, b) => a.date - b.date);
-        }
-        return todoList;
-      })
-
-      //reset state after adding the new todo
-      this.setState({ todoInput: '', todos, lists, currentDate: '' },
-        function () {
-          state = this.state;
-          this.props.navigation.navigate('Detail', state);
-        });
+    if(todoInput!='') {
+    this.props.edit(listId, todoId, todoInput, currentDate);
+    this.props.navigation.goBack();
+    } else {
+      alert("Please enter todo");
     }
-
-
   }
 
   dateChange(date) {
-    let state = this.state;
     let currentDate = date;
-
     this.setState({ currentDate });
   }
 
@@ -86,7 +65,7 @@ class EditScreen extends Component {
         <AddNewScreenHeader
           title="Edit"
           save={() => this.save()}
-          cancel={() => this.props.navigation.navigate('Detail', this.state)}
+          cancel={() => this.props.navigation.goBack()}
         />
         <View style={styles.listContainer}>
 
@@ -127,4 +106,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(EditScreen);
+export default connect(mapStateToProps,mapDispatchToProps)(EditScreen);

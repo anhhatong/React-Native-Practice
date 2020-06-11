@@ -13,7 +13,7 @@ import SearchBar from '../Components/SearchBar';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { gotoDetail, addList, editList, removeList } from '../redux/actions/actions';
+import { gotoDetail, addList, editList, removeList, gotoEditList } from '../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
@@ -22,7 +22,8 @@ const mapDispatchToProps = (dispatch) => {
       addList: (title) => dispatch(addList(title)),
       editList: (title) => dispatch(editList(title)),
       removeList: (listId) => dispatch(removeList(listId)),
-      gotoDetail: (listId) => dispatch(gotoDetail(listId))
+      gotoDetail: (listId) => dispatch(gotoDetail(listId)),
+      gotoEditList: (listId,title) => dispatch(gotoEditList(listId,title))
   }
 }
 
@@ -216,36 +217,12 @@ class ListScreen extends Component {
 
   //method to remove a todo item
   removeTodoList(item) {
-
     this.props.removeList(item.id);
-
-    // let lists = this.state.lists;
-
-    // //filter() creates a new array and remove the item passed in
-    // lists = lists.filter((todoList) => { return todoList.id !== item.id });
-
-    // let i = lists.length - 1;
-    // lists = lists.map((todoList) => {
-    //   todoList.id = i;
-    //   i--;
-    //   return todoList;
-    // });
-
-    // this.setState({ lists }, function () { console.log(this.state.lists) });
   }
 
-  relabelIds() {
-    let lists = this.state.lists;
-
-    let i = lists.length - 1;
-    lists = lists.map((todoList) => {
-      todoList.id = i;
-      i--;
-      return todoList;
-    });
-
-    this.setState({ lists });
-    //console.log(this.state);
+  toEditListScreen(item) {
+    this.props.gotoEditList(item.id, item.title);
+    this.props.navigation.navigate('EditList');
   }
 
   render() {
@@ -293,6 +270,7 @@ class ListScreen extends Component {
                   todoList={item}
                   listItems={() => this.listItems(item)}
                   removeTodoList={() => this.removeTodoList(item)}
+                  toEditListScreen={() => this.toEditListScreen(item)}
                   editTodoList={todoEdit => this.editTodoList(item, todoEdit)}
                 />
               )

@@ -8,21 +8,20 @@ import {
 } from 'react-native';
 import AddNewScreenHeader from '../Components/AddNewScreenHeader'; //import the path of Header.js
 import AddNewInputBar from '../Components/AddNewInputBar'; //import the path of AddNewInputBar.js
-import DatePicker from '../Components/DatePicker';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { editTodo } from '../redux/actions/actions';
+import { editList } from '../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      editTodo: (listId, todoId, title, currentDate) => dispatch(editTodo(listId, todoId, title, currentDate))
+      editList: (title) => dispatch(editList(title))
   }
 }
 
-class EditScreen extends Component {
+class EditListScreen extends Component {
   constructor(props) {
     super(props);
     this.state = props.state;
@@ -30,22 +29,14 @@ class EditScreen extends Component {
 
   //method to add more todos to the array of todos
   save() {
-    let listId = this.state.listId
-    let todoId = this.state.todoId;
     let todoInput = this.state.todoInput;
-    let currentDate = this.state.currentDate;
 
     if(todoInput!='') {
-    this.props.editTodo(listId, todoId, todoInput, currentDate);
+    this.props.editList(todoInput);
     this.props.navigation.goBack();
     } else {
       alert("Please enter todo");
     }
-  }
-
-  dateChange(date) {
-    let currentDate = date;
-    this.setState({ currentDate });
   }
 
 
@@ -63,7 +54,7 @@ class EditScreen extends Component {
 
         {/*render the Header here to pass this string to Header class */}
         <AddNewScreenHeader
-          title="Edit Todo"
+          title="Edit List"
           save={() => this.save()}
           cancel={() => this.props.navigation.goBack()}
         />
@@ -73,11 +64,6 @@ class EditScreen extends Component {
             todoInput={this.state.todoInput}
             textChange={todoInput => this.setState({ todoInput })}
 
-          />
-
-          <DatePicker
-            currentDate={this.state.currentDate}
-            dateChange={date => this.dateChange(date)}
           />
 
         </View>
@@ -106,4 +92,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(EditScreen);
+export default connect(mapStateToProps,mapDispatchToProps)(EditListScreen);

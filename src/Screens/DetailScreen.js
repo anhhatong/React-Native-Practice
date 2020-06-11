@@ -42,13 +42,6 @@ class DetailScreen extends Component {
     }
   }
 
-  // toAddNewTodoScreen() {
-
-  //   this.props.navigation.navigate('AddTodo');
-
-
-  // }
-
   toEditScreen(item) {
     let lists = this.state.lists;
 

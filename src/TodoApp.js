@@ -15,6 +15,7 @@ import ListScreen from './Screens/ListScreen.js';
 import DetailScreen from './Screens/DetailScreen.js';
 import AddNewTodoScreen from './Screens/AddNewTodoScreen.js';
 import EditScreen from './Screens/EditScreen.js';
+import EditListScreen from './Screens/EditListScreen.js';
 import ChangeUsernameScreen from './Screens/ChangeUsernameScreen.js';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen.js';
 import CustomDrawerContent from './Components/CustomDrawerContent.js';
@@ -26,7 +27,7 @@ import {
 import { createAppContainer, createSwitchNavigator, NavigationEvents } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import { NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createStackNavigator();
@@ -43,17 +44,17 @@ function Home({ route }) {
             drawerStyle={{
                 backgroundColor: '#d1d3db'
             }}
-            // drawerContent={(props) => <CustomDrawerContent
-            //     username={state.info.username}
-            //     {...props} />}
-            >
+        // drawerContent={(props) => <CustomDrawerContent
+        //     username={state.info.username}
+        //     {...props} />}
+        >
             <Drawer.Screen
                 name="Home"
-                component={HomeScreen}/>
+                component={HomeScreen} />
             <Drawer.Screen
                 name="List"
                 options={{ drawerLabel: 'My Lists' }}
-                component={ListScreen}/>
+                component={ListScreen} />
             <Drawer.Screen
                 name="ChangeUsername"
                 options={{ drawerLabel: 'Change Username' }}
@@ -92,6 +93,9 @@ class TodoApp extends React.Component {
                     <Stack.Screen
                         name="Home"
                         component={Home} />
+                    <Stack.Screen
+                        name="EditList"
+                        component={EditListScreen} />
                     <Stack.Screen
                         name="Detail"
                         component={DetailScreen} />

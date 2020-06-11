@@ -15,6 +15,11 @@ export default class TodoList extends React.Component {
 
     let swipeBtns = [
       {
+        text: 'Edit',
+        backgroundColor: '#FFCD58',
+        onPress: () => { this.props.toEditListScreen() }
+      },
+      {
         text: 'Delete',
         backgroundColor: '#FF5C4D',
         onPress: () => { this.props.removeTodoList() }

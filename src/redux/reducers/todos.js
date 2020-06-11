@@ -1,5 +1,5 @@
 import initialState from '../store/initialState';
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST } from "../actions/actionTypes";
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST } from "../actions/actionTypes";
 
 const todos = (state = initialState, action) => {
     switch (action.type) {
@@ -124,9 +124,9 @@ const todos = (state = initialState, action) => {
         }
 
         case EDIT_LIST: {
-            const { listId, title } = action.payload;
+            const { title } = action.payload;
             let temp = state.data.lists.map((todoList) => {
-                if (todoList.id === listId) {
+                if (todoList.id === state.data.listId) {
                     todoList = {
                         ...state.data.lists[todoList.id],
                         title: title
@@ -140,6 +140,18 @@ const todos = (state = initialState, action) => {
                 data: {
                     ...state.data,
                     lists: temp
+                }
+            }
+        }
+
+        case GOTO_EDIT_LIST: {
+            const { listId, title } = action.payload;
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    todoInput: title,
+                    listId: listId
                 }
             }
         }

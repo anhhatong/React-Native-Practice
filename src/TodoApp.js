@@ -49,13 +49,11 @@ function Home({ route }) {
             >
             <Drawer.Screen
                 name="Home"
-                component={HomeScreen}
-                initialParams={state} />
+                component={HomeScreen}/>
             <Drawer.Screen
                 name="List"
                 options={{ drawerLabel: 'My Lists' }}
-                component={ListScreen}
-                initialParams={state} />
+                component={ListScreen}/>
             <Drawer.Screen
                 name="ChangeUsername"
                 options={{ drawerLabel: 'Change Username' }}

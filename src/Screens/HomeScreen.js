@@ -13,17 +13,24 @@ import DueBtn from '../Components/DueBtn';
 
 import LinearGradient from 'react-native-linear-gradient';
 import moment from "moment";
-import configureStore from '../redux/store/configureStore';
 import { connect } from 'react-redux';
+import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
 
-const store = configureStore();
+const mapStateToProps = (state) => ({ state: state.todos.data });
 
-const mapStateToProps = (state) => ({ state });
+const mapDispatchToProps = (dispatch) => {
+    console.log('dispatched');
+    return {
+        toggleTodo: (listId, todoId) => dispatch(toggleTodo(listId, todoId)),
+        removeTodo: (listId, todoId) => dispatch(removeTodo(listId, todoId)),
+        gotoEdit: (listId, todoId) => dispatch(gotoEdit(listId, todoId))
+    }
+}
 
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = props.state.todos;
+        this.state = props.state;
     }
 
     componentDidUpdate(prevProps) {
@@ -31,7 +38,7 @@ class HomeScreen extends React.Component {
         if (this.props !== prevProps) {
             // this.state = this.props.route.params.data;
             // this.info = this.props.route.params.info;
-            //console.log(this.info);
+            this.setState(this.props.state);
         }
     }
 
@@ -110,30 +117,6 @@ class HomeScreen extends React.Component {
     }
 
     toEditScreen(item) {
-        let state = this.state;
-        let todos = this.state.todos;
-        let lists = this.state.lists;
-        let todoId = this.state.todoId;
-        let listId = this.state.listId;
-
-        lists = lists.map((todoList) => {
-            if (todoList.id == item.listId) {
-                todos = todoList.list;
-            }
-            return todoList;
-        })
-
-        this.setState({ todos, todoId: item.id, todoInput: item.title, currentDate: item.date, listId: item.listId },
-            function () {
-                state = this.state;
-                //console.log(this.state);
-                this.props.navigation.navigate('Edit', state);
-            });
-    }
-
-    //method to change 'done' state of each todo item
-    toggleDone(item) {
-
         let lists = this.state.lists;
 
         //map() creates a new array then run the code block with every item in the array
@@ -141,7 +124,7 @@ class HomeScreen extends React.Component {
             if (todoList.id == item.listId) {
                 todoList.list = todoList.list.map((todo) => {
                     if (todo.id == item.id) {
-                        todo.done = !todo.done;
+                        this.props.gotoEdit(todoList.id, item.id);
                     }
                     return todo;
                 })
@@ -149,35 +132,52 @@ class HomeScreen extends React.Component {
             return todoList;
         })
 
-        this.setState({ lists });
+        this.props.navigation.navigate('Edit');
 
+        // this.setState({ todos, todoId: item.id, todoInput: item.title, currentDate: item.date, listId: item.listId },
+        //     function () {
+        //         state = this.state;
+        //         //console.log(this.state);
+        //         this.props.navigation.navigate('Edit');
+        //     });
+    }
+
+    //method to change 'done' state of each todo item
+    toggleDone(item) {
+        let lists = this.state.lists;
+
+        //map() creates a new array then run the code block with every item in the array
+        lists = lists.map((todoList) => {
+            if (todoList.id == item.listId) {
+                todoList.list = todoList.list.map((todo) => {
+                    if (todo.id == item.id) {
+                        this.props.toggleTodo(todoList.id, item.id);
+                    }
+                    return todo;
+                })
+            }
+            return todoList;
+        })
     }
 
     //method to remove a todo item
     removeTodo(item) {
-        let todos = this.state.todos;
         let lists = this.state.lists;
-        let listId = this.state.listId;
-        //console.log(listId);
 
         lists = lists.map((todoList) => {
             if (todoList.id == item.listId) {
-                todoList.list = todoList.list.filter((todo) => { return todo.id !== item.id });
-                let i = todoList.list.length - 1;
                 todoList.list = todoList.list.map((todo) => {
-                    todo.id = i;
-                    i--;
+                    if (todo.id == item.id) {
+                        this.props.removeTodo(todoList.id, item.id);
+                    }
                     return todo;
-                });
+                })
             }
             return todoList;
         })
-
-        this.setState({ lists });
     }
 
     openDrawer() {
-        let state = this.state;
         this.props.navigation.openDrawer();
     }
 
@@ -304,4 +304,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect (mapStateToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

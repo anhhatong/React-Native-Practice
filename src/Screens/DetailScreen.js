@@ -13,19 +13,23 @@ import SearchBar from '../Components/SearchBar.js';
 import AddNewTodoBtn from '../Components/AddNewTodoBtn.js';
 
 import LinearGradient from 'react-native-linear-gradient';
-import DraggableFlatList from "react-native-draggable-flatlist";
+import { connect } from 'react-redux';
 
 
-export default class DetailScreen extends Component {
+const mapStateToProps = (state) => ({ state: state.todos.data });
+
+
+class DetailScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.route.params;
+    console.log(props.state.listId);
+    this.state = props.state;
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props !== prevProps) {
-      this.setState(this.props.route.params);
+      this.setState(this.props.state);
     }
   }
 
@@ -65,7 +69,7 @@ export default class DetailScreen extends Component {
 
     this.setState({ todos }, function () {
       state = this.state;
-      this.props.navigation.navigate('List', state);
+      this.props.navigation.navigate('List');
     });
 
 
@@ -88,7 +92,7 @@ export default class DetailScreen extends Component {
     this.setState({ todos }, function () {
       state = this.state;
       console.log(state);
-      this.props.navigation.navigate('AddTodo', state);
+      this.props.navigation.navigate('AddTodo');
     });
 
   }
@@ -111,7 +115,7 @@ export default class DetailScreen extends Component {
     this.setState({ todos, todoId: item.id, todoInput: item.title, currentDate: item.date }, function () {
       state = this.state;
       console.log(state);
-      this.props.navigation.navigate('Edit', state);
+      this.props.navigation.navigate('Edit');
     });
   }
 
@@ -344,3 +348,5 @@ const styles = StyleSheet.create({
     paddingBottom: '5%'
   }
 });
+
+export default connect (mapStateToProps)(DetailScreen);

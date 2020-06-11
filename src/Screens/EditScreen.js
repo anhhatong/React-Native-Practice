@@ -11,11 +11,14 @@ import AddNewInputBar from '../Components/AddNewInputBar'; //import the path of 
 import DatePicker from '../Components/DatePicker';
 
 import LinearGradient from 'react-native-linear-gradient';
+import { connect } from 'react-redux';
 
-export default class EditScreen extends Component {
+const mapStateToProps = (state) => ({ state: state.todos.data });
+
+class EditScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.route.params;
+    this.state = props.state;
     //console.log(this.state);
   }
 
@@ -124,6 +127,4 @@ const styles = StyleSheet.create({
   }
 });
 
-
-
-
+export default connect(mapStateToProps)(EditScreen);

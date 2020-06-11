@@ -42,69 +42,12 @@ class DetailScreen extends Component {
     }
   }
 
- openDrawer() {
-    let state = this.state;
-    //this.searchTodo('');
-    let lists = this.state.lists;
-    let todos = this.state.todos;
-    let listId = this.state.listId;
+  // toAddNewTodoScreen() {
 
-    lists = lists.map((todoList) => {
-      if (listId == todoList.id) {
-        todos = todoList.list;
-      }
-      return todoList;
-    })
-
-    this.setState({ todos }, function () {
-      state = this.state;
-      this.props.navigation.openDrawer();
-    });
-  }
-
-  backToList() {
-    let state = this.state;
-    //this.searchTodo('');
-    let lists = this.state.lists;
-    let todos = this.state.todos;
-    let listId = this.state.listId;
-
-    lists = lists.map((todoList) => {
-      if (listId == todoList.id) {
-        todos = todoList.list;
-      }
-      return todoList;
-    })
-
-    this.setState({ todos }, function () {
-      state = this.state;
-      this.props.navigation.navigate('List');
-    });
+  //   this.props.navigation.navigate('AddTodo');
 
 
-  }
-
-  toAddNewTodoScreen() {
-    let state = this.state;
-    //this.searchTodo('');
-    let lists = this.state.lists;
-    let todos = this.state.todos;
-    let listId = this.state.listId;
-
-    lists = lists.map((todoList) => {
-      if (listId == todoList.id) {
-        todos = todoList.list;
-      }
-      return todoList;
-    })
-
-    this.setState({ todos }, function () {
-      state = this.state;
-      console.log(state);
-      this.props.navigation.navigate('AddTodo');
-    });
-
-  }
+  // }
 
   toEditScreen(item) {
     let lists = this.state.lists;
@@ -278,7 +221,7 @@ removeTodo(item) {
           isSearching={this.state.isSearching}
           isBackVisible={true}
           toggleIsSearching={() => this.toggleIsSearching()}
-          backToList={() => this.backToList()} />
+          backToList={() => this.props.navigation.navigate('List')} />
 
         {(this.state.isSearching) ?
           (
@@ -287,7 +230,7 @@ removeTodo(item) {
             />) : (
 
             <AddNewTodoBtn
-              toAddNewTodoScreen={() => this.toAddNewTodoScreen()}
+              toAddNewTodoScreen={() => this.props.navigation.navigate('AddTodo')}
             />)
         }
 

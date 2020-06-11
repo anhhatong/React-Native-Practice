@@ -13,12 +13,15 @@ import SearchBar from '../Components/SearchBar';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { gotoDetail } from '../redux/actions/actions';
+import { gotoDetail, addList, editList, removeList } from '../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
   return {
+      addList: (title) => dispatch(addList(title)),
+      editList: (title) => dispatch(editList(title)),
+      removeList: (listId) => dispatch(removeList(listId)),
       gotoDetail: (listId) => dispatch(gotoDetail(listId))
   }
 }
@@ -29,62 +32,43 @@ class ListScreen extends Component {
     this.state = props.state;
   }
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props !== prevProps) {
+        this.setState(this.props.state);
+    }
+}
+
   addNewTodoList() {
-    let lists = this.state.lists;
-
-    if (this.state.todoInput !== "") {
-      //add new todo in the beignning of the array
-      lists.unshift({
-        id: lists.length,
-        title: this.state.todoInput,
-        list: [
-          { listId: lists.length, id: 1, title: "Todo 2", done: false, date: '' },
-          { listId: lists.length, id: 0, title: "Todo 1", done: false, date: '' }
-        ]
-      });
-
-      //reset state after adding the new todo
-      this.setState({
-        todoInput: '',
-        lists
-      });
+    let todoInput = this.state.todoInput;
+    if (todoInput != '') {
+      this.props.addList(todoInput);
+    } else {
+      alert("Please enter new list title");
     }
   }
 
   editTodoList(item, todoEdit) {
-    let lists = this.state.lists;
 
-    //map() creates a new array then run the code block with every item in the array
-    lists = lists.map((todoList) => {
-      if (todoList.id == item.id) {
-        todoList.title = todoEdit;
-      }
-      return todoList;
-    })
+    this.props.editList(item.id, todoEdit);
 
-    this.setState({ lists });
+    // let lists = this.state.lists;
+    // let todoInput = this.state.todoInput;
+
+    // //map() creates a new array then run the code block with every item in the array
+    // lists = lists.map((todoList) => {
+    //   if (todoList.id == item.id) {
+    //     this.props.editList(todoList.id, todoInput);
+    //   }
+    //   return todoList;
+    // })
+
+    // this.setState({ lists });
   }
 
   listItems(item) {
     this.props.gotoDetail(item.id);
     this.props.navigation.navigate('Detail');
-    // let state = this.state;
-    // let todos = this.state.todos;
-    // let lists = this.state.lists;
-    // let listId = this.state.listId;
-
-    // lists = lists.map((todoList) => {
-    //   if (todoList.id == item.id) {
-    //     todos = todoList.list;
-    //     listId = item.id;
-    //   }
-    //   return todoList;
-    // })
-
-    // this.setState({ listId, todos, lists },
-    //   function () {
-    //     this.props.navigation.navigate('Detail');
-    //   });
   }
 
   toggleIsSearching() {
@@ -232,19 +216,22 @@ class ListScreen extends Component {
 
   //method to remove a todo item
   removeTodoList(item) {
-    let lists = this.state.lists;
 
-    //filter() creates a new array and remove the item passed in
-    lists = lists.filter((todoList) => { return todoList.id !== item.id });
+    this.props.removeList(item.id);
 
-    let i = lists.length - 1;
-    lists = lists.map((todoList) => {
-      todoList.id = i;
-      i--;
-      return todoList;
-    });
+    // let lists = this.state.lists;
 
-    this.setState({ lists }, function () { console.log(this.state.lists) });
+    // //filter() creates a new array and remove the item passed in
+    // lists = lists.filter((todoList) => { return todoList.id !== item.id });
+
+    // let i = lists.length - 1;
+    // lists = lists.map((todoList) => {
+    //   todoList.id = i;
+    //   i--;
+    //   return todoList;
+    // });
+
+    // this.setState({ lists }, function () { console.log(this.state.lists) });
   }
 
   relabelIds() {
@@ -259,13 +246,6 @@ class ListScreen extends Component {
 
     this.setState({ lists });
     //console.log(this.state);
-  }
-
-  openDrawer() {
-    let state = this.state;
-    this.searchTodo('');
-    //console.log(this.state);
-    this.props.navigation.openDrawer();
   }
 
   render() {
@@ -283,7 +263,7 @@ class ListScreen extends Component {
           isSearching={this.state.isSearching}
           isBackVisible={false}
           toggleIsSearching={() => this.toggleIsSearching()}
-          openDrawer={() => this.openDrawer()} />
+          openDrawer={() => this.props.navigation.openDrawer()} />
 
 
         {(this.state.isSearching) ?

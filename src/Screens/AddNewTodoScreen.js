@@ -9,58 +9,37 @@ import {
 import AddNewScreenHeader from '../Components/AddNewScreenHeader.js'; //import the path of Header.js
 import AddNewInputBar from '../Components/AddNewInputBar.js'; //import the path of AddNewInputBar.js
 import DatePicker from '../Components/DatePicker.js';
-import {connect} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
-import moment from "moment";
+import { connect } from 'react-redux';
+import { addTodo } from '../redux/actions/actions';
+
+const mapStateToProps = (state) => ({ state: state.todos.data });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTodo: (listId, title, currentDate) => dispatch(addTodo(listId, title, currentDate))
+  }
+}
 
 class AddNewTodoScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.route.params;
+    this.state = props.state;
   }
 
-  // addTodo = (todoInput) => {
-  //   this.props.dispatch({type:'ADD_TODO',todoInput});
-  //   this.setState({todoInput: ''});
-  // }
 
-  //method to add more todos to the array of todos
   save() {
-    let todos = this.state.todos;
     let listId = this.state.listId;
-    let lists = this.state.lists;
-    let state = this.state;
+    let todoInput = this.state.todoInput;
+    let currentDate = this.state.currentDate;
 
-    //check if there is any input string at all
-    if (this.state.todoInput !== "") {
-      //add new todo in the beignning of the array
-      todos.unshift({
-        listId: listId,
-        id: todos.length,
-        title: this.state.todoInput,
-        done: false,
-        date: this.state.currentDate
-      });
-
-      lists = lists.map((todoList) => {
-        if (todoList.id == listId) {
-          todoList.list = todos;
-        }
-        return todoList;
-      });
-
-      todos.sort((a, b) => a.date - b.date);
-
-      //reset state after adding the new todo
-      this.setState({ todoInput: '', todos, lists, currentDate: '' },
-        function () {
-          state = this.state;
-          this.props.navigation.navigate('Detail', state);
-        });
+    if (todoInput != '') {
+    this.props.addTodo(listId, todoInput, currentDate);
+    this.props.navigation.goBack();
+    } else {
+      alert("Please enter todo");
     }
-    //console.log(this.state);
-
   }
 
   dateChange(date) {
@@ -94,7 +73,7 @@ class AddNewTodoScreen extends Component {
               }
             })}
           save={() => this.save()}
-          cancel={() => this.props.navigation.navigate('Detail', this.state)}
+          cancel={() => this.props.navigation.goBack()}
         />
         <View style={styles.listContainer}>
 
@@ -134,6 +113,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect ()(AddNewTodoScreen)
+export default connect (mapStateToProps,mapDispatchToProps)(AddNewTodoScreen)
 
 

@@ -63,7 +63,21 @@ class DetailScreen extends Component {
 
   //method to change 'done' state of each todo item
   toggleDone(item) {
-    this.props.toggleTodo(item.listId, item.id);
+   // this.props.toggleTodo(item.listId, item.id);
+   let lists = this.state.lists;
+
+    //map() creates a new array then run the code block with every item in the array
+    lists = lists.map((todoList) => {
+        if (todoList.id == item.listId) {
+            todoList.list = todoList.list.map((todo) => {
+                if (todo.id == item.id) {
+                    this.props.toggleTodo(todoList.id, item.id);
+                }
+                return todo;
+            })
+        }
+        return todoList;
+    })
 }
 
 //method to remove a todo item

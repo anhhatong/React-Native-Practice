@@ -9,6 +9,7 @@ import React from 'react';
 import TodoApp from './src/TodoApp';
 import configureStore from './src/redux/store/configureStore';
 import { Provider } from 'react-redux'; //used to link store with TodoApp
+import { persistStore, persistReducer } from 'redux-persist';
 
 const store = configureStore();
 

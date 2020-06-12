@@ -8,13 +8,13 @@ const todos = (state = initialState, action) => {
             let temp = state.data.lists.map((todoList) => {
                 if (todoList.id === listId) {
                     let newId = todoList.list.length;
-                    todoList = Object.assign({}, todoList.list, {
+                    todoList = {
                         ...state.data.lists[listId],
                         list: [
                             ...state.data.lists[listId].list,
                             { listId: listId, todoId: newId, title: title, done: false, date: date }
                         ]
-                    })
+                    }
                 }
                 return todoList;
             })
@@ -58,9 +58,9 @@ const todos = (state = initialState, action) => {
                     let filtered;
                     filtered = todoList.list.filter((todo) => { return todo.id !== todoId });
                     let i = 0;
-                    filtered = todoList.list.map((todo) => {
+                    filtered = filtered.map((todo) => {
                         todo.id = i;
-                        i--;
+                        i++;
                         return todo;
                     });
                     todoList = {
@@ -70,6 +70,7 @@ const todos = (state = initialState, action) => {
                 }
                 return todoList;
             })
+            console.log(temp);
             return {
                 ...state,
                 data: {

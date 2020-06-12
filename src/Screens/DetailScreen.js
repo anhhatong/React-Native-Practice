@@ -132,57 +132,27 @@ removeTodo(item) {
   }
 
   showDone() {
-    let filtered = this.props.visibilityFilter('SHOW_DONE');
-    console.log(filtered);
-    // let lists = this.state.lists;
-    // let todos = this.state.todos;
-    // let listId = this.state.listId;
-
-    // lists = lists.map((todoList) => {
-    //   if (listId == todoList.id) {
-    //     this.setState({lists})
-    //     todos = todoList.list.filter((todo) => { return todo.done == true }
-    //     )
-    //   }
-    //   return lists;
-    // })
-
-    // this.setState({ todos });
+    this.props.visibilityFilter('SHOW_DONE');
   }
 
   showUndone() {
-    let filtered = this.props.visibilityFilter('SHOW_UNDONE');
-    console.log(filtered);
-    // let lists = this.state.lists;
-    // let todos = this.state.todos;
-    // let listId = this.state.listId;
-
-    // lists = lists.map((todoList) => {
-    //   if (listId == todoList.id) {
-    //     todos = todoList.list.filter((todo) => { return todo.done != true }
-    //     )
-    //   }
-    //   return lists;
-    // })
-
-    // this.setState({ todos });
+    this.props.visibilityFilter('SHOW_UNDONE');
   }
 
   showAll() {
-    let filtered = this.props.visibilityFilter('SHOW_ALL');
-    console.log(filtered);
-    // let lists = this.state.lists;
-    // let todos = this.state.todos;
-    // let listId = this.state.listId;
+    this.props.visibilityFilter('SHOW_ALL');
+  }
 
-    // lists = lists.map((todoList) => {
-    //   if (listId == todoList.id) {
-    //     todos = todoList.list;
-    //   }
-    //   return todoList;
-    // })
-
-    // this.setState({ todos });
+  displayTodos() {
+    let lists = this.state.lists;
+    let listId = this.state.listId;
+    let temp;
+    lists.map((todoList) => {
+      if (todoList.id === listId) {
+        temp = todoList.list;
+      }
+    })
+    return temp;
   }
 
   render() {
@@ -223,7 +193,7 @@ removeTodo(item) {
         <View style={styles.listContainer}>
 
           <FlatList
-            data={this.state.todos} // get the todos array
+            data={this.displayTodos()} // get the todos array
             keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
             renderItem={({ item, index }) => { // render an item from data
               return (

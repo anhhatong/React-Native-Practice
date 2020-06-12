@@ -8,13 +8,13 @@ const todos = (state = initialState, action) => {
             let temp = state.data.lists.map((todoList) => {
                 if (todoList.id === listId) {
                     let newId = todoList.list.length;
-                    todoList = Object.assign({}, todoList.list, {
+                    todoList = {
                         ...state.data.lists[listId],
                         list: [
                             ...state.data.lists[listId].list,
-                            { listId: listId, todoId: newId, title: title, done: false, date: date }
+                            { listId: listId, id: newId, title: title, done: false, date: date }
                         ]
-                    })
+                    }
                 }
                 return todoList;
             })
@@ -203,8 +203,7 @@ const todos = (state = initialState, action) => {
                 ...state,
                 data: {
                     ...state.data,
-                    listId: listId,
-                    todos: items
+                    listId: listId
                 }
             }
             return temp;

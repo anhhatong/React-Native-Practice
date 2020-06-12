@@ -20,7 +20,7 @@ const SortBar = (props) => { //props is an argument passed from parent App.js
                         reverseColor='#116530'
                         size={25}
                         color='#DAD870'
-                        onPress={props.sortDone}
+                        onPress={props.showDone}
                     />
                     <Icon
                         name='list'
@@ -29,7 +29,7 @@ const SortBar = (props) => { //props is an argument passed from parent App.js
                         reverseColor='#fff'
                         size={25}
                         color='#bca638'
-                        onPress={props.unsort}
+                        onPress={props.showAll}
                     />
                     <Icon
                         name='square'
@@ -38,7 +38,7 @@ const SortBar = (props) => { //props is an argument passed from parent App.js
                         reverseColor='#fff'
                         size={25}
                         color='#9E7300'
-                        onPress={props.sortUndone}
+                        onPress={props.showUndone}
                     />
                 </View>
             </View>

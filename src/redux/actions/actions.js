@@ -1,4 +1,4 @@
-import { TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_TODO, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST} from "./actionTypes";
+import { TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_TODO, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, FILTER } from "./actionTypes";
 
 export const addTodo = (listId , title, date) => ({
   type: ADD_TODO,
@@ -48,4 +48,9 @@ export const editTodo = (listId, todoId, title, currentDate) => ({
 export const gotoDetail = (listId) => ({
   type: GOTO_DETAIL,
   payload: { listId }
+});
+
+export const visibilityFilter = (filter) => ({
+  type: FILTER,
+  payload: { filter }
 });

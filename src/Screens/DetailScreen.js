@@ -14,13 +14,14 @@ import AddNewTodoBtn from '../Components/AddNewTodoBtn.js';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
+import { toggleTodo, removeTodo, gotoEdit, visibilityFilter } from '../redux/actions/actions';
 
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
   return {
+      visibilityFilter: (filter) => dispatch(visibilityFilter(filter)),
       toggleTodo: (listId, todoId) => dispatch(toggleTodo(listId, todoId)),
       removeTodo: (listId, todoId) => dispatch(removeTodo(listId, todoId)),
       gotoEdit: (listId, todoId, title, currentDate) => dispatch(gotoEdit(listId, todoId, title, currentDate))
@@ -31,7 +32,6 @@ const mapDispatchToProps = (dispatch) => {
 class DetailScreen extends Component {
   constructor(props) {
     super(props);
-    console.log(props.state.listId);
     this.state = props.state;
   }
 
@@ -131,65 +131,58 @@ removeTodo(item) {
     });
   }
 
-  sortDone() {
-    let lists = this.state.lists;
-    let todos = this.state.todos;
-    let listId = this.state.listId;
+  showDone() {
+    let filtered = this.props.visibilityFilter('SHOW_DONE');
+    console.log(filtered);
+    // let lists = this.state.lists;
+    // let todos = this.state.todos;
+    // let listId = this.state.listId;
 
-    lists = lists.map((todoList) => {
-      if (listId == todoList.id) {
-        todos = todoList.list.filter((todo) => { return todo.done == true }
-        )
-      }
-      return lists;
-    })
+    // lists = lists.map((todoList) => {
+    //   if (listId == todoList.id) {
+    //     this.setState({lists})
+    //     todos = todoList.list.filter((todo) => { return todo.done == true }
+    //     )
+    //   }
+    //   return lists;
+    // })
 
-    this.setState({ todos });
+    // this.setState({ todos });
   }
 
-  sortUndone() {
-    let lists = this.state.lists;
-    let todos = this.state.todos;
-    let listId = this.state.listId;
+  showUndone() {
+    let filtered = this.props.visibilityFilter('SHOW_UNDONE');
+    console.log(filtered);
+    // let lists = this.state.lists;
+    // let todos = this.state.todos;
+    // let listId = this.state.listId;
 
-    lists = lists.map((todoList) => {
-      if (listId == todoList.id) {
-        todos = todoList.list.filter((todo) => { return todo.done != true }
-        )
-      }
-      return lists;
-    })
+    // lists = lists.map((todoList) => {
+    //   if (listId == todoList.id) {
+    //     todos = todoList.list.filter((todo) => { return todo.done != true }
+    //     )
+    //   }
+    //   return lists;
+    // })
 
-    this.setState({ todos });
+    // this.setState({ todos });
   }
 
-  unsort() {
-    let lists = this.state.lists;
-    let todos = this.state.todos;
-    let listId = this.state.listId;
+  showAll() {
+    let filtered = this.props.visibilityFilter('SHOW_ALL');
+    console.log(filtered);
+    // let lists = this.state.lists;
+    // let todos = this.state.todos;
+    // let listId = this.state.listId;
 
-    lists = lists.map((todoList) => {
-      if (listId == todoList.id) {
-        todos = todoList.list;
-      }
-      return todoList;
-    })
+    // lists = lists.map((todoList) => {
+    //   if (listId == todoList.id) {
+    //     todos = todoList.list;
+    //   }
+    //   return todoList;
+    // })
 
-    this.setState({ todos });
-  }
-
-  displayTodos() {
-    let lists = this.state.lists;
-    let listId = this.state.listId;
-    let temp;
-
-    lists.map((todoList) => {
-      if (todoList.id === listId) {
-        temp = todoList.list;
-      }
-    })
-
-    return temp;
+    // this.setState({ todos });
   }
 
   render() {
@@ -230,7 +223,7 @@ removeTodo(item) {
         <View style={styles.listContainer}>
 
           <FlatList
-            data={this.displayTodos()} // get the todos array
+            data={this.state.todos} // get the todos array
             keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
             renderItem={({ item, index }) => { // render an item from data
               return (
@@ -248,9 +241,9 @@ removeTodo(item) {
 
 
           <SortBar
-            sortDone={() => this.sortDone()}
-            sortUndone={() => this.sortUndone()}
-            unsort={() => this.unsort()} />
+            showDone={() => this.showDone()}
+            showUndone={() => this.showUndone()}
+            showAll={() => this.showAll()} />
 
         </View>
       </LinearGradient>

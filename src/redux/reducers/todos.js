@@ -1,5 +1,5 @@
 import initialState from '../store/initialState';
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST } from "../actions/actionTypes";
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, FILTER } from "../actions/actionTypes";
 
 const todos = (state = initialState, action) => {
     switch (action.type) {
@@ -198,14 +198,43 @@ const todos = (state = initialState, action) => {
 
         case GOTO_DETAIL: {
             const { listId } = action.payload;
+            let items = state.data.lists[listId].list;
             let temp = {
                 ...state,
                 data: {
                     ...state.data,
-                    listId: listId
+                    listId: listId,
+                    todos: items
                 }
             }
             return temp;
+        }
+
+        case FILTER: {
+            const { filter } = action.payload;
+            let listId = state.data.listId;
+            let filtered;
+            switch (filter) {
+                case 'SHOW_ALL': {
+                    filtered = state.data.lists[listId].list;
+                    break;
+                }
+                case 'SHOW_DONE': {
+                    filtered = state.data.lists[listId].list.filter((todo) => { return todo.done !== false });
+                    break;
+                }
+                case 'SHOW_UNDONE': {
+                    filtered = state.data.lists[listId].list.filter((todo) => { return todo.done !== true });
+                }
+            }
+
+            return Object.assign({}, state, {
+                ...state,
+                data: {
+                    ...state.data,
+                    todos: filtered
+                }
+            })
         }
 
         default:

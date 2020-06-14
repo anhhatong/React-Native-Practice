@@ -33,7 +33,10 @@ class DetailScreen extends Component {
     super(props);
     //console.log(props.state.listId);
     this.state = {
-      lists: props.state.lists
+      lists: props.state.lists,
+      isSearching: false,
+      todos: [],
+      todosUnmatched: []
     };
   }
 
@@ -73,40 +76,45 @@ class DetailScreen extends Component {
     this.props.removeTodo(item.listId, item.id);
   }
 
-  // toggleIsSearching() {
-  //   let isSearching = !this.props.state.isSearching;
-  //   this.searchTodo('');
-  //   this.setState({ isSearching });
-  // }
+  toggleIsSearching() {
+    let isSearching = !this.state.isSearching;
+    if (isSearching === false) { this.searchTodo('') }
+    this.setState({ isSearching });
+  }
 
   //method to search for todo items
-  // searchTodo(str) {
-  //   let lists = this.state.lists;
-  //   let listId = this.state.listId;
-  //   let todos = this.state.todos; //array of matched items from the last search
-  //   let todosUnmatched = this.state.todosUnmatched; //array of unmatched items from the last search
-  //   todos = todos.concat(todosUnmatched);
+  searchTodo(str) {
+    let lists = this.state.lists;
+    let listId = this.props.state.listId;
+    let todosUnmatched = this.state.todosUnmatched; //array of unmatched items from the last search
+    let todos;
+    lists.map((todoList) => {
+      if (todoList.id === listId) {
+        todos = todoList.list;
+      }
+    }); //array of matched items from the last search
+    todos = todos.concat(todosUnmatched);
 
-  //   // first call to quick sort
-  //   todos = todos.sort((a, b) => a.date - b.date);
+    // first call to quick sort
+    todos = todos.sort((a, b) => a.date - b.date);
 
-  //   todosUnmatched = []; //re-initialize todosUnmatched
+    todosUnmatched = []; //re-initialize todosUnmatched
 
-  //   //filter unmatched items
-  //   todosUnmatched = todos.filter((todo) => { return (!(todo.title.toLowerCase().includes(str.toLowerCase()))) });
-  //   this.setState({ todosUnmatched });
+    //filter unmatched items
+    todosUnmatched = todos.filter((todo) => { return (!(todo.title.toLowerCase().includes(str.toLowerCase()))) });
+    this.setState({ todosUnmatched });
 
-  //   //filter matched items
-  //   todos = todos.filter((todo) => { return (todo.title.toLowerCase().includes(str.toLowerCase())) });
-  //   this.setState({ todos });
+    //filter matched items
+    todos = todos.filter((todo) => { return (todo.title.toLowerCase().includes(str.toLowerCase())) });
+    this.setState({ todos });
 
-  //   lists = lists.map((todoList) => {
-  //     if (todoList.id == listId) {
-  //       todoList.list = todos;
-  //     }
-  //     return todoList;
-  //   });
-  // }
+    lists = lists.map((todoList) => {
+      if (todoList.id == listId) {
+        todoList.list = todos;
+      }
+      return todoList;
+    });
+  }
 
   sortDone() {
     let lists = this.props.state.lists;
@@ -185,12 +193,12 @@ class DetailScreen extends Component {
                 return todoList.title;
               }
             })}
-          isSearching={this.props.state.isSearching}
+          isSearching={this.state.isSearching}
           isBackVisible={true}
           toggleIsSearching={() => this.toggleIsSearching()}
-          backToList={() => this.props.navigation.navigate('List')} />
+          backToList={() => { this.searchTodo(""); this.props.navigation.navigate('List') }} />
 
-        {(this.props.state.isSearching) ?
+        {(this.state.isSearching) ?
           (
             <SearchBar
               searchTodo={(str) => this.searchTodo(str)}

@@ -20,9 +20,9 @@ export default class App extends React.Component {
         const persistor = persistStore(store);
         return (
             <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
+                {/* <PersistGate loading={null} persistor={persistor}> */}
                 <TodoApp/>
-                </PersistGate>
+                {/* </PersistGate> */}
             </Provider>
         );
     }

@@ -12,7 +12,7 @@ const todos = (state = initialState, action) => {
                         ...state.data.lists[listId],
                         list: [
                             ...state.data.lists[listId].list,
-                            { listId: listId, todoId: newId, title: title, done: false, date: date }
+                            { listId: listId, id: newId, title: title, done: false, date: date }
                         ]
                     }
                 }
@@ -70,7 +70,7 @@ const todos = (state = initialState, action) => {
                 }
                 return todoList;
             })
-            console.log(temp);
+            //console.log(temp);
             return {
                 ...state,
                 data: {
@@ -105,7 +105,7 @@ const todos = (state = initialState, action) => {
             const { listId } = action.payload;
             let temp = state.data.lists.filter((todoList) => { return todoList.id !== listId });
             let i = 0;
-            
+
             temp = temp.map((todoList) => {
                 todoList.list.map((todo) => {
                     todo.listId = i;

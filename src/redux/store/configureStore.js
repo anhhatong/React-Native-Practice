@@ -12,11 +12,11 @@ export default function configureStore(initialState) {
         storage: AsyncStorage
       };
 
-    //const persistedReducer = persistReducer(persistConfig, rootReducer);
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
 
     return createStore(
-        rootReducer,
-        //persistedReducer,
+        // rootReducer,
+        persistedReducer,
         {},
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )

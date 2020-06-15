@@ -8,3 +8,4 @@ export const EDIT_TODO = "EDIT_TODO";
 export const EDIT_LIST = "EDIT_LIST";
 export const GOTO_DETAIL = "GOTO_DETAIL";
 export const GOTO_EDIT_LIST = "GOTO_EDIT_LIST";
+export const LOG_OUT = "LOG_OUT";

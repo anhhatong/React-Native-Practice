@@ -7,6 +7,14 @@ import {
 } from '@react-navigation/drawer';
 import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { logOut } from '../redux/actions/actions';
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logOut: () => dispatch(logOut())
+    }
+}
 
 const CustomDrawerContent = (props) => {
     return (
@@ -16,16 +24,19 @@ const CustomDrawerContent = (props) => {
                 style={styles.container}>
                 <View>
                     <View style={styles.icon}>
-                    <Icon
-                    name='menu'
-                    type='feather'
-                    color='#fff'
-                    size={20}
-                    onPress={() => props.navigation.closeDrawer()}/>
+                        <Icon
+                            name='menu'
+                            type='feather'
+                            color='#fff'
+                            size={20}
+                            onPress={() => props.navigation.closeDrawer()} />
                     </View>
                     <Text style={styles.welcome}>{props.username}</Text>
                     <DrawerItemList {...props} />
-                    <DrawerItem label="Log out" onPress={()=>props.navigation.navigate("Login")}/>
+                    <DrawerItem label="Log out" onPress={() => {
+                        props.navigation.navigate('Login');
+                        props.logOut()
+                    }} />
                 </View>
             </LinearGradient>
         </DrawerContentScrollView>
@@ -50,4 +61,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CustomDrawerContent;
+export default connect(null, mapDispatchToProps)(CustomDrawerContent);

@@ -57,6 +57,7 @@ const todos = (state = initialState, action) => {
                 if (todoList.id === listId) {
                     let filtered;
                     filtered = todoList.list.filter((todo) => { return todo.id !== todoId });
+                    console.log(todoList.list);
                     let i = 0;
                     filtered = filtered.map((todo) => {
                         todo.id = i;

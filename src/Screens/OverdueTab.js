@@ -106,19 +106,7 @@ class OverdueTab extends React.Component {
 
     //method to remove a todo item
     removeTodo(item) {
-        let lists = this.state.lists;
-
-        lists = lists.map((todoList) => {
-            if (todoList.id == item.listId) {
-                todoList.list = todoList.list.map((todo) => {
-                    if (todo.id == item.id) {
-                        this.props.removeTodo(todoList.id, item.id);
-                    }
-                    return todo;
-                })
-            }
-            return todoList;
-        })
+        this.props.removeTodo(item.listId, item.id);
     }
 
     openDrawer() {

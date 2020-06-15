@@ -118,12 +118,12 @@ class TodoApp extends React.Component {
                     headerShown: false,
                     gestureEnabled: false
                 }}>
-                    {/* <Stack.Screen
+                    <Stack.Screen
                         name="Login"
                         component={LoginScreen} />
                     <Stack.Screen
                         name="Signup"
-                        component={SignupScreen} /> */}
+                        component={SignupScreen} />
                     <Stack.Screen
                         name="Home"
                         component={Home} />
@@ -159,20 +159,4 @@ const RootNavigator = createSwitchNavigator({
     initialRouteName: 'Splash'
 });
 
-
-const styles = StyleSheet.create({
-    container: { //fill
-        flex: 1, //how much an item occupies available space on screen
-        backgroundColor: '#D1C2C2',
-    },
-    statusbar: {//status bar on top
-        backgroundColor: '#FFCD58',
-        height: 40
-    },
-    listContainer: {
-        flex: 1,
-        borderTopLeftRadius: 130,
-        backgroundColor: "#fff"
-    }
-});
 export default createAppContainer(RootNavigator);

@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
 import { changePassword } from '../redux/actions/actions';
 
-const mapStateToProps = (state) => ({ state: state.todos.info });
+const mapStateToProps = (state) => ({ state: state.todos });
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -39,25 +39,25 @@ class ChangePasswordScreen extends Component {
 
     save = async () => {
         let passwordInput = this.state.passwordInput;
-        // let prevInfo = this.state.info;
-        // let newInfo = {username: prevInfo.username,
-        //                 password: passwordInput};
-        // let data = this.state.data;
+        let prevInfo = this.props.state.info;
+        let newInfo = {
+            username: this.props.state.info.username,
+            password: passwordInput
+        };
+        //let data = this.state.data;
         if (passwordInput === '' || passwordInput == null) {
             alert("Please set password");
         } else if (passwordInput.length < 8) {
             alert("Password must be at least 8 characters long");
         } else {
             try {
+                const jsonValue = JSON.stringify(prevInfo);
+                await AsyncStorage.removeItem(jsonValue);
+                const jsonValueNewInfo = JSON.stringify(newInfo);
+                const jsonValueData = JSON.stringify(this.props.state.data);
+                await AsyncStorage.setItem(jsonValueNewInfo, jsonValueData);
                 this.props.changePassword(passwordInput);
                 this.setState({ passwordInput: '' });
-                // const jsonValue = JSON.stringify(prevInfo);
-                // await AsyncStorage.removeItem(jsonValue);
-                // const jsonValueNewInfo = JSON.stringify(newInfo);
-                // const jsonValueData = JSON.stringify(data);
-                // await AsyncStorage.setItem(jsonValueNewInfo, jsonValueData);
-                // this.props.navigation.setParams({info:newInfo});
-                //     console.log(this.state);
                 this.props.navigation.goBack();
             } catch (e) {
                 console.log("Save error. Try again.");

@@ -79,7 +79,7 @@ function Home({ route }) {
                 backgroundColor: '#d1d3db'
             }}
             drawerContent={(props) => <CustomDrawerContent
-                username="Username"
+                username={"Username"}
                 {...props} />}
         >
             <Drawer.Screen

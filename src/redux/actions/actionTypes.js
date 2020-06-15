@@ -9,3 +9,4 @@ export const EDIT_LIST = "EDIT_LIST";
 export const GOTO_DETAIL = "GOTO_DETAIL";
 export const GOTO_EDIT_LIST = "GOTO_EDIT_LIST";
 export const LOG_OUT = "LOG_OUT";
+export const RETRIEVE_DATA = "RETRIEVE_DATA";

@@ -1,4 +1,4 @@
-import { TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_TODO, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, LOG_OUT} from "./actionTypes";
+import { TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_TODO, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, LOG_OUT, RETRIEVE_DATA} from "./actionTypes";
 
 export const addTodo = (listId , title, date) => ({
   type: ADD_TODO,
@@ -53,4 +53,9 @@ export const gotoDetail = (listId) => ({
 export const logOut = () => ({
   type: LOG_OUT,
   payload: {}
+});
+
+export const retrieveData = (data, userInfo) => ({
+  type: RETRIEVE_DATA,
+  payload: {data, userInfo}
 });

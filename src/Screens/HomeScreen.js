@@ -11,7 +11,6 @@ import HomeHeader from '../Components/HomeHeader'; //import the path of Header.j
 import TodoItem from '../Components/TodoItem.js';
 
 import LinearGradient from 'react-native-linear-gradient';
-import moment from "moment";
 import { connect } from 'react-redux';
 import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
 

@@ -3,10 +3,18 @@ import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux';
+import { retrieveData } from '../redux/actions/actions';
 
-const userInfo = { username: 'admin', password: 'maddie' };
+const mapStateToProps = (state) => ({ state: state.todos.data });
 
-export default class LoginScreen extends React.Component {
+const mapDispatchToProps = (dispatch) => {
+    return {
+        retrieveData: (data, userInfo) => dispatch(retrieveData(data, userInfo))
+    }
+}
+
+class LoginScreen extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -64,8 +72,14 @@ export default class LoginScreen extends React.Component {
             try {
                 const jsonValue = JSON.stringify(state);
                 const jsonValueData = await AsyncStorage.getItem(jsonValue);
-                //console.log(JSON.parse(jsonValueData));
-                return jsonValueData != null ? this.props.navigation.navigate('Home', {data:JSON.parse(jsonValueData),info:state}) : alert("Wrong username or password");
+                const data = JSON.parse(jsonValueData);
+                 //await AsyncStorage.removeItem(jsonValue);
+                if (jsonValueData != null) {
+                    this.props.retrieveData(data,state); 
+                    this.props.navigation.navigate('Home'); 
+                } else { 
+                    alert("Wrong username or password");
+                }
             } catch (e) {
                 alert("Load error. Try again.");
             }
@@ -121,3 +135,4 @@ const styles = StyleSheet.create({
     }
 });
 
+export default connect (mapStateToProps, mapDispatchToProps) (LoginScreen);

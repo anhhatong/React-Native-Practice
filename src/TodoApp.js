@@ -11,6 +11,8 @@ import SplashScreen from './Screens/SplashScreen.js';
 import LoginScreen from './Screens/LoginScreen.js';
 import SignupScreen from './Screens/SignupScreen.js';
 import HomeScreen from './Screens/HomeScreen.js';
+import OverdueTab from './Screens/OverdueTab.js';
+import DueTomorrowTab from './Screens/DueTomorrowTab.js';
 import ListScreen from './Screens/ListScreen.js';
 import DetailScreen from './Screens/DetailScreen.js';
 import AddNewTodoScreen from './Screens/AddNewTodoScreen.js';
@@ -29,9 +31,41 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+
+function HomeTab() {
+    return (
+        <Tab.Navigator 
+        tabBarOptions={{
+            activeTintColor:"#444444",
+            inactiveTintColor:"#fff",
+            labelStyle: {
+                fontSize: 16,
+                fontFamily: 'Gill Sans',
+                fontWeight: "bold"
+              },
+              style: {
+                borderRadius:20,
+                backgroundColor: '#d1d3db',
+                height: (Platform.OS === 'ios') ? 75 : 50 
+              }
+        }}>
+            <Tab.Screen 
+            name="Today" 
+            component={HomeScreen}/>
+            <Tab.Screen 
+            name="Overdue" 
+            component={OverdueTab}/>
+            <Tab.Screen 
+            name="Tomorrow" 
+            component={DueTomorrowTab}/>
+        </Tab.Navigator>
+    )
+}
 
 function Home({ route }) {
     let state = route.params;
@@ -44,13 +78,13 @@ function Home({ route }) {
             drawerStyle={{
                 backgroundColor: '#d1d3db'
             }}
-        // drawerContent={(props) => <CustomDrawerContent
-        //     username={state.info.username}
-        //     {...props} />}
+            drawerContent={(props) => <CustomDrawerContent
+                username="Username"
+                {...props} />}
         >
             <Drawer.Screen
                 name="Home"
-                component={HomeScreen} />
+                component={HomeTab} />
             <Drawer.Screen
                 name="List"
                 options={{ drawerLabel: 'My Lists' }}

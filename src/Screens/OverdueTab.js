@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-class HomeScreen extends React.Component {
+class OverdueTab extends React.Component {
     constructor(props) {
         super(props);
         this.state = props.state;
@@ -40,7 +40,7 @@ class HomeScreen extends React.Component {
         }
     }
 
-    checkDueToday() {
+    checkOverdue() {
         let lists = this.state.lists;
         let items = [];
         let today = new Date();
@@ -49,15 +49,20 @@ class HomeScreen extends React.Component {
             todoList.list.map((item) => {
                 if (item.date != '') {
                     item.date = new Date(item.date);
+                    //console.log(item.date);
+                    if (!(item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear())) {
 
-                    if (item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear()) {
-                        items.unshift(item);
+                        if (item.date < moment()) {
+                            items.unshift(item);
+                        }
                     }
                 }
                 return item;
             })
             return todoList;
         })
+
+        items.sort((a, b) => b.date - a.date);
 
         return items;
     }
@@ -152,11 +157,11 @@ class HomeScreen extends React.Component {
                 <View style={styles.listContainer}>
 
                     <View style={styles.textContainer}>
-                        <Text style={styles.font}>Today</Text>
+                        <Text style={styles.font}>Overdue</Text>
                     </View>
 
                     <FlatList
-                        data={this.checkDueToday()} // get the todos array
+                        data={this.checkOverdue()} // get the todos array
                         keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
                         renderItem={({ item, index }) => { // render an item from data
                             return (
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Gill Sans',
         fontSize: 28,
         paddingLeft: '5%',
-        color: "#ff9636",
+        color: '#880C25',
         letterSpacing: 2,
         fontWeight: "bold"
     },
@@ -212,4 +217,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(OverdueTab);

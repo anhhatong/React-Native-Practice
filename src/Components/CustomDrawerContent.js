@@ -1,20 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import {
     DrawerContentScrollView,
     DrawerItemList,
     DrawerItem
 } from '@react-navigation/drawer';
 import LinearGradient from 'react-native-linear-gradient';
+import LogOut from './LogOut.js';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { logOut } from '../redux/actions/actions';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { logOut } from '../redux/actions/actions';
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        logOut: () => dispatch(logOut())
-    }
-}
+// const mapStateToProps = (state) => ({ state: state.todos });
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         logOut: () => dispatch(logOut())
+//     }
+// }
 
 const CustomDrawerContent = (props) => {
     return (
@@ -33,10 +38,7 @@ const CustomDrawerContent = (props) => {
                     </View>
                     <Text style={styles.welcome}>{props.username}</Text>
                     <DrawerItemList {...props} />
-                    <DrawerItem label="Log out" onPress={() => {
-                        props.navigation.navigate('Login');
-                        props.logOut()
-                    }} />
+                    <LogOut nav={props}/>
                 </View>
             </LinearGradient>
         </DrawerContentScrollView>
@@ -61,4 +63,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(null, mapDispatchToProps)(CustomDrawerContent);
+export default CustomDrawerContent;

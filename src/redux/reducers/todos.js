@@ -1,5 +1,9 @@
 import initialState from '../store/initialState';
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, RETRIEVE_DATA } from "../actions/actionTypes";
+import {
+    ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT,
+    EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST,
+    GOTO_EDIT_LIST, RETRIEVE_DATA, CHANGE_USERNAME, CHANGE_PASSWORD
+} from "../actions/actionTypes";
 
 const todos = (state = initialState, action) => {
     switch (action.type) {
@@ -216,6 +220,28 @@ const todos = (state = initialState, action) => {
                 ...state,
                 info: userInfo,
                 data: data
+            }
+        }
+
+        case CHANGE_USERNAME: {
+            const { username } = action.payload;
+            return {
+                ...state,
+                info: {
+                    ...state.info,
+                    username: username
+                }
+            }
+        }
+
+        case CHANGE_PASSWORD: {
+            const { password } = action.payload;
+            return {
+                ...state,
+                info: {
+                    ...state.info,
+                    password: password
+                }
             }
         }
 

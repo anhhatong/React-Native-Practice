@@ -67,8 +67,7 @@ function HomeTab() {
     )
 }
 
-function Home({ route }) {
-    let state = route.params;
+function Home() {
     return (
         <Drawer.Navigator
             drawerContentOptions={{
@@ -92,13 +91,11 @@ function Home({ route }) {
             <Drawer.Screen
                 name="ChangeUsername"
                 options={{ drawerLabel: 'Change Username' }}
-                component={ChangeUsernameScreen}
-                initialParams={state} />
+                component={ChangeUsernameScreen} />
             <Drawer.Screen
                 name="ChangePassword"
                 options={{ drawerLabel: 'Change Password' }}
-                component={ChangePasswordScreen}
-                initialParams={state} />
+                component={ChangePasswordScreen} />
         </Drawer.Navigator >
     );
 }

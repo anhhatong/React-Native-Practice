@@ -73,7 +73,7 @@ class LoginScreen extends React.Component {
                 const jsonValue = JSON.stringify(state);
                 const jsonValueData = await AsyncStorage.getItem(jsonValue);
                 const data = JSON.parse(jsonValueData);
-                 //await AsyncStorage.removeItem(jsonValue);
+                //await AsyncStorage.removeItem(jsonValue);
                 if (jsonValueData != null) {
                     this.props.retrieveData(data,state); 
                     this.props.navigation.navigate('Home'); 
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
         paddingBottom: '2%',
         paddingLeft: '7%',
         paddingRight: '7%',
-        borderRadius: 20
+        borderRadius: 20,
+        marginBottom: '10%'
     },
     fontTitle: {
         color: "#fff",
@@ -130,8 +131,7 @@ const styles = StyleSheet.create({
     signUp: {
         color: '#286bd7',
         fontSize: 20,
-        fontFamily: 'Gill Sans',
-        paddingTop: '10%'
+        fontFamily: 'Gill Sans'
     }
 });
 

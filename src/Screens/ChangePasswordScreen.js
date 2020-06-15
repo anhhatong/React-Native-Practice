@@ -11,40 +11,54 @@ import LinearGradient from 'react-native-linear-gradient';
 import PasswordInput from '../Components/PasswordInput.js';
 import AddNewScreenHeader from '../Components/AddNewScreenHeader.js';
 import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux';
+import { changePassword } from '../redux/actions/actions';
 
-export default class ChangePasswordScreen extends Component {
+const mapStateToProps = (state) => ({ state: state.todos.info });
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changePassword: (password) => dispatch(changePassword(password))
+    }
+}
+
+class ChangePasswordScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = this.props.route.params;
+        this.state = {
+            passwordInput: ''
+        }
     }
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props !== prevProps) {
-            this.setState(this.props.route.params);
+            this.setState({ passwordInput: '' });
         }
     }
 
     save = async () => {
         let passwordInput = this.state.passwordInput;
-        let prevInfo = this.state.info;
-        let newInfo = {username: prevInfo.username,
-                        password: passwordInput};
-        let data = this.state.data;
+        // let prevInfo = this.state.info;
+        // let newInfo = {username: prevInfo.username,
+        //                 password: passwordInput};
+        // let data = this.state.data;
         if (passwordInput === '' || passwordInput == null) {
             alert("Please set password");
         } else if (passwordInput.length < 8) {
             alert("Password must be at least 8 characters long");
         } else {
             try {
-                const jsonValue = JSON.stringify(prevInfo);
-                await AsyncStorage.removeItem(jsonValue);
-                const jsonValueNewInfo = JSON.stringify(newInfo);
-                const jsonValueData = JSON.stringify(data);
-                await AsyncStorage.setItem(jsonValueNewInfo, jsonValueData);
-                this.props.navigation.setParams({info:newInfo});
-                    console.log(this.state);
-                    this.props.navigation.jumpTo('Home',this.state);
+                this.props.changePassword(passwordInput);
+                this.setState({ passwordInput: '' });
+                // const jsonValue = JSON.stringify(prevInfo);
+                // await AsyncStorage.removeItem(jsonValue);
+                // const jsonValueNewInfo = JSON.stringify(newInfo);
+                // const jsonValueData = JSON.stringify(data);
+                // await AsyncStorage.setItem(jsonValueNewInfo, jsonValueData);
+                // this.props.navigation.setParams({info:newInfo});
+                //     console.log(this.state);
+                this.props.navigation.goBack();
             } catch (e) {
                 console.log("Save error. Try again.");
             }
@@ -61,14 +75,13 @@ export default class ChangePasswordScreen extends Component {
                 <AddNewScreenHeader
                     title="Change Password"
                     save={() => this.save()}
-                    cancel={() => this.props.navigation.goBack('List', this.state)} />
+                    cancel={() => { this.setState({ passwordInput: '' }); this.props.navigation.goBack() }} />
 
                 <PasswordInput
+                    passwordInput={this.state.passwordInput}
                     textChange={passwordInput => this.setState({ passwordInput })} />
 
                 <View style={styles.listContainer}>
-
-
 
                 </View>
             </LinearGradient>
@@ -94,6 +107,6 @@ const styles = StyleSheet.create({
     }
 });
 
-
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordScreen);
 
 

@@ -14,7 +14,7 @@ const Header = (props) => { //props is an argument passed from parent App.js
       style={styles.header}>
 
       {/* pass string title from App.js */}
-      <View style={!props.isBackVisible? styles.iconContainer : styles.iconContainerNoMenu}>
+      <View style={!props.isBackVisible ? styles.iconContainer : styles.iconContainerNoMenu}>
 
         {!props.isBackVisible &&
           <Icon

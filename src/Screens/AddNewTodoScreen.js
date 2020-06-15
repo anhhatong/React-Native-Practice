@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  Platform,
-  FlatList // list in react native
+  Platform
 } from 'react-native';
 import AddNewScreenHeader from '../Components/AddNewScreenHeader.js'; //import the path of Header.js
 import AddNewInputBar from '../Components/AddNewInputBar.js'; //import the path of AddNewInputBar.js
@@ -35,8 +33,8 @@ class AddNewTodoScreen extends Component {
     let currentDate = this.state.currentDate;
 
     if (todoInput != '') {
-    this.props.addTodo(listId, todoInput, currentDate);
-    this.props.navigation.goBack();
+      this.props.addTodo(listId, todoInput, currentDate);
+      this.props.navigation.goBack();
     } else {
       alert("Please enter todo");
     }
@@ -113,6 +111,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect (mapStateToProps,mapDispatchToProps)(AddNewTodoScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewTodoScreen)
 
 

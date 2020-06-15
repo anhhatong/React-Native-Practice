@@ -2,11 +2,8 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  TextInput,
-  TouchableOpacity
+  TextInput
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 
 const AddNewInputBar = (props) => {
 

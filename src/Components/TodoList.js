@@ -1,7 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, Button, TouchableOpacity, View, TextInput } from "react-native";
+import { StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
 import Swipeout from 'react-native-swipeout';
-import { Icon } from 'react-native-elements';
 
 export default class TodoList extends React.Component {
 

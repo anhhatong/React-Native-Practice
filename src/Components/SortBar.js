@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     StyleSheet,
-    View,
-    Text
+    View
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';

@@ -1,8 +1,12 @@
-import { TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_TODO, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, FILTER } from "./actionTypes";
+import {
+  TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL,
+  ADD_TODO, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, LOG_OUT,
+  RETRIEVE_DATA, CHANGE_USERNAME, CHANGE_PASSWORD
+} from "./actionTypes";
 
-export const addTodo = (listId , title, date) => ({
+export const addTodo = (listId, title, date) => ({
   type: ADD_TODO,
-  payload: { listId ,title, date }
+  payload: { listId, title, date }
 });
 
 export const toggleTodo = (listId, todoId) => ({
@@ -50,7 +54,22 @@ export const gotoDetail = (listId) => ({
   payload: { listId }
 });
 
-export const visibilityFilter = (filter) => ({
-  type: FILTER,
-  payload: { filter }
+export const logOut = () => ({
+  type: LOG_OUT,
+  payload: {}
+});
+
+export const retrieveData = (data, userInfo) => ({
+  type: RETRIEVE_DATA,
+  payload: { data, userInfo }
+});
+
+export const changeUsername = (username) => ({
+  type: CHANGE_USERNAME,
+  payload: { username }
+});
+
+export const changePassword = (password) => ({
+  type: CHANGE_PASSWORD,
+  payload: { password }
 });

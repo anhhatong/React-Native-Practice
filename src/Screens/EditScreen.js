@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  Platform,
-  FlatList // list in react native
+  Platform
 } from 'react-native';
 import AddNewScreenHeader from '../Components/AddNewScreenHeader'; //import the path of Header.js
 import AddNewInputBar from '../Components/AddNewInputBar'; //import the path of AddNewInputBar.js
@@ -18,7 +16,7 @@ const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      editTodo: (listId, todoId, title, currentDate) => dispatch(editTodo(listId, todoId, title, currentDate))
+    editTodo: (listId, todoId, title, currentDate) => dispatch(editTodo(listId, todoId, title, currentDate))
   }
 }
 
@@ -35,9 +33,9 @@ class EditScreen extends Component {
     let todoInput = this.state.todoInput;
     let currentDate = this.state.currentDate;
 
-    if(todoInput!='') {
-    this.props.editTodo(listId, todoId, todoInput, currentDate);
-    this.props.navigation.goBack();
+    if (todoInput != '') {
+      this.props.editTodo(listId, todoId, todoInput, currentDate);
+      this.props.navigation.goBack();
     } else {
       alert("Please enter todo");
     }
@@ -106,4 +104,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(EditScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(EditScreen);

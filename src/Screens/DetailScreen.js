@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Platform,
   FlatList // list in react native
 } from 'react-native';
@@ -14,17 +13,16 @@ import AddNewTodoBtn from '../Components/AddNewTodoBtn.js';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { toggleTodo, removeTodo, gotoEdit, visibilityFilter } from '../redux/actions/actions';
+import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
 
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      visibilityFilter: (filter) => dispatch(visibilityFilter(filter)),
-      toggleTodo: (listId, todoId) => dispatch(toggleTodo(listId, todoId)),
-      removeTodo: (listId, todoId) => dispatch(removeTodo(listId, todoId)),
-      gotoEdit: (listId, todoId, title, currentDate) => dispatch(gotoEdit(listId, todoId, title, currentDate))
+    toggleTodo: (listId, todoId) => dispatch(toggleTodo(listId, todoId)),
+    removeTodo: (listId, todoId) => dispatch(removeTodo(listId, todoId)),
+    gotoEdit: (listId, todoId, title, currentDate) => dispatch(gotoEdit(listId, todoId, title, currentDate))
   }
 }
 
@@ -32,82 +30,68 @@ const mapDispatchToProps = (dispatch) => {
 class DetailScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = props.state;
+    //console.log(props.state.listId);
+    this.state = {
+      lists: props.state.lists,
+      isSearching: false,
+      todos: [],
+      todosUnmatched: []
+    };
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props !== prevProps) {
-      this.setState(this.props.state);
+      this.setState({ lists: this.props.state.lists });
     }
   }
 
   toEditScreen(item) {
-    let lists = this.state.lists;
+    let lists = this.props.state.lists;
 
     //map() creates a new array then run the code block with every item in the array
     lists = lists.map((todoList) => {
-        if (todoList.id == item.listId) {
-            todoList.list = todoList.list.map((todo) => {
-                if (todo.id == item.id) {
-                    this.props.gotoEdit(todoList.id, item.id, item.title, item.date);
-                }
-                return todo;
-            })
-        }
-        return todoList;
+      if (todoList.id == item.listId) {
+        todoList.list = todoList.list.map((todo) => {
+          if (todo.id == item.id) {
+            this.props.gotoEdit(todoList.id, item.id, item.title, item.date);
+          }
+          return todo;
+        })
+      }
+      return todoList;
     })
 
     this.props.navigation.navigate('Edit');
-}
+  }
 
   //method to change 'done' state of each todo item
   toggleDone(item) {
-    let lists = this.state.lists;
+    this.props.toggleTodo(item.listId, item.id);
+  }
 
-    //map() creates a new array then run the code block with every item in the array
-    lists = lists.map((todoList) => {
-        if (todoList.id == item.listId) {
-            todoList.list = todoList.list.map((todo) => {
-                if (todo.id == item.id) {
-                    this.props.toggleTodo(todoList.id, item.id);
-                }
-                return todo;
-            })
-        }
-        return todoList;
-    })
-}
-
-//method to remove a todo item
-removeTodo(item) {
-    let lists = this.state.lists;
-
-    lists = lists.map((todoList) => {
-        if (todoList.id == item.listId) {
-            todoList.list = todoList.list.map((todo) => {
-                if (todo.id == item.id) {
-                    this.props.removeTodo(todoList.id, item.id);
-                }
-                return todo;
-            })
-        }
-        return todoList;
-    })
-}
+  //method to remove a todo item
+  removeTodo(item) {
+    this.props.removeTodo(item.listId, item.id);
+  }
 
   toggleIsSearching() {
     let isSearching = !this.state.isSearching;
-    this.searchTodo('');
+    if (isSearching === false) { this.searchTodo('') }
     this.setState({ isSearching });
   }
 
   //method to search for todo items
   searchTodo(str) {
     let lists = this.state.lists;
-    let listId = this.state.listId;
-    let todos = this.state.todos; //array of matched items from the last search
+    let listId = this.props.state.listId;
     let todosUnmatched = this.state.todosUnmatched; //array of unmatched items from the last search
+    let todos;
+    lists.map((todoList) => {
+      if (todoList.id === listId) {
+        todos = todoList.list;
+      }
+    }); //array of matched items from the last search
     todos = todos.concat(todosUnmatched);
 
     // first call to quick sort
@@ -132,25 +116,59 @@ removeTodo(item) {
   }
 
   showDone() {
-    this.props.visibilityFilter('SHOW_DONE');
+    let lists = this.props.state.lists;
+    let listId = this.props.state.listId;
+    let temp;
+    let todos;
+
+    temp = lists.map((todoList) => {
+      if (listId == todoList.id) {
+        todos = todoList.list.filter((todo) => { return todo.done == true })
+        todoList = {
+          ...lists[todoList.id],
+          list: todos
+        }
+      }
+      return todoList;
+    })
+
+    this.setState({ lists: temp });
   }
 
   showUndone() {
-    this.props.visibilityFilter('SHOW_UNDONE');
+    let lists = this.props.state.lists;
+    let listId = this.props.state.listId;
+    let temp;
+    let todos;
+
+    temp = lists.map((todoList) => {
+      if (listId == todoList.id) {
+        todos = todoList.list.filter((todo) => { return todo.done != true })
+        todoList = {
+          ...lists[todoList.id],
+          list: todos
+        }
+      }
+      return todoList;
+    })
+
+    this.setState({ lists: temp });
   }
 
   showAll() {
-    this.props.visibilityFilter('SHOW_ALL');
+    this.setState({ lists: this.props.state.lists });
   }
 
   displayTodos() {
     let lists = this.state.lists;
-    let listId = this.state.listId;
+    let listId = this.props.state.listId;
     let temp;
-    lists.map((todoList) => {
+
+    lists = lists.map((todoList) => {
       if (todoList.id === listId) {
         temp = todoList.list;
       }
+      return todoList;
     })
     return temp;
   }
@@ -169,15 +187,15 @@ removeTodo(item) {
         {/*render the Header here to pass this string to Header class */}
         <Header
           listTitle={
-            this.state.lists.map((todoList) => {
-              if (todoList.id == this.state.listId) {
+            this.props.state.lists.map((todoList) => {
+              if (todoList.id == this.props.state.listId) {
                 return todoList.title;
               }
             })}
           isSearching={this.state.isSearching}
           isBackVisible={true}
           toggleIsSearching={() => this.toggleIsSearching()}
-          backToList={() => this.props.navigation.navigate('List')} />
+          backToList={() => { this.searchTodo(""); this.props.navigation.navigate('List') }} />
 
         {(this.state.isSearching) ?
           (
@@ -238,4 +256,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect (mapStateToProps, mapDispatchToProps)(DetailScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailScreen);

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Platform,
   FlatList // list in react native
 } from 'react-native';
@@ -19,11 +18,11 @@ const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      addList: (title) => dispatch(addList(title)),
-      editList: (title) => dispatch(editList(title)),
-      removeList: (listId) => dispatch(removeList(listId)),
-      gotoDetail: (listId) => dispatch(gotoDetail(listId)),
-      gotoEditList: (listId,title) => dispatch(gotoEditList(listId,title))
+    addList: (title) => dispatch(addList(title)),
+    editList: (title) => dispatch(editList(title)),
+    removeList: (listId) => dispatch(removeList(listId)),
+    gotoDetail: (listId) => dispatch(gotoDetail(listId)),
+    gotoEditList: (listId, title) => dispatch(gotoEditList(listId, title))
   }
 }
 
@@ -36,9 +35,9 @@ class ListScreen extends Component {
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props !== prevProps) {
-        this.setState(this.props.state);
+      this.setState(this.props.state);
     }
-}
+  }
 
   addNewTodoList() {
     let todoInput = this.state.todoInput;
@@ -50,21 +49,7 @@ class ListScreen extends Component {
   }
 
   editTodoList(item, todoEdit) {
-
     this.props.editList(item.id, todoEdit);
-
-    // let lists = this.state.lists;
-    // let todoInput = this.state.todoInput;
-
-    // //map() creates a new array then run the code block with every item in the array
-    // lists = lists.map((todoList) => {
-    //   if (todoList.id == item.id) {
-    //     this.props.editList(todoList.id, todoInput);
-    //   }
-    //   return todoList;
-    // })
-
-    // this.setState({ lists });
   }
 
   listItems(item) {
@@ -74,6 +59,7 @@ class ListScreen extends Component {
 
   toggleIsSearching() {
     let isSearching = !this.state.isSearching;
+    //if(isSearching === false) {this.searchTodo("")}
     this.setState({ isSearching });
   }
 

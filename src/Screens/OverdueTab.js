@@ -10,6 +10,7 @@ import HomeHeader from '../Components/HomeHeader'; //import the path of Header.j
 import TodoItem from '../Components/TodoItem.js';
 
 import LinearGradient from 'react-native-linear-gradient';
+import moment from "moment";
 import { connect } from 'react-redux';
 import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
 
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-class HomeScreen extends React.Component {
+class OverdueTab extends React.Component {
     constructor(props) {
         super(props);
         this.state = props.state;
@@ -32,11 +33,13 @@ class HomeScreen extends React.Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props !== prevProps) {
+            // this.state = this.props.route.params.data;
+            // this.info = this.props.route.params.info;
             this.setState(this.props.state);
         }
     }
 
-    checkDueToday() {
+    checkOverdue() {
         let lists = this.state.lists;
         let items = [];
         let today = new Date();
@@ -45,15 +48,20 @@ class HomeScreen extends React.Component {
             todoList.list.map((item) => {
                 if (item.date != '') {
                     item.date = new Date(item.date);
+                    //console.log(item.date);
+                    if (!(item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear())) {
 
-                    if (item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear()) {
-                        items.unshift(item);
+                        if (item.date < moment()) {
+                            items.unshift(item);
+                        }
                     }
                 }
                 return item;
             })
             return todoList;
         })
+
+        items.sort((a, b) => b.date - a.date);
 
         return items;
     }
@@ -97,19 +105,7 @@ class HomeScreen extends React.Component {
 
     //method to remove a todo item
     removeTodo(item) {
-        let lists = this.state.lists;
-
-        lists = lists.map((todoList) => {
-            if (todoList.id == item.listId) {
-                todoList.list = todoList.list.map((todo) => {
-                    if (todo.id == item.id) {
-                        this.props.removeTodo(todoList.id, item.id);
-                    }
-                    return todo;
-                })
-            }
-            return todoList;
-        })
+        this.props.removeTodo(item.listId, item.id);
     }
 
     openDrawer() {
@@ -148,11 +144,11 @@ class HomeScreen extends React.Component {
                 <View style={styles.listContainer}>
 
                     <View style={styles.textContainer}>
-                        <Text style={styles.font}>Today</Text>
+                        <Text style={styles.font}>Overdue</Text>
                     </View>
 
                     <FlatList
-                        data={this.checkDueToday()} // get the todos array
+                        data={this.checkOverdue()} // get the todos array
                         keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
                         renderItem={({ item, index }) => { // render an item from data
                             return (
@@ -193,7 +189,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Gill Sans',
         fontSize: 28,
         paddingLeft: '5%',
-        color: "#ff9636",
+        color: '#880C25',
         letterSpacing: 2,
         fontWeight: "bold"
     },
@@ -208,4 +204,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(OverdueTab);

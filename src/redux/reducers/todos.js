@@ -1,5 +1,9 @@
 import initialState from '../store/initialState';
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, FILTER } from "../actions/actionTypes";
+import {
+    ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT,
+    EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST,
+    GOTO_EDIT_LIST, RETRIEVE_DATA, CHANGE_USERNAME, CHANGE_PASSWORD
+} from "../actions/actionTypes";
 
 const todos = (state = initialState, action) => {
     switch (action.type) {
@@ -57,10 +61,11 @@ const todos = (state = initialState, action) => {
                 if (todoList.id === listId) {
                     let filtered;
                     filtered = todoList.list.filter((todo) => { return todo.id !== todoId });
+                    console.log(todoList.list);
                     let i = 0;
-                    filtered = todoList.list.map((todo) => {
+                    filtered = filtered.map((todo) => {
                         todo.id = i;
-                        i--;
+                        i++;
                         return todo;
                     });
                     todoList = {
@@ -70,6 +75,7 @@ const todos = (state = initialState, action) => {
                 }
                 return todoList;
             })
+            //console.log(temp);
             return {
                 ...state,
                 data: {
@@ -104,7 +110,7 @@ const todos = (state = initialState, action) => {
             const { listId } = action.payload;
             let temp = state.data.lists.filter((todoList) => { return todoList.id !== listId });
             let i = 0;
-            
+
             temp = temp.map((todoList) => {
                 todoList.list.map((todo) => {
                     todo.listId = i;
@@ -209,31 +215,35 @@ const todos = (state = initialState, action) => {
             return temp;
         }
 
-        case FILTER: {
-            const { filter } = action.payload;
-            let listId = state.data.listId;
-            let filtered;
-            switch (filter) {
-                case 'SHOW_ALL': {
-                    filtered = state.data.lists[listId].list;
-                    break;
-                }
-                case 'SHOW_DONE': {
-                    filtered = state.data.lists[listId].list.filter((todo) => { return todo.done !== false });
-                    break;
-                }
-                case 'SHOW_UNDONE': {
-                    filtered = state.data.lists[listId].list.filter((todo) => { return todo.done !== true });
+        case RETRIEVE_DATA: {
+            const { data, userInfo } = action.payload;
+            return {
+                ...state,
+                info: userInfo,
+                data: data
+            }
+        }
+
+        case CHANGE_USERNAME: {
+            const { username } = action.payload;
+            return {
+                ...state,
+                info: {
+                    ...state.info,
+                    username: username
                 }
             }
+        }
 
-            return Object.assign({}, state, {
+        case CHANGE_PASSWORD: {
+            const { password } = action.payload;
+            return {
                 ...state,
-                data: {
-                    ...state.data,
-                    todos: filtered
+                info: {
+                    ...state.info,
+                    password: password
                 }
-            })
+            }
         }
 
         default:

@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, Button, TouchableOpacity, View, TextInput } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
 import Swipeout from 'react-native-swipeout';
-import { CheckBox, Icon } from 'react-native-elements';
+import { CheckBox } from 'react-native-elements';
 import moment from "moment";
 import LinearGradient from "react-native-linear-gradient";
 

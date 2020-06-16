@@ -4,6 +4,7 @@ const initialState = {
         password: ''
     },
     data: {
+        isLoggedIn: false,
         isSearching: false,
         todosUnmatched: [],
         todoListsUnmatched: [],

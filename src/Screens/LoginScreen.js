@@ -4,13 +4,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
-import { retrieveData } from '../redux/actions/actions';
+import { retrieveData, logIn } from '../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        retrieveData: (data, userInfo) => dispatch(retrieveData(data, userInfo))
+        retrieveData: (data, userInfo) => dispatch(retrieveData(data, userInfo)),
+        logIn: () => dispatch(logIn())
     }
 }
 
@@ -76,6 +77,7 @@ class LoginScreen extends React.Component {
                 //await AsyncStorage.removeItem(jsonValue);
                 if (jsonValueData != null) {
                     this.props.retrieveData(data, state);
+                    this.props.logIn();
                     this.props.navigation.navigate('Home');
                 } else {
                     alert("Wrong username or password");

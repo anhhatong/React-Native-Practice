@@ -1,7 +1,7 @@
 import {
   TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT, EDIT_TODO, GOTO_DETAIL,
   ADD_TODO, ADD_LIST, EDIT_LIST, REMOVE_LIST, GOTO_EDIT_LIST, LOG_OUT,
-  RETRIEVE_DATA, CHANGE_USERNAME, CHANGE_PASSWORD
+  RETRIEVE_DATA, CHANGE_USERNAME, CHANGE_PASSWORD, LOG_IN
 } from "./actionTypes";
 
 export const addTodo = (listId, title, date) => ({
@@ -72,4 +72,9 @@ export const changeUsername = (username) => ({
 export const changePassword = (password) => ({
   type: CHANGE_PASSWORD,
   payload: { password }
+});
+
+export const logIn = () => ({
+  type: LOG_IN,
+  payload: {}
 });

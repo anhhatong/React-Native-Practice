@@ -6,11 +6,12 @@
  * @flow strict-local
  */
 import React from 'react';
-import TodoApp from './src/TodoApp';
+//import RootNavigator from './src/RootNavigator';
 import configureStore from './src/redux/store/configureStore';
 import { Provider } from 'react-redux'; //used to link store with TodoApp
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import RootNavigator from './src/RootNavigator';
 
 const store = configureStore();
 
@@ -20,7 +21,7 @@ export default class App extends React.Component {
         return (
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-                    <TodoApp />
+                    <RootNavigator />
                 </PersistGate>
             </Provider>
         );

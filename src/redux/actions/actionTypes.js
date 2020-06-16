@@ -12,3 +12,4 @@ export const LOG_OUT = "LOG_OUT";
 export const RETRIEVE_DATA = "RETRIEVE_DATA";
 export const CHANGE_USERNAME = "CHANGE_USERNAME";
 export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const LOG_IN = "LOG_IN";

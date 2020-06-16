@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { Component } from 'react';
 import SplashScreen from './Screens/SplashScreen.js';
 import LoginScreen from './Screens/LoginScreen.js';
@@ -22,16 +14,19 @@ import ChangeUsernameScreen from './Screens/ChangeUsernameScreen.js';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen.js';
 import CustomDrawerContent from './Components/CustomDrawerContent.js';
 
-import { createAppContainer, createSwitchNavigator, NavigationEvents } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { connect } from "react-redux";
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+
+const mapStateToProps = (state) => ({ state: state.todos.data });
 
 function HomeTab() {
     return (
@@ -97,8 +92,8 @@ function Home() {
 }
 
 class TodoApp extends React.Component {
-    constructor() { // when we have a constructor, super() must be called to initialize "this"
-        super();
+    constructor(props) { // when we have a constructor, super() must be called to initialize "this"
+        super(props);
     }
     //main method
     render() {
@@ -112,14 +107,14 @@ class TodoApp extends React.Component {
                     gestureEnabled: false
                 }}>
                     <Stack.Screen
-                        name="Login"
-                        component={LoginScreen} />
+                        name={this.props.state.isLoggedIn ? "Home" : "Login"}
+                        component={this.props.state.isLoggedIn ? Home : LoginScreen} />
                     <Stack.Screen
                         name="Signup"
                         component={SignupScreen} />
-                    <Stack.Screen
+                    {/* <Stack.Screen
                         name="Home"
-                        component={Home} />
+                        component={Home} /> */}
                     <Stack.Screen
                         name="EditList"
                         component={EditListScreen} />
@@ -140,16 +135,4 @@ class TodoApp extends React.Component {
     }
 }
 
-const RootNavigator = createSwitchNavigator({
-    TodoApp: TodoApp,
-    Splash: SplashScreen
-}, {
-    // `initialRouteName` tells the React Navigation navigator
-    // which route to start at. If you don't specify an initial
-    // route it'll choose the first route in the navigator config.
-    // In this example we tell it to start on the 'Splash' route,
-    // otherwise it would have shown the 'App' route.
-    initialRouteName: 'Splash'
-});
-
-export default createAppContainer(RootNavigator);
+export default connect(mapStateToProps)(TodoApp);

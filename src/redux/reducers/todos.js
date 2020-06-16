@@ -2,7 +2,8 @@ import initialState from '../store/initialState';
 import {
     ADD_TODO, TOGGLE_TODO, REMOVE_TODO, GOTO_EDIT,
     EDIT_TODO, GOTO_DETAIL, ADD_LIST, EDIT_LIST, REMOVE_LIST,
-    GOTO_EDIT_LIST, RETRIEVE_DATA, CHANGE_USERNAME, CHANGE_PASSWORD
+    GOTO_EDIT_LIST, RETRIEVE_DATA, CHANGE_USERNAME, CHANGE_PASSWORD, 
+    LOG_IN
 } from "../actions/actionTypes";
 
 const todos = (state = initialState, action) => {
@@ -242,6 +243,16 @@ const todos = (state = initialState, action) => {
                 info: {
                     ...state.info,
                     password: password
+                }
+            }
+        }
+
+        case LOG_IN: {
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    isLoggedIn: true
                 }
             }
         }

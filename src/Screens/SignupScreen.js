@@ -67,6 +67,21 @@ export default class SignupScreen extends React.Component {
             alert("Password must be at least 8 characters long");
         } else {
             try {
+                let keys = []
+                try {
+                    keys = await AsyncStorage.getAllKeys()
+                } catch (e) {
+                    alert("Error");
+                }
+
+                for (let i = 0; i < keys.length; i++) {
+                    if (keys[i] !== "persist:root") {
+                        if (JSON.parse(keys[i]).username === this.state.username) {
+                            alert("Username has already existed");
+                            return;
+                        }
+                    }
+                }
                 const jsonValue = JSON.stringify(state);
                 const jsonValueData = JSON.stringify(data);
                 await AsyncStorage.setItem(jsonValue, jsonValueData);

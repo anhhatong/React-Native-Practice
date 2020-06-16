@@ -48,6 +48,26 @@ class ChangeUsernameScreen extends Component {
         } else if (usernameInput.length < 5) {
             alert("Username must be at least 6 characters long");
         } else {
+            if (prevInfo.username === usernameInput) {
+                this.props.navigation.goBack();
+                return;
+            }
+            let keys = []
+            try {
+                keys = await AsyncStorage.getAllKeys();
+            } catch (e) {
+                alert("Error");
+            }
+
+            for (let i = 0; i < keys.length; i++) {
+                if (keys[i] !== "persist:root") {
+                    if (JSON.parse(keys[i]).username === usernameInput) {
+                        alert("Username has already existed");
+                        return;
+                    }
+                }
+            }
+
             try {
                 const jsonValue = JSON.stringify(prevInfo);
                 await AsyncStorage.removeItem(jsonValue);

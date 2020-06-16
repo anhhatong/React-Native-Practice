@@ -83,6 +83,10 @@ class ChangeUsernameScreen extends Component {
         }
     }
 
+    hasWhiteSpace(s) {
+        return s.indexOf(' ') >= 0;
+    }
+
     render() {
         const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View></View>; //platform-specific for the status bar on top
         return (
@@ -97,7 +101,11 @@ class ChangeUsernameScreen extends Component {
 
                 <UsernameInput
                     usernameInput={this.state.usernameInput}
-                    textChange={(usernameInput) => this.setState({ usernameInput })} />
+                    textChange={(usernameInput) => {
+                        if (!this.hasWhiteSpace(usernameInput)) {
+                            return this.setState({ usernameInput });
+                        }
+                    }} />
 
                 <View style={styles.listContainer}>
 

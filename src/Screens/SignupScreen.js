@@ -13,6 +13,10 @@ export default class SignupScreen extends React.Component {
         };
     }
 
+    hasWhiteSpace(s) {
+        return s.indexOf(' ') >= 0;
+    }
+
     render() {
         return (
             <LinearGradient
@@ -23,7 +27,11 @@ export default class SignupScreen extends React.Component {
 
                 <TextInput
                     value={this.state.username}
-                    onChangeText={(username) => this.setState({ username })}
+                    onChangeText={(username) => {
+                        if (!this.hasWhiteSpace(username)) {
+                            return this.setState({ username });
+                        }
+                    }}
                     label='Username'
                     placeholder='Username'
                     style={styles.input}

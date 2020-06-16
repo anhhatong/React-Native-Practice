@@ -27,6 +27,8 @@ export default class SignupScreen extends React.Component {
                     label='Username'
                     placeholder='Username'
                     style={styles.input}
+                    maxLength={30}
+                    blurOnSubmit={true}
                 />
 
                 <TextInput

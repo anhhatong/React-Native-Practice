@@ -30,9 +30,11 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 20,
         fontFamily: 'Gill Sans',
-        paddingBottom: "30%",
+        paddingBottom: "10%",
+        paddingLeft: '5%',
+        paddingRight: '5%',
         fontWeight: 'bold',
-        marginTop: '10%',
+        marginTop: '20%',
         marginLeft: 'auto',
         marginRight: 'auto'
     }

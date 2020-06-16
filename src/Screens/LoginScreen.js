@@ -37,6 +37,8 @@ class LoginScreen extends React.Component {
                     onChangeText={(username) => this.setState({ username })}
                     label='Username'
                     placeholder='Username'
+                    maxLength={30}
+                    blurOnSubmit={true}
                     style={styles.input}
                 />
 

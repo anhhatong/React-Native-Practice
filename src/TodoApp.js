@@ -63,13 +63,18 @@ function Home() {
         <Drawer.Navigator
             drawerContentOptions={{
                 activeTintColor: '#FF9636',
+                inactiveTintColor: '#444444',
                 itemStyle: { marginVertical: '3%' },
+                labelStyle: {
+                    fontFamily: 'Gill Sans',
+                    fontSize: 16
+                }
             }}
             drawerStyle={{
                 backgroundColor: '#d1d3db'
             }}
             drawerContent={(props) => <CustomDrawerContent
-                username={"Username"}
+                username=""
                 {...props} />}
         >
             <Drawer.Screen
@@ -112,9 +117,6 @@ class TodoApp extends React.Component {
                     <Stack.Screen
                         name="Signup"
                         component={SignupScreen} />
-                    {/* <Stack.Screen
-                        name="Home"
-                        component={Home} /> */}
                     <Stack.Screen
                         name="EditList"
                         component={EditListScreen} />

@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import {
     DrawerContentScrollView,
-    DrawerItemList,
-    DrawerItem
+    DrawerItemList
 } from '@react-navigation/drawer';
 import LinearGradient from 'react-native-linear-gradient';
 import LogOut from './LogOut.js';
+import UserInfoDisplay from './UserInfoDisplay.js';
 import { Icon } from 'react-native-elements';
 
 
@@ -25,7 +25,7 @@ const CustomDrawerContent = (props) => {
                             size={20}
                             onPress={() => props.navigation.closeDrawer()} />
                     </View>
-                    <Text style={styles.welcome}>{props.username}</Text>
+                    <UserInfoDisplay />
                     <DrawerItemList {...props} />
                     <LogOut nav={props} />
                 </View>
@@ -36,16 +36,6 @@ const CustomDrawerContent = (props) => {
 }
 
 const styles = StyleSheet.create({
-    welcome: {
-        color: "#444444",
-        fontSize: 16,
-        fontFamily: 'Gill Sans',
-        paddingBottom: "30%",
-        fontWeight: '600',
-        marginTop: '10%',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-    },
     icon: {
         alignItems: 'flex-start',
         marginLeft: '5%'

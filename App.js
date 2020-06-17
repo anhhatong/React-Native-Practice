@@ -11,7 +11,7 @@ import configureStore from './src/redux/store/configureStore';
 import { Provider } from 'react-redux'; //used to link store with TodoApp
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
-import RootNavigator from './src/RootNavigator';
+import RootNavigator from './src/Utilities/Navigators/RootNavigator';
 
 const store = configureStore();
 

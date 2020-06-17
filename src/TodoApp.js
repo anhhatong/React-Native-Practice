@@ -11,7 +11,7 @@ import EditScreen from './Screens/EditTodoScreen';
 import EditListScreen from './Screens/EditListScreen';
 import ChangeUsernameScreen from './Screens/ChangeUsernameScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
-import CustomDrawerContent from './Components/CustomDrawerContent.js';
+import CustomDrawerContent from './Components/CustomDrawerContent';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';

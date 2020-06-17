@@ -3,9 +3,9 @@ import {
   View,
   Platform
 } from 'react-native';
-import AddNewScreenHeader from '../../Components/AddNewScreenHeader.js'; //import the path of Header.js
-import AddNewInputBar from '../../Components/AddNewInputBar.js'; //import the path of AddNewInputBar.js
-import DatePicker from '../../Components/DatePicker.js';
+import AddNewScreenHeader from '../../Components/AddEditTodoHeader'; //import the path of Header.js
+import AddNewInputBar from '../../Components/AddEditTodoInput'; //import the path of AddNewInputBar.js
+import DatePicker from '../../Components/DatePicker';
 import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';

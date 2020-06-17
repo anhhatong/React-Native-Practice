@@ -1,13 +1,13 @@
 import React from 'react';
 import {
     View,
-    StyleSheet,
     TouchableOpacity,
     Text
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
-import { logOut } from '../redux/actions/actions';
+import { logOut } from '../../redux/actions/actions';
+import styles from './styles';
 
 const mapStateToProps = (state, ownProps) => ({ state: state.todos, ownProps: ownProps });
 
@@ -43,16 +43,5 @@ class LogOut extends React.Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    text: {
-        color: "#FF5C4D",
-        fontSize: 16,
-        fontFamily: 'Gill Sans',
-        fontWeight: '500',
-        marginTop: '8%',
-        marginLeft: '8%'
-    }
-})
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogOut);

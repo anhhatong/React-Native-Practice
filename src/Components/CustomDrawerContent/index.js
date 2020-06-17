@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import {
     DrawerContentScrollView,
     DrawerItemList
 } from '@react-navigation/drawer';
 import LinearGradient from 'react-native-linear-gradient';
-import LogOut from './LogOut.js';
-import UserInfoDisplay from './UserInfoDisplay.js';
+import LogOut from '../LogOutButton/index.js';
+import UserInfoDisplay from '../UserInfoDisplay/index.js';
 import { Icon } from 'react-native-elements';
+import styles from './styles';
 
 
 const CustomDrawerContent = (props) => {
@@ -34,12 +35,5 @@ const CustomDrawerContent = (props) => {
 
     );
 }
-
-const styles = StyleSheet.create({
-    icon: {
-        alignItems: 'flex-start',
-        marginLeft: '5%'
-    }
-})
 
 export default CustomDrawerContent;

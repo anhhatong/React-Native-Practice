@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  StyleSheet,
   View,
   TouchableOpacity
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import styles from './styles';
 
 const AddNewTodoBtn = (props) => {
   return (
@@ -33,16 +33,5 @@ const AddNewTodoBtn = (props) => {
 
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-  shadow: {
-    position: 'absolute',
-    marginLeft: '2%'
-  }
-});
 
 export default AddNewTodoBtn;

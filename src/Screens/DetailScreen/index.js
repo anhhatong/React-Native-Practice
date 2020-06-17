@@ -4,11 +4,11 @@ import {
   Platform,
   FlatList // list in react native
 } from 'react-native';
-import TodoItem from '../../Components/TodoItem.js';
-import Header from '../../Components/Header.js'; //import the path of Header.js
-import SortBar from '../../Components/SortBar.js';
-import SearchBar from '../../Components/SearchBar.js';
-import AddNewTodoBtn from '../../Components/AddNewTodoBtn.js';
+import TodoItem from '../../Components/TodoItem';
+import Header from '../../Components/Header'; //import the path of Header.js
+import SortBar from '../../Components/FilterBar';
+import SearchBar from '../../Components/SearchBar';
+import AddNewTodoBtn from '../../Components/AddTodoButton';
 import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';

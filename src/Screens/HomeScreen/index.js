@@ -6,7 +6,7 @@ import {
     FlatList // list in react native
 } from 'react-native';
 import HomeHeader from '../../Components/HomeHeader'; //import the path of Header.js
-import TodoItem from '../../Components/TodoItem.js';
+import TodoItem from '../../Components/TodoItem';
 import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';

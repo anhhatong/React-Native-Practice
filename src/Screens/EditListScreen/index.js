@@ -3,8 +3,8 @@ import {
     View,
     Platform
 } from 'react-native';
-import AddNewScreenHeader from '../../Components/AddNewScreenHeader'; //import the path of Header.js
-import AddNewInputBar from '../../Components/AddNewInputBar'; //import the path of AddNewInputBar.js
+import AddNewScreenHeader from '../../Components/AddEditTodoHeader'; //import the path of Header.js
+import AddNewInputBar from '../../Components/AddEditTodoInput'; //import the path of AddNewInputBar.js
 import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';

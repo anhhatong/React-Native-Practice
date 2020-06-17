@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-    StyleSheet,
     View
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
+import styles from './styles';
 
 const SortBar = (props) => { //props is an argument passed from parent App.js
     return (
@@ -44,22 +44,6 @@ const SortBar = (props) => { //props is an argument passed from parent App.js
         </LinearGradient>
     )
 }
-
-const styles = StyleSheet.create({
-    bar: {
-        paddingBottom: '18%',
-        alignItems: 'center'
-    },
-    iconContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        position: 'absolute',
-        paddingTop: '2%',
-        width: '80%'
-    }
-});
 
 export default SortBar; //App.js can now access Header class
 

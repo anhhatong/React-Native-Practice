@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
-import PasswordInput from '../../Components/PasswordInput.js';
-import AddNewScreenHeader from '../../Components/AddNewScreenHeader.js';
+import PasswordInput from '../../Components/PasswordInput';
+import AddNewScreenHeader from '../../Components/AddEditTodoHeader';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
 import { changePassword } from '../../redux/actions/actions';

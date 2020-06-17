@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
-import UsernameInput from '../../Components/UsernameInput.js';
-import AddNewScreenHeader from '../../Components/AddNewScreenHeader.js';
+import UsernameInput from '../../Components/UsernameInput';
+import AddNewScreenHeader from '../../Components/AddEditTodoHeader';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
 import { changeUsername } from '../../redux/actions/actions';

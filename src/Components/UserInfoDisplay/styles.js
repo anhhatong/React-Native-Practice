@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     username: {
         color: "#000",
         fontSize: 20,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         paddingBottom: "10%",
         paddingLeft: '5%',
         paddingRight: '5%',

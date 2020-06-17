@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     container: {
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#DEE2EC',
         color: "#444444",
         fontSize: 20,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         padding: '3%',
         borderBottomWidth: 3,
         borderColor: '#FF9636',
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     },
     font: {
         fontSize: 20,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         color: '#fff'
     },
     button: {
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     fontTitle: {
         color: "#fff",
         fontSize: 35,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         paddingBottom: "30%",
         fontWeight: '700',
         letterSpacing: 1
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     signUp: {
         color: '#286bd7',
         fontSize: 20,
-        fontFamily: 'Gill Sans'
+        fontFamily: font
     }
 });
 

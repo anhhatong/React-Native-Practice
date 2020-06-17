@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     inputContainer: {
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
     dateFont: {
         fontSize: 20,
         color: '#444444',
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         fontWeight: '100',
         letterSpacing: 1
     },
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
         color: "#880C25",
         fontSize: 20,
         fontWeight: '500',
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         textTransform: 'uppercase'
     },
     button: {

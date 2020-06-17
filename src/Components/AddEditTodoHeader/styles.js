@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     header: { //customize the header bar
-        backgroundColor: "#E9B210",
         height: '10%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     title: {
         color: '#fff',
         fontSize: 15,
-        fontFamily: "Gill Sans",
+        fontFamily: font,
         fontWeight: '700',
         paddingBottom: '2%',
         paddingLeft: '10%',

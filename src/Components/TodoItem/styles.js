@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     todoItem: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     listTitleFont: {
         color: "#fff",
         fontSize: 16,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         paddingLeft: '10%',
         paddingRight: '10%',
         paddingBottom: '2%'

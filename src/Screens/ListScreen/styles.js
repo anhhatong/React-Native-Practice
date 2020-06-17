@@ -1,14 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { statusbarStyle } from '../../assets';
 
 const styles = StyleSheet.create({
     container: { //fill
       flex: 1, //how much an item occupies available space on screen
-      backgroundColor: '#D1C2C2',
     },
-    statusbar: {//status bar on top
-      backgroundColor: '#FFCD58',
-      height: 40
-    },
+    statusbar: statusbarStyle,
     listContainer: {
       flex: 1,
       borderTopLeftRadius: 130,

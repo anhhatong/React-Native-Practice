@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     inputContainer: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
         color: '#444444',
         borderColor: "#5C0601",
         borderBottomWidth: 2,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         flex: 1,
         height: '100%',
         paddingLeft: '5%',
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     },
     doneText: {
         fontSize: 20,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         color: '#fff',
         fontWeight: 'bold'
     }

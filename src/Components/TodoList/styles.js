@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     todoItem: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     text: {
         color: "#fff",
         fontSize: 18,
-        fontFamily: 'Gill Sans',
+        fontFamily: font,
         marginLeft: 'auto',
         marginRight: 'auto'
     },

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../assets';
 
 const styles = StyleSheet.create({
     container: {
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
     title: { //customize the title
       color: '#fff',
       fontSize: 30,
-      fontFamily: "Gill Sans",
+      fontFamily: font,
       fontWeight: '800',
       letterSpacing: 3,
       textTransform: 'uppercase'

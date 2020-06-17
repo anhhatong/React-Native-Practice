@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import styles from './styles';
 
 const FIVE_SECONDS = 3000;
 
@@ -34,20 +35,4 @@ export default class SplashScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  title: { //customize the title
-    color: '#fff',
-    fontSize: 30,
-    fontFamily: "Gill Sans",
-    fontWeight: '800',
-    letterSpacing: 3,
-    textTransform: 'uppercase'
-  }
-});
 

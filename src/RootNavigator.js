@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import SplashScreen from './Screens/SplashScreen.js';
+import SplashScreen from './Screens/SplashScreen';
 import TodoApp from './TodoApp.js';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import 'react-native-gesture-handler';

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     View,
     Platform
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
-import PasswordInput from '../Components/PasswordInput.js';
-import AddNewScreenHeader from '../Components/AddNewScreenHeader.js';
+import PasswordInput from '../../Components/PasswordInput.js';
+import AddNewScreenHeader from '../../Components/AddNewScreenHeader.js';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
-import { changePassword } from '../redux/actions/actions';
+import { changePassword } from '../../redux/actions/actions';
+import styles from './styles';
 
 const mapStateToProps = (state) => ({ state: state.todos });
 
@@ -86,24 +86,6 @@ class ChangePasswordScreen extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: { //fill
-        flex: 1, //how much an item occupies available space on screen
-        backgroundColor: '#D1C2C2',
-    },
-    statusbar: {//status bar on top
-        backgroundColor: '#FFCD58',
-        height: 40
-    },
-    listContainer: {
-        flex: 1,
-        borderTopLeftRadius: 130,
-        backgroundColor: "#fff",
-        marginTop: '2%',
-        paddingBottom: '5%'
-    }
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordScreen);
 

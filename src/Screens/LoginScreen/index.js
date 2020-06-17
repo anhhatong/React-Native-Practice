@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, StyleSheet, TextInput, Button } from 'react-native';
+import { Text, TextInput } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
-import { retrieveData, logIn } from '../redux/actions/actions';
+import { retrieveData, logIn } from '../../redux/actions/actions';
+import styles from './styles';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
@@ -90,53 +91,5 @@ class LoginScreen extends React.Component {
         }
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    input: {
-        backgroundColor: '#DEE2EC',
-        color: "#444444",
-        fontSize: 20,
-        fontFamily: 'Gill Sans',
-        padding: '3%',
-        borderBottomWidth: 3,
-        borderColor: '#FFCD58',
-        marginBottom: '3%',
-        width: '80%',
-        borderRadius: 20
-    },
-    font: {
-        fontSize: 20,
-        fontFamily: 'Gill Sans',
-        color: '#fff'
-    },
-    button: {
-        backgroundColor: '#5C0601',
-        paddingTop: '2%',
-        paddingBottom: '2%',
-        paddingLeft: '7%',
-        paddingRight: '7%',
-        borderRadius: 20,
-        marginBottom: '10%'
-    },
-    fontTitle: {
-        color: "#fff",
-        fontSize: 50,
-        fontFamily: 'Gill Sans',
-        paddingBottom: "30%",
-        fontWeight: '800',
-        letterSpacing: 3,
-        textTransform: 'uppercase',
-    },
-    signUp: {
-        color: '#286bd7',
-        fontSize: 20,
-        fontFamily: 'Gill Sans'
-    }
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

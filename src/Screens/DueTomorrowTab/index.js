@@ -1,18 +1,17 @@
 import React from 'react';
 import {
-    StyleSheet,
     View,
     Text,
     Platform,
     FlatList // list in react native
 } from 'react-native';
-import HomeHeader from '../Components/HomeHeader'; //import the path of Header.js
-import TodoItem from '../Components/TodoItem.js';
+import HomeHeader from '../../Components/HomeHeader'; //import the path of Header.js
+import TodoItem from '../../Components/TodoItem.js';
+import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';
-import moment from "moment";
 import { connect } from 'react-redux';
-import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
+import { toggleTodo, removeTodo, gotoEdit } from '../../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
@@ -24,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-class OverdueTab extends React.Component {
+class DueTomorrowTab extends React.Component {
     constructor(props) {
         super(props);
         this.state = props.state;
@@ -33,13 +32,11 @@ class OverdueTab extends React.Component {
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props !== prevProps) {
-            // this.state = this.props.route.params.data;
-            // this.info = this.props.route.params.info;
             this.setState(this.props.state);
         }
     }
 
-    checkOverdue() {
+    checkDueTomorrow() {
         let lists = this.state.lists;
         let items = [];
         let today = new Date();
@@ -48,12 +45,10 @@ class OverdueTab extends React.Component {
             todoList.list.map((item) => {
                 if (item.date != '') {
                     item.date = new Date(item.date);
-                    //console.log(item.date);
-                    if (!(item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear())) {
+                    if (item.date.getDate() - today.getDate() === 1 && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear()) {
 
-                        if (item.date < moment()) {
-                            items.unshift(item);
-                        }
+                        items.unshift(item);
+
                     }
                 }
                 return item;
@@ -105,7 +100,19 @@ class OverdueTab extends React.Component {
 
     //method to remove a todo item
     removeTodo(item) {
-        this.props.removeTodo(item.listId, item.id);
+        let lists = this.state.lists;
+
+        lists = lists.map((todoList) => {
+            if (todoList.id == item.listId) {
+                todoList.list = todoList.list.map((todo) => {
+                    if (todo.id == item.id) {
+                        this.props.removeTodo(todoList.id, item.id);
+                    }
+                    return todo;
+                })
+            }
+            return todoList;
+        })
     }
 
     openDrawer() {
@@ -142,13 +149,12 @@ class OverdueTab extends React.Component {
 
 
                 <View style={styles.listContainer}>
-
                     <View style={styles.textContainer}>
-                        <Text style={styles.font}>Overdue</Text>
+                        <Text style={styles.font}>Tomorrow</Text>
                     </View>
 
                     <FlatList
-                        data={this.checkOverdue()} // get the todos array
+                        data={this.checkDueTomorrow()} // get the todos array
                         keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
                         renderItem={({ item, index }) => { // render an item from data
                             return (
@@ -171,37 +177,4 @@ class OverdueTab extends React.Component {
 
 }
 
-const styles = StyleSheet.create({
-    container: { //fill
-        flex: 1, //how much an item occupies available space on screen
-        backgroundColor: '#D1C2C2',
-    },
-    statusbar: {//status bar on top
-        backgroundColor: '#FFCD58',
-        height: 40
-    },
-    listContainer: {
-        flex: 1,
-        backgroundColor: "#fff",
-        paddingBottom: '5%'
-    },
-    font: {
-        fontFamily: 'Gill Sans',
-        fontSize: 28,
-        paddingLeft: '5%',
-        color: '#880C25',
-        letterSpacing: 2,
-        fontWeight: "bold"
-    },
-    textContainer: {
-        borderBottomWidth: 1,
-        borderColor: '#DEE2EC',
-        paddingTop: '2%',
-        paddingBottom: '2%',
-        marginTop: '5%',
-        marginRight: '5%',
-        marginLeft: '5%'
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(OverdueTab);
+export default connect(mapStateToProps, mapDispatchToProps)(DueTomorrowTab);

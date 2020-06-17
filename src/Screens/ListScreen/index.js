@@ -5,14 +5,15 @@ import {
   Platform,
   FlatList // list in react native
 } from 'react-native';
-import TodoList from '../Components/TodoList'; //import the path of TodoItem.js
-import Header from '../Components/Header'; //import the path of Header.js
-import InputBar from '../Components/InputBar'; //import the path of InputBar.js
-import SearchBar from '../Components/SearchBar';
+import TodoList from '../../Components/TodoList'; //import the path of TodoItem.js
+import Header from '../../Components/Header'; //import the path of Header.js
+import InputBar from '../../Components/InputBar'; //import the path of InputBar.js
+import SearchBar from '../../Components/SearchBar';
+import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { gotoDetail, addList, editList, removeList, gotoEditList } from '../redux/actions/actions';
+import { gotoDetail, addList, editList, removeList, gotoEditList } from '../../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
@@ -270,23 +271,5 @@ class ListScreen extends Component {
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: { //fill
-    flex: 1, //how much an item occupies available space on screen
-    backgroundColor: '#D1C2C2',
-  },
-  statusbar: {//status bar on top
-    backgroundColor: '#FFCD58',
-    height: 40
-  },
-  listContainer: {
-    flex: 1,
-    borderTopLeftRadius: 130,
-    backgroundColor: "#fff",
-    paddingBottom: '5%'
-  }
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListScreen);

@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-    StyleSheet,
     View,
     Text,
     Platform,
     FlatList // list in react native
 } from 'react-native';
-import HomeHeader from '../Components/HomeHeader'; //import the path of Header.js
-import TodoItem from '../Components/TodoItem.js';
+import HomeHeader from '../../Components/HomeHeader'; //import the path of Header.js
+import TodoItem from '../../Components/TodoItem.js';
+import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { toggleTodo, removeTodo, gotoEdit } from '../redux/actions/actions';
+import { toggleTodo, removeTodo, gotoEdit } from '../../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-class DueTomorrowTab extends React.Component {
+class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = props.state;
@@ -36,7 +36,7 @@ class DueTomorrowTab extends React.Component {
         }
     }
 
-    checkDueTomorrow() {
+    checkDueToday() {
         let lists = this.state.lists;
         let items = [];
         let today = new Date();
@@ -45,18 +45,15 @@ class DueTomorrowTab extends React.Component {
             todoList.list.map((item) => {
                 if (item.date != '') {
                     item.date = new Date(item.date);
-                    if (item.date.getDate() - today.getDate() === 1 && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear()) {
 
+                    if (item.date.getDate() == today.getDate() && item.date.getMonth() == today.getMonth() && item.date.getFullYear() == today.getFullYear()) {
                         items.unshift(item);
-
                     }
                 }
                 return item;
             })
             return todoList;
         })
-
-        items.sort((a, b) => b.date - a.date);
 
         return items;
     }
@@ -149,12 +146,13 @@ class DueTomorrowTab extends React.Component {
 
 
                 <View style={styles.listContainer}>
+
                     <View style={styles.textContainer}>
-                        <Text style={styles.font}>Tomorrow</Text>
+                        <Text style={styles.font}>Today</Text>
                     </View>
 
                     <FlatList
-                        data={this.checkDueTomorrow()} // get the todos array
+                        data={this.checkDueToday()} // get the todos array
                         keyExtractor={(item, index) => index.toString()} // provide key index as a string; have to specify it due to no default key value
                         renderItem={({ item, index }) => { // render an item from data
                             return (
@@ -177,37 +175,4 @@ class DueTomorrowTab extends React.Component {
 
 }
 
-const styles = StyleSheet.create({
-    container: { //fill
-        flex: 1, //how much an item occupies available space on screen
-        backgroundColor: '#D1C2C2',
-    },
-    statusbar: {//status bar on top
-        backgroundColor: '#FFCD58',
-        height: 40
-    },
-    listContainer: {
-        flex: 1,
-        backgroundColor: "#fff",
-        paddingBottom: '5%'
-    },
-    font: {
-        fontFamily: 'Gill Sans',
-        fontSize: 28,
-        paddingLeft: '5%',
-        color: '#ffc933',
-        letterSpacing: 2,
-        fontWeight: "bold"
-    },
-    textContainer: {
-        borderBottomWidth: 1,
-        borderColor: '#DEE2EC',
-        paddingTop: '2%',
-        paddingBottom: '2%',
-        marginTop: '5%',
-        marginRight: '5%',
-        marginLeft: '5%'
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DueTomorrowTab);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

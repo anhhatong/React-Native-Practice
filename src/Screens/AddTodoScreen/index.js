@@ -1,40 +1,39 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   View,
   Platform
 } from 'react-native';
-import AddNewScreenHeader from '../Components/AddNewScreenHeader'; //import the path of Header.js
-import AddNewInputBar from '../Components/AddNewInputBar'; //import the path of AddNewInputBar.js
-import DatePicker from '../Components/DatePicker';
+import AddNewScreenHeader from '../../Components/AddNewScreenHeader.js'; //import the path of Header.js
+import AddNewInputBar from '../../Components/AddNewInputBar.js'; //import the path of AddNewInputBar.js
+import DatePicker from '../../Components/DatePicker.js';
+import styles from './styles';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { editTodo } from '../redux/actions/actions';
+import { addTodo } from '../../redux/actions/actions';
 
 const mapStateToProps = (state) => ({ state: state.todos.data });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editTodo: (listId, todoId, title, currentDate) => dispatch(editTodo(listId, todoId, title, currentDate))
+    addTodo: (listId, title, currentDate) => dispatch(addTodo(listId, title, currentDate))
   }
 }
 
-class EditScreen extends Component {
+class AddNewTodoScreen extends Component {
   constructor(props) {
     super(props);
     this.state = props.state;
   }
 
-  //method to add more todos to the array of todos
+
   save() {
-    let listId = this.state.listId
-    let todoId = this.state.todoId;
+    let listId = this.state.listId;
     let todoInput = this.state.todoInput;
     let currentDate = this.state.currentDate;
 
     if (todoInput != '') {
-      this.props.editTodo(listId, todoId, todoInput, currentDate);
+      this.props.addTodo(listId, todoInput, currentDate);
       this.props.navigation.goBack();
     } else {
       alert("Please enter todo");
@@ -42,7 +41,11 @@ class EditScreen extends Component {
   }
 
   dateChange(date) {
+    let state = this.state;
     let currentDate = date;
+
+
+
     this.setState({ currentDate });
   }
 
@@ -61,14 +64,18 @@ class EditScreen extends Component {
 
         {/*render the Header here to pass this string to Header class */}
         <AddNewScreenHeader
-          title="Edit Todo"
+          title={
+            this.state.lists.map((todoList) => {
+              if (todoList.id == this.state.listId) {
+                return 'New Todo for ' + todoList.title;
+              }
+            })}
           save={() => this.save()}
           cancel={() => this.props.navigation.goBack()}
         />
         <View style={styles.listContainer}>
 
           <AddNewInputBar
-            todoInput={this.state.todoInput}
             textChange={todoInput => this.setState({ todoInput })}
 
           />
@@ -86,22 +93,6 @@ class EditScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: { //fill
-    flex: 1, //how much an item occupies available space on screen
-    backgroundColor: '#D1C2C2',
-  },
-  statusbar: {//status bar on top
-    backgroundColor: '#FFCD58',
-    height: 40
-  },
-  listContainer: {
-    flex: 1,
-    borderTopLeftRadius: 130,
-    backgroundColor: "#fff",
-    marginTop: '2%',
-    paddingBottom: '5%'
-  }
-});
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewTodoScreen)
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditScreen);
+
